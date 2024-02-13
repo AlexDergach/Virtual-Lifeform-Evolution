@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://2mathsfwagr5"]
+
+[ext_resource type="Script" path="res://Terrian.gd" id="1_cgmmo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wfbt"]
+albedo_color = Color(0.403922, 0.403922, 0.403922, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_21xfp"]
+material = SubResource("StandardMaterial3D_4wfbt")
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_mwvok"]
+
+[sub_resource type="Sky" id="Sky_rdkv0"]
+sky_material = SubResource("PhysicalSkyMaterial_mwvok")
+
+[sub_resource type="Environment" id="Environment_kmaxn"]
+background_mode = 2
+sky = SubResource("Sky_rdkv0")
+
+[node name="Terrian" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(27.6275, 0, 0, 0, 0.1, 0, 0, 0, 28.7173, 0, 0, 0)
+mesh = SubResource("BoxMesh_21xfp")
+script = ExtResource("1_cgmmo")
+radius = null
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.997992, 0.0633479, 0, -0.0633479, 0.997992, 0, 12.7841, 24.7024)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.851004, 0.52516, 0, -0.52516, 0.851004, 0, 2.60781, 5.40808)
+light_energy = 5.687
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kmaxn")
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="Spawn1" type="Node3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.76863, 0, 0)
+
+[node name="Spawn2" type="Node3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.31124, 0, 0)
+
+[node name="Spawn3" type="Node3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.31124, 0, -9.5738)
+
+[node name="Spawn4" type="Node3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.31124, 0, 10.722)
+
+[node name="Spawn5" type="Node3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.23299, 0, -9.52248)
+
+[node name="Spawn6" type="Node3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2324, 0, 10.722)

@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://2mathsfwagr5"]
+
+[ext_resource type="Script" path="res://Terrian.gd" id="1_cgmmo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wfbt"]
+albedo_color = Color(0.403922, 0.403922, 0.403922, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_21xfp"]
+material = SubResource("StandardMaterial3D_4wfbt")
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_mwvok"]
+
+[sub_resource type="Sky" id="Sky_rdkv0"]
+sky_material = SubResource("PhysicalSkyMaterial_mwvok")
+
+[sub_resource type="Environment" id="Environment_kmaxn"]
+background_mode = 2
+sky = SubResource("Sky_rdkv0")
+
+[node name="Terrian" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_21xfp")
+script = ExtResource("1_cgmmo")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999289, -0.0377076, 0, 0.0377076, 0.999289, 0, 0.00813746, 10.193)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.851004, 0.52516, 0, -0.52516, 0.851004, 0, 2.60781, 5.40808)
+light_energy = 5.687
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kmaxn")

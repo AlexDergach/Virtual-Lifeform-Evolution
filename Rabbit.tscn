@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cj7enqpgnem6t"]
+
+[ext_resource type="Script" path="res://Rabbit.gd" id="1_lkgw7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ed7ki"]
+albedo_color = Color(0.741176, 0.294118, 0.141176, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ya25p"]
+material = SubResource("StandardMaterial3D_ed7ki")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kpbd6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vbn0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_p75ai"]
+
+[node name="Rabbit" type="CharacterBody3D" groups=["herb"]]
+script = ExtResource("1_lkgw7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ya25p")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_kpbd6")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[node name="SensoryRadius" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SensoryRadius"]
+transform = Transform3D(-8.74228e-08, 2, -8.74228e-08, 0, -8.74228e-08, -2, -2, -8.74228e-08, 3.82137e-15, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_3vbn0")
+
+[node name="Self" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("SphereShape3D_p75ai")
+
+[connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
