@@ -1,8 +1,8 @@
 extends Node3D
 
-var food_scene = load("res://Food.tscn")
-var rabbit_scene = load("res://Rabbit.tscn")
-var enemy_scene = load("res://enemy.tscn")
+var food_scene = load("res://Scenes/Food.tscn")
+var rabbit_scene = load("res://Scenes/Rabbit.tscn")
+var enemy_scene = load("res://Scenes/Enemy.tscn")
 
 var food_size = 0.5
 var rabbit_size = 1
@@ -12,7 +12,6 @@ var enemy_instance
 
 @onready var map_size = get_node("NavigationRegion3D/CSGBox3D").get_scale()
 #@onready var map_height = get_node("NavigationRegion3D/CSGBox3D")
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -71,7 +70,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Test"):
 		_spawn_food()
 	
-	if Input.is_action_just_pressed("mouse"):
+	if Input.is_action_just_pressed("Exit"):
 		get_tree().quit()
 
 

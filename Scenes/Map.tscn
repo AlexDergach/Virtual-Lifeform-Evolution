@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://2mathsfwagr5"]
 
-[ext_resource type="Script" path="res://Terrian.gd" id="1_cgmmo"]
-[ext_resource type="Script" path="res://Camera.gd" id="2_h3p2g"]
+[ext_resource type="Script" path="res://Scripts/Terrian.gd" id="1_pg4dx"]
+[ext_resource type="Script" path="res://Scripts/Camera.gd" id="2_wmulp"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_lqi4r"]
 vertices = PackedVector3Array(-14.5, 0.45, 7.25, -14.5, 0.45, 14.5, -7.25, 0.45, 14.5, 7.25, 0.45, 14.5, 14.5, 0.45, 14.5, 14.5, 0.45, 7.25, 14.5, 0.45, -7.25, 14.5, 0.45, -14.5, 7.25, 0.45, -14.5, -7.25, 0.45, -14.5, -14.5, 0.45, -14.5, -14.5, 0.45, -7.25, -14.5, 0.45, 0, -14.5, 0.45, 7.25, -7.25, 0.45, 14.5, 0, 0.45, 14.5, 7.25, 0.45, 14.5, 14.5, 0.45, 7.25, 14.5, 0.45, 0, 14.5, 0.45, -7.25, 7.25, 0.45, -14.5, 0, 0.45, -14.5, 0, 0.45, -14.5, -7.25, 0.45, -14.5, -14.5, 0.45, -7.25, -14.5, 0.45, 0, 14.5, 0.45, 0, 0, 0.45, -14.5, -14.5, 0.45, 0, -7.25, 0.45, 14.5, 0, 0.45, 14.5, 14.5, 0.45, 7.25)
@@ -21,7 +21,7 @@ sky = SubResource("Sky_2nexr")
 [sub_resource type="SphereShape3D" id="SphereShape3D_x7653"]
 
 [node name="Terrian" type="Node3D"]
-script = ExtResource("1_cgmmo")
+script = ExtResource("1_pg4dx")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_lqi4r")
@@ -44,7 +44,7 @@ wait_time = 4.0
 
 [node name="CamBody" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.57608, 11.6347)
-script = ExtResource("2_h3p2g")
+script = ExtResource("2_wmulp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CamBody"]
 visible = false

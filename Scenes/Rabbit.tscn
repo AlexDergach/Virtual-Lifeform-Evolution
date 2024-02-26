@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cj7enqpgnem6t"]
 
-[ext_resource type="Script" path="res://Rabbit.gd" id="1_lkgw7"]
+[ext_resource type="Script" path="res://Scripts/Rabbit.gd" id="1_f1p0t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ed7ki"]
 albedo_color = Color(0.741176, 0.294118, 0.141176, 1)
@@ -15,7 +15,7 @@ material = SubResource("StandardMaterial3D_ed7ki")
 [sub_resource type="SphereShape3D" id="SphereShape3D_p75ai"]
 
 [node name="Rabbit" type="CharacterBody3D" groups=["herb"]]
-script = ExtResource("1_lkgw7")
+script = ExtResource("1_f1p0t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_ya25p")
