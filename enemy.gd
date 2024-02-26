@@ -3,12 +3,19 @@ extends CharacterBody3D
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 @onready var roam_size = get_node("../NavigationRegion3D/CSGBox3D").get_scale()
 
+#@export var rabit_path := "/root/Rabit"
+#var rabit = get_node("Rabbit")
+
 var time:float = 0.0
 
 var traits = ["Speed", "Size", "Acceleration", "SensoryRadius", "Self", "Metabolism"]
-var size:float = randf_range(3.0,5.0)
+var size:float = 5.0
 var metabolism:float = size / 2.0
 var hunger:float = 0.0
+
+var prey
+
+var looking:Vector3 = Vector3.ZERO
 
 var hunt = true
 
@@ -17,7 +24,7 @@ var target_pos:Vector3 = Vector3.ZERO
 var stop = false
 
 var food_target = false
-var food_location:Vector3 = Vector3.ZERO
+var food_location
 
 var direction = Vector3()
 var speed = 2
@@ -28,29 +35,34 @@ func _ready():
 	pass
 	
 func _physics_process(delta):
-
+	
 	time += delta
 	if time >= 2.0:
 		if stop:
 			target_pos = global_position
+			
 			stop = false
 		else:
 			if _hungry() && food_target:
-				target_pos = food_location
-				food_target = false
-				hunger += 1
-				stop = true
+				#look_at(Vector3(-food_location.global_transform.origin.x, global_position.y, -food_location.global_transform.origin.z), Vector3.UP)
+				prey = food_location.global_transform.origin
+				if global_position == prey:
+					food_target = false
+					hunger += 1
+					stop = true
+				else:
+					target_pos = prey
+
 			else:
-				target_pos = Vector3(randf_range(-roam_size.x/2,roam_size.x/2),0.1,randf_range(-roam_size.z/2,roam_size.z/2))
+				target_pos = Vector3(randf_range(-roam_size.x/2,roam_size.x/2),0,randf_range(-roam_size.z/2,roam_size.z/2))
+				#rotation issue when looking on value on same axis
+				look_at(Vector3(-target_pos.x, global_position.y, -target_pos.z), Vector3.UP)
+			
 				stop = true
 		time = 0.0
-		
-		#print("Amount Eaten= ",hunger)
-		#print("Hungry= ",_hungry())
-		#print("Food Spotted=",food_target)
-		
-	
-	
+		print("Amount Eaten= ",hunger)
+		print("Hungry= ",_hungry())
+		print("Food Spotted=",food_target)
 		
 	nav.target_position = target_pos
 
@@ -58,8 +70,8 @@ func _physics_process(delta):
 	direction = direction.normalized()
 	
 	velocity = velocity.lerp(direction * speed, accel * delta)
-	
 	move_and_slide()
+
 
 func _hungry():
 	
@@ -73,16 +85,14 @@ func _hungry():
 		hunt = true		
 		return true
 
+func _on_self_area_entered(area):
+	pass
+
 func _on_timer_timeout():
 	hunger -= 1
 
-func _on_sensory_area_entered(area):
-	if area.is_in_group("food"):
+func _on_sensory_body_entered(body):
+	if body.is_in_group("herb"):
 		food_target = true
-		food_location = area.global_position
-
-
-func _on_self_body_entered(body):
-	if body.is_in_group("pred"):
-		print("here")
-		queue_free()
+		food_location = body
+		

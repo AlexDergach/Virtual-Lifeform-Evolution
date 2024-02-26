@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://ccneyu6qayd7u"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_me1fp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ngx35"]
+albedo_color = Color(1, 1, 0.0901961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lq21a"]
+material = SubResource("StandardMaterial3D_ngx35")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_74bp4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_abar1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_emmj8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kpmi"]
+albedo_color = Color(1, 1, 0.101961, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4gwoa"]
+material = SubResource("StandardMaterial3D_0kpmi")
+
+[node name="Enemy" type="CharacterBody3D" groups=["pred"]]
+script = ExtResource("1_me1fp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_lq21a")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_74bp4")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[node name="Self" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
+shape = SubResource("BoxShape3D_abar1")
+
+[node name="Sensory" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
+shape = SubResource("SphereShape3D_emmj8")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 8.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0.335037, 0.431282)
+mesh = SubResource("CapsuleMesh_4gwoa")
+skeleton = NodePath("../MeshInstance3D")
+
+[connection signal="body_entered" from="Sensory" to="." method="_on_sensory_body_entered"]

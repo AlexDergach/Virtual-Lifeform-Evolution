@@ -27,16 +27,22 @@ shape = SubResource("CapsuleShape3D_kpbd6")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
-[node name="SensoryRadius" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SensoryRadius"]
-transform = Transform3D(-8.74228e-08, 2, -8.74228e-08, 0, -8.74228e-08, -2, -2, -8.74228e-08, 3.82137e-15, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_3vbn0")
-
 [node name="Self" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_3vbn0")
+
+[node name="Sensory" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 shape = SubResource("SphereShape3D_p75ai")
 
-[connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+
+[connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
+[connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
