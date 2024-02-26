@@ -68,7 +68,7 @@ func _physics_process(delta):
 		_spawn_enemy()
 		spawn_rate = 0
 		
-	if Input.is_action_just_pressed("A"):
+	if Input.is_action_just_pressed("Test"):
 		_spawn_food()
 	
 	if Input.is_action_just_pressed("mouse"):

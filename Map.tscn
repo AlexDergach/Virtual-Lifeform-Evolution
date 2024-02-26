@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://2mathsfwagr5"]
+[gd_scene load_steps=9 format=3 uid="uid://2mathsfwagr5"]
 
 [ext_resource type="Script" path="res://Terrian.gd" id="1_cgmmo"]
+[ext_resource type="Script" path="res://Camera.gd" id="2_h3p2g"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_lqi4r"]
 vertices = PackedVector3Array(-14.5, 0.45, 7.25, -14.5, 0.45, 14.5, -7.25, 0.45, 14.5, 7.25, 0.45, 14.5, 14.5, 0.45, 14.5, 14.5, 0.45, 7.25, 14.5, 0.45, -7.25, 14.5, 0.45, -14.5, 7.25, 0.45, -14.5, -7.25, 0.45, -14.5, -14.5, 0.45, -14.5, -14.5, 0.45, -7.25, -14.5, 0.45, 0, -14.5, 0.45, 7.25, -7.25, 0.45, 14.5, 0, 0.45, 14.5, 7.25, 0.45, 14.5, 14.5, 0.45, 7.25, 14.5, 0.45, 0, 14.5, 0.45, -7.25, 7.25, 0.45, -14.5, 0, 0.45, -14.5, 0, 0.45, -14.5, -7.25, 0.45, -14.5, -14.5, 0.45, -7.25, -14.5, 0.45, 0, 14.5, 0.45, 0, 0, 0.45, -14.5, -14.5, 0.45, 0, -7.25, 0.45, 14.5, 0, 0.45, 14.5, 14.5, 0.45, 7.25)
@@ -15,6 +16,10 @@ sky_material = SubResource("PhysicalSkyMaterial_5v55u")
 background_mode = 2
 sky = SubResource("Sky_2nexr")
 
+[sub_resource type="SphereMesh" id="SphereMesh_qmdp8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x7653"]
+
 [node name="Terrian" type="Node3D"]
 script = ExtResource("1_cgmmo")
 
@@ -24,9 +29,6 @@ navigation_mesh = SubResource("NavigationMesh_lqi4r")
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
 transform = Transform3D(30, 0, 0, 0, 0.1, 0, 0, 0, 30, 0, 0, 0)
 use_collision = true
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.955515, 0.294941, 0, -0.294941, 0.955515, 0, 5.93591, 20.6886)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.933718, 0.358009, 0, -0.358009, 0.933718, 0, 2.14711, 9.07591)
@@ -39,5 +41,20 @@ environment = SubResource("Environment_mqsmc")
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 4.0
+
+[node name="CamBody" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.57608, 11.6347)
+script = ExtResource("2_h3p2g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CamBody"]
+visible = false
+mesh = SubResource("SphereMesh_qmdp8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CamBody"]
+shape = SubResource("SphereShape3D_x7653")
+
+[node name="Camera" type="Node3D" parent="CamBody"]
+
+[node name="Camera3D" type="Camera3D" parent="CamBody/Camera"]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

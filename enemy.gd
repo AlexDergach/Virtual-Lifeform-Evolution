@@ -45,7 +45,12 @@ func _physics_process(delta):
 		else:
 			if _hungry() && food_target:
 				#look_at(Vector3(-food_location.global_transform.origin.x, global_position.y, -food_location.global_transform.origin.z), Vector3.UP)
-				prey = food_location.global_transform.origin
+				
+				if is_instance_valid(food_location):
+					prey = food_location.global_transform.origin
+				else:
+					prey = global_position
+						
 				if global_position == prey:
 					food_target = false
 					hunger += 1
