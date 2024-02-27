@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://jm06dbjs1hp6"]
+
+[ext_resource type="PackedScene" uid="uid://bhfpmb5hxlnpy" path="res://Assets/untitled.glb" id="1_5t8pr"]
+[ext_resource type="PackedScene" uid="uid://d1wft5ev8i50o" path="res://Assets/untitled2.glb" id="2_8g81k"]
+[ext_resource type="PackedScene" uid="uid://daumjf6ovllps" path="res://Assets/untitled3.glb" id="3_ofvrr"]
+
+[node name="Tiles" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0168486, -0.0166163, 0.012393)
+
+[node name="untitled2" parent="." instance=ExtResource("2_8g81k")]
+
+[node name="untitled3" parent="." instance=ExtResource("3_ofvrr")]
+
+[node name="untitled" parent="." instance=ExtResource("1_5t8pr")]

@@ -3,3 +3,8 @@
 3. Body Shapes - CSGBoxes - Combiner
 4. State Machines - Bryan Repo
 5. Clean up paths and variable names - DONE
+
+
+1. Make Water Infinite
+2. Make more map title assets
+3. Check out Ray Tracing
