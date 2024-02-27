@@ -1,14 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://jm06dbjs1hp6"]
+[gd_scene load_steps=10 format=3 uid="uid://jm06dbjs1hp6"]
 
-[ext_resource type="PackedScene" uid="uid://bhfpmb5hxlnpy" path="res://Assets/untitled.glb" id="1_5t8pr"]
-[ext_resource type="PackedScene" uid="uid://d1wft5ev8i50o" path="res://Assets/untitled2.glb" id="2_8g81k"]
-[ext_resource type="PackedScene" uid="uid://daumjf6ovllps" path="res://Assets/untitled3.glb" id="3_ofvrr"]
+[ext_resource type="PackedScene" uid="uid://bnhyy7df66e2c" path="res://Assets/Models/Desert/desertcube.glb" id="1_bb3s0"]
+[ext_resource type="PackedScene" uid="uid://d3ylu4pyicjve" path="res://Assets/Models/Desert/deserttree.glb" id="2_0rdht"]
+[ext_resource type="PackedScene" uid="uid://cbnfhxx4khl04" path="res://Assets/Models/Desert/pyr.glb" id="3_83wr0"]
+[ext_resource type="PackedScene" uid="uid://b0kev5f8fd7g" path="res://Assets/Models/Lava/redcube.glb" id="4_nthqx"]
+[ext_resource type="PackedScene" uid="uid://bnbkmeu2re20b" path="res://Assets/Models/Lava/redspike.glb" id="5_ky5h2"]
+[ext_resource type="PackedScene" uid="uid://dtkh7l8f3qpeg" path="res://Assets/Models/Lava/redtree.glb" id="6_oxa73"]
+[ext_resource type="PackedScene" uid="uid://388k85ei364f" path="res://Assets/Models/Snow/icecube.glb" id="7_72ohc"]
+[ext_resource type="PackedScene" uid="uid://d1crmqexyskdh" path="res://Assets/Models/Snow/icerock.glb" id="8_5ccx3"]
+[ext_resource type="PackedScene" uid="uid://dnn1xlel0ccmx" path="res://Assets/Models/Snow/icetree.glb" id="9_y00k1"]
 
 [node name="Tiles" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0168486, -0.0166163, 0.012393)
 
-[node name="untitled2" parent="." instance=ExtResource("2_8g81k")]
+[node name="desertcube" parent="." instance=ExtResource("1_bb3s0")]
 
-[node name="untitled3" parent="." instance=ExtResource("3_ofvrr")]
+[node name="deserttree" parent="." instance=ExtResource("2_0rdht")]
 
-[node name="untitled" parent="." instance=ExtResource("1_5t8pr")]
+[node name="pyr" parent="." instance=ExtResource("3_83wr0")]
+
+[node name="redcube" parent="." instance=ExtResource("4_nthqx")]
+
+[node name="redspike" parent="." instance=ExtResource("5_ky5h2")]
+
+[node name="redtree" parent="." instance=ExtResource("6_oxa73")]
+
+[node name="icecube" parent="." instance=ExtResource("7_72ohc")]
+
+[node name="icerock" parent="." instance=ExtResource("8_5ccx3")]
+
+[node name="icetree" parent="." instance=ExtResource("9_y00k1")]
