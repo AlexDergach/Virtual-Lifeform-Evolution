@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://daumjf6ovllps"
-path="res://.godot/imported/untitled3.glb-7c261ff27f91660ef5b5cdbe95eb5f26.scn"
+uid="uid://388k85ei364f"
+path="res://.godot/imported/icecube.glb-d5feea362f70b81cf167f0f9c29c2a22.scn"
 
 [deps]
 
-source_file="res://Assets/untitled3.glb"
-dest_files=["res://.godot/imported/untitled3.glb-7c261ff27f91660ef5b5cdbe95eb5f26.scn"]
+source_file="res://Assets/Models/Snow/icecube.glb"
+dest_files=["res://.godot/imported/icecube.glb-d5feea362f70b81cf167f0f9c29c2a22.scn"]
 
 [params]
 
