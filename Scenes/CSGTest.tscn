@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://bewcktaocmekg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_65r4h"]
+
+[node name="CSGTest" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.788213, 0.13037, 0, 0.364452, -0.0848892, 0.25225, 0.555289, -0.12934, -0.165558, 1.20494, 2.94889, -0.00567651)
+operation = 1
+size = Vector3(1.14069, 4.45195, 3.70213)
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 2.01175, 0, 0, 0, 1, 3.04882, 1.39637, 0.308896)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.00214088, 0.999988, 0.00442128, -0.999997, 0.00213422, 0.00150939, 0.00149991, -0.0044245, 0.999989, 0, 2.30081, 0)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.5, 0, 0, 0, -0.423681, -0.265507, 0, 0.265507, -0.423681, 0.574504, 1.97325, 0.419727)
+mesh = SubResource("CapsuleMesh_65r4h")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -1.135, 2.35966, 0.0107596)
+operation = 2
+radius = 0.470598
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.109012, 0.224981, 0, -0.224981, 0.109012, -0.253493, 1.97227, 0.338095)
+mesh = SubResource("CapsuleMesh_65r4h")

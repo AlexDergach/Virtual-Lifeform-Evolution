@@ -10,8 +10,9 @@ var cameraRotaion = 0.005
 var flying = false
 var fly_speed = 10.0
 var ascend_speed = 5.0
+var descend_speed = 5.0 
 var last_jump_time = 0.0
-var double_jump_threshold = 500  # Use milliseconds, adjust as needed
+var double_jump_threshold = 500  # milliseconds
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -36,29 +37,25 @@ func _unhandled_input(event):
 			last_jump_time = current_time
 
 func _physics_process(delta):
-	# Add the gravity when not flying.
 	if not flying and not is_on_floor():
-		velocity.y -= 7 * delta  # You can adjust the gravity value here.
+		velocity.y -= 7 * delta 
 
-	# Handle Jump only if not flying.
 	if not flying and Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = 5.0
 
-	# Handle Sprint.
 	if Input.is_action_pressed("Sprint"):
 		speed = 9.0
 	else:
 		speed = 5.0
 
-	# Get the input and handle the movement
 	var input_dir = Input.get_vector("Left", "Right", "Forward", "Back")
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	# Set velocity based on whether flying or not.
 	if flying:
-		# Ascend while holding the space bar.
 		if Input.is_action_pressed("Jump"):
 			velocity.y = ascend_speed
+		elif Input.is_action_pressed("Sprint"):
+			velocity.y = -descend_speed
 		else:
 			velocity.y = 0
 		velocity.x = direction.x * fly_speed
@@ -67,7 +64,6 @@ func _physics_process(delta):
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
 
-	# Continue movement motions while still in the air
 	if is_on_floor() and not flying:
 		if direction:
 			velocity.x = direction.x * speed
@@ -79,7 +75,6 @@ func _physics_process(delta):
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * 3.0)
 		velocity.z = lerp(velocity.z, direction.z * speed, delta * 3.0)
 
-	# FOV For speed changes
 	var velocity_clamped = clamp(velocity.length(), 0.5, fly_speed * 2)
 	var fov = 60 + 4 * velocity_clamped
 	camera.fov = lerp(camera.fov, fov, delta * 8.0)

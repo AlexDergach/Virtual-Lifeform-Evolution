@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://Scripts/Rabbit.gd" id="1_f1p0t"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ed7ki"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqefb"]
 albedo_color = Color(0.741176, 0.294118, 0.141176, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ya25p"]
-material = SubResource("StandardMaterial3D_ed7ki")
+material = SubResource("StandardMaterial3D_bqefb")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kpbd6"]
 

@@ -1,10 +1,12 @@
 1. Free Camera Movements- DONE
-2. Map Titles / Grid Map / Asset Placer-Picker
-3. Body Shapes - CSGBoxes - Combiner
-4. State Machines - Bryan Repo
+2. Map Titles / Grid Map / Asset Placer-Picker - DONE
+3. Body Shapes - CSGBoxes - Combiner - LOOKED AT
+4. State Machines - Bryan Repo - NEED MORE TIME
 5. Clean up paths and variable names - DONE
 
 
 1. Make Water Infinite
-2. Make more map title assets
-3. Check out Ray Tracing
+2. Make more map title assets x3
+3. Check out Ray Tracing or other methods of spawning on grid maps to create regions + for path finding
+4. Look More Into State Machines
+5. Look At Debug Menu
