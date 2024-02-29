@@ -6,7 +6,12 @@
 
 
 1. Make Water Infinite
-2. Make more map title assets x3
-3. Check out Ray Tracing or other methods of spawning on grid maps to create regions + for path finding
+2. Make more map title assets x3 :
+					forest
+					Stone
+					Plains
+					
+3. Check out Ray Tracing or other methods of spawning on grid maps to create regions ray cast + for path finding:
+					perlin nosie infinte gen
 4. Look More Into State Machines
-5. Look At Debug Menu
+5. Look At Debug Menu # Font
