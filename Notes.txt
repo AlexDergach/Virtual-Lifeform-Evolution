@@ -5,13 +5,13 @@
 5. Clean up paths and variable names - DONE
 
 
-1. Make Water Infinite
-2. Make more map title assets x3 :
+1. Make Water Infinite - IN PROG
+2. Make more map title assets x3 : - DONE
 					forest
 					Stone
 					Plains
 					
 3. Check out Ray Tracing or other methods of spawning on grid maps to create regions ray cast + for path finding:
-					perlin nosie infinte gen
-4. Look More Into State Machines
+					perlin nosie infinte gen     - NEED TO FIGURE OUT GRID CELLS FOR RAY CASTING
+4. Look More Into State Machines - IN PROG
 5. Look At Debug Menu # Font
