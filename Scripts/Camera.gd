@@ -29,7 +29,7 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * cameraRotaion)
 		camera.rotate_x(-event.relative.y * cameraRotaion)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(60))
 	elif event is InputEventKey and event.pressed:
 		if Input.is_action_just_pressed("Jump"):
 			var current_time = Time.get_ticks_msec()
@@ -61,7 +61,6 @@ func _physics_process(delta):
 			camera.fov = min(camera.fov + fov_change, target_fov)
 		else:
 			camera.fov = max(camera.fov - fov_change, target_fov)
-	
 	
 	if not flying and not is_on_floor():
 		velocity.y -= 7 * delta 

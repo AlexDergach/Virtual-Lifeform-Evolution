@@ -17,8 +17,8 @@
 5. Look At Debug Menu # Font
 
 
-1. 1.
-3. Tile Placement For Spawning
+1. 1. - DONE
+3. Tile Placement For Spawning 
 3. StatMachines / Ray Tracing
 4. Debug menu
 5. Different shapes for different biomes
