@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/GridMap.gd" id="2_hcnu4"]
 [ext_resource type="MeshLibrary" uid="uid://c6k1vdv8puxo0" path="res://Assets/Mesh Library/Tiles2.tres" id="2_vw3py"]
 [ext_resource type="PackedScene" uid="uid://cl25jtx4c5hkl" path="res://Scenes/Ocean.tscn" id="4_m2w4e"]
-[ext_resource type="PackedScene" uid="uid://bbi2osgl3bd3i" path="res://Scenes/3Dpawn.tscn" id="5_e3uhx"]
+[ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="6_c4ssy"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_fr5vf"]
 panorama = ExtResource("2_2xbao")
@@ -44,4 +44,5 @@ environment = SubResource("Environment_3ejsx")
 [node name="Ocean" parent="." instance=ExtResource("4_m2w4e")]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 
-[node name="3Dpawn" parent="." instance=ExtResource("5_e3uhx")]
+[node name="Camera" parent="." instance=ExtResource("6_c4ssy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.50388, 0)

@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://2mathsfwagr5"]
+[gd_scene load_steps=6 format=3 uid="uid://2mathsfwagr5"]
 
 [ext_resource type="Script" path="res://Scripts/Terrian.gd" id="1_pg4dx"]
-[ext_resource type="Script" path="res://Scripts/Camera.gd" id="2_wmulp"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_lqi4r"]
 vertices = PackedVector3Array(-14.5, 0.45, 7.25, -14.5, 0.45, 14.5, -7.25, 0.45, 14.5, 7.25, 0.45, 14.5, 14.5, 0.45, 14.5, 14.5, 0.45, 7.25, 14.5, 0.45, -7.25, 14.5, 0.45, -14.5, 7.25, 0.45, -14.5, -7.25, 0.45, -14.5, -14.5, 0.45, -14.5, -14.5, 0.45, -7.25, -14.5, 0.45, 0, -14.5, 0.45, 7.25, -7.25, 0.45, 14.5, 0, 0.45, 14.5, 7.25, 0.45, 14.5, 14.5, 0.45, 7.25, 14.5, 0.45, 0, 14.5, 0.45, -7.25, 7.25, 0.45, -14.5, 0, 0.45, -14.5, 0, 0.45, -14.5, -7.25, 0.45, -14.5, -14.5, 0.45, -7.25, -14.5, 0.45, 0, 14.5, 0.45, 0, 0, 0.45, -14.5, -14.5, 0.45, 0, -7.25, 0.45, 14.5, 0, 0.45, 14.5, 14.5, 0.45, 7.25)
@@ -15,10 +14,6 @@ sky_material = SubResource("PhysicalSkyMaterial_5v55u")
 [sub_resource type="Environment" id="Environment_mqsmc"]
 background_mode = 2
 sky = SubResource("Sky_2nexr")
-
-[sub_resource type="SphereMesh" id="SphereMesh_qmdp8"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_x7653"]
 
 [node name="Terrian" type="Node3D"]
 script = ExtResource("1_pg4dx")
@@ -41,20 +36,5 @@ environment = SubResource("Environment_mqsmc")
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 4.0
-
-[node name="CamBody" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.57608, 11.6347)
-script = ExtResource("2_wmulp")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CamBody"]
-visible = false
-mesh = SubResource("SphereMesh_qmdp8")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CamBody"]
-shape = SubResource("SphereShape3D_x7653")
-
-[node name="Camera" type="Node3D" parent="CamBody"]
-
-[node name="Camera3D" type="Camera3D" parent="CamBody/Camera"]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -6,6 +6,7 @@ var cameraRotaion = 0.005
 # For pivot of Camera
 @onready var head = $Camera
 @onready var camera = $Camera/Camera3D
+@onready var ocean = $"../Ocean"
 
 var flying = false
 var fly_speed = 10.0
@@ -17,11 +18,6 @@ var double_jump_threshold = 500  # milliseconds
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_process(true)
-
-func _process(delta):
-	# Esc key to quit game
-	if Input.is_action_pressed("Exit"):
-		get_tree().quit()
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -80,3 +76,11 @@ func _physics_process(delta):
 	camera.fov = lerp(camera.fov, fov, delta * 8.0)
 
 	move_and_slide()
+	
+func _process(delta):
+	ocean.position.x = self.position.x
+	ocean.position.z = self.position.z
+	# Esc key to quit game
+	if Input.is_action_pressed("Exit"):
+		get_tree().quit()
+
