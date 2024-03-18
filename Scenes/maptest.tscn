@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1g2pswmeicva"]
+[gd_scene load_steps=9 format=3 uid="uid://d1g2pswmeicva"]
 
-[ext_resource type="PackedScene" uid="uid://bsuuyem1fgxqu" path="res://Scenes/WaterPlane.tscn" id="1_lwee5"]
 [ext_resource type="Texture2D" uid="uid://bg42qar0x0w74" path="res://Assets/HDRI/kloofendal_43d_clear_puresky_4k.hdr" id="2_2xbao"]
-[ext_resource type="Script" path="res://Scenes/GridMap.gd" id="2_hcnu4"]
+[ext_resource type="Script" path="res://Scripts/GridMap.gd" id="2_hcnu4"]
 [ext_resource type="MeshLibrary" uid="uid://c6k1vdv8puxo0" path="res://Assets/Mesh Library/Tiles2.tres" id="2_vw3py"]
+[ext_resource type="PackedScene" uid="uid://cl25jtx4c5hkl" path="res://Scenes/Ocean.tscn" id="4_m2w4e"]
+[ext_resource type="PackedScene" uid="uid://bbi2osgl3bd3i" path="res://Scenes/3Dpawn.tscn" id="5_e3uhx"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_fr5vf"]
 panorama = ExtResource("2_2xbao")
@@ -40,5 +41,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3ejsx")
 
-[node name="WaterPlane" parent="." instance=ExtResource("1_lwee5")]
-transform = Transform3D(25, 0, 0, 0, 10, 0, 0, 0, 25, 0, 0, 0)
+[node name="Ocean" parent="." instance=ExtResource("4_m2w4e")]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="3Dpawn" parent="." instance=ExtResource("5_e3uhx")]

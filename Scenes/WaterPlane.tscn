@@ -2,15 +2,12 @@
 
 [ext_resource type="Material" uid="uid://dc2cc0wgif5w6" path="res://Shaders/Water.tres" id="1_i8dt6"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_6llkx"]
-lightmap_size_hint = Vector2i(7, 7)
+[sub_resource type="PlaneMesh" id="PlaneMesh_bp5ij"]
+resource_local_to_scene = true
 size = Vector2(10.05, 10.05)
-subdivide_width = 100
-subdivide_depth = 100
-orientation = 1
+subdivide_width = 199
+subdivide_depth = 199
 
 [node name="WaterPlane" type="MeshInstance3D"]
-transparency = 0.35
-cast_shadow = 0
-mesh = SubResource("QuadMesh_6llkx")
+mesh = SubResource("PlaneMesh_bp5ij")
 surface_material_override/0 = ExtResource("1_i8dt6")
