@@ -20,8 +20,12 @@ ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
+fog_light_color = Color(0.72549, 0.807843, 0.92549, 1)
+fog_light_energy = 0.68
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.004
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.827451, 1, 1, 1)
+volumetric_fog_length = 400.0
 
 [node name="MapTest" type="Node3D"]
 

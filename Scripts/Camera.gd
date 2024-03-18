@@ -31,6 +31,11 @@ func _unhandled_input(event):
 			if current_time - last_jump_time < double_jump_threshold:
 				flying = not flying
 			last_jump_time = current_time
+		elif Input.is_action_just_pressed("Ctrl"):
+			velocity.y = -descend_speed
+		elif Input.is_action_just_pressed("Sprint"):
+			speed = 9.0
+		
 
 func _physics_process(delta):
 	if not flying and not is_on_floor():
@@ -50,7 +55,7 @@ func _physics_process(delta):
 	if flying:
 		if Input.is_action_pressed("Jump"):
 			velocity.y = ascend_speed
-		elif Input.is_action_pressed("Sprint"):
+		elif Input.is_action_pressed("Ctrl"):
 			velocity.y = -descend_speed
 		else:
 			velocity.y = 0
