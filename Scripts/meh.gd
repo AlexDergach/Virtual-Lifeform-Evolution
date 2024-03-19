@@ -1,6 +1,6 @@
 extends GridMap
 
-var grid_size = Vector2(300, 300)  # Size of the grid map
+var grid_size = Vector2(400, 400)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
 var character_body = null
@@ -52,6 +52,9 @@ func generate_biomes():
 			if biome_id != -1:
 				set_cell_item(Vector3(x, 0, y), biome_id)
 	spawn_cacti_and_palm_trees()
+	spawn_red_biome_assets()
+	spawn_snow_biome_assets()
+	spawn_stone_biome_assets()
 
 # Function to check if a cluster collides with existing clusters of the same or different biome type
 func check_cluster_collision(biome_map, cluster_center, clustering_factor, biome_id):
@@ -174,8 +177,70 @@ func spawn_cacti_and_palm_trees():
 					elif random_asset_id == 1:
 						set_cell_item(Vector3(x, 3, z), 3)  # Spawn palm tree (ID 3) at y=3
 
+func spawn_red_biome_assets():
+	var random_asset_id
+	for x in range(int(grid_size.x)):
+		for z in range(int(grid_size.y)):
+			# Check if the current cell is on the ground floor (y=0) of the red biome and empty
+			if get_cell_item(Vector3(x, 0, z)) in [6, 7] and get_cell_item(Vector3(x, 1, z)) == -1:
+				if randf() < 0.025:
+					# Randomly choose between spawning a spike (ID 5), a red spike (ID 8), or a red tree (ID 9)
+					random_asset_id = randi_range(0, 2)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 1, z), 5)  # Spawn spike (ID 5) at y=1
+					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 1, z), 8)  # Spawn red spike (ID 8) at y=1
+					else:
+						set_cell_item(Vector3(x, 1, z), 9)  # Spawn red tree (ID 9) at y=1
+			
+			# Check if the current cell is on the hill layer (y=1) of the red biome and empty
+			if get_cell_item(Vector3(x, 1, z)) in [6, 7] and get_cell_item(Vector3(x, 2, z)) == -1:
+				if randf() < 0.025:
+					# Randomly choose between spawning a spike (ID 5), a red spike (ID 8), or a red tree (ID 9)
+					random_asset_id = randi_range(0, 2)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 2, z), 5)  # Spawn spike (ID 5) at y=2
+					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 2, z), 8)  # Spawn red spike (ID 8) at y=2
+					else:
+						set_cell_item(Vector3(x, 2, z), 9)  # Spawn red tree (ID 9) at y=2
+						
+			# Check if the current cell is on the hill layer (y=2) of the red biome and empty
+			if get_cell_item(Vector3(x, 2, z)) in [6, 7] and get_cell_item(Vector3(x, 3, z)) == -1:
+				if randf() < 0.025:
+					# Randomly choose between spawning a spike (ID 5), a red spike (ID 8), or a red tree (ID 9)
+					random_asset_id = randi_range(0, 2)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 3, z), 5)  # Spawn spike (ID 5) at y=3
+					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 3, z), 8)  # Spawn red spike (ID 8) at y=3
+					else:
+						set_cell_item(Vector3(x, 3, z), 9)  # Spawn red tree (ID 9) at y=3
 
-
+func spawn_snow_biome_assets():
+	var random_asset_id
+	for x in range(int(grid_size.x)):
+		for z in range(int(grid_size.y)):
+			# Check if the current cell is on the ground floor (y=0) of the snow biome and empty
+			if get_cell_item(Vector3(x, 0, z)) in [10, 11, 12] and get_cell_item(Vector3(x, 1, z)) == -1:
+				if randf() < 0.2:
+					# Randomly choose between spawning a snowman (ID 13) or a snowflake (ID 14)
+					random_asset_id = randi_range(0, 1)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 1, z), 13)  # Spawn snowman (ID 13) at y=1
+					else:
+						if randf() < 0.5:
+							set_cell_item(Vector3(x, 1, z), 14)  # Spawn snowflake (ID 14) at y=1
+			
+			# Check if the current cell is on the hill layer (y=1) of the snow biome and empty
+			if get_cell_item(Vector3(x, 1, z)) in [10, 11, 12] and get_cell_item(Vector3(x, 2, z)) == -1:
+				if randf() < 0.2:
+					set_cell_item(Vector3(x, 2, z), 14)  # Spawn snowflake (ID 14) at y=2
+						
+			# Check if the current cell is on the hill layer (y=2) of the snow biome and empty
+			if get_cell_item(Vector3(x, 2, z)) in [10, 11, 12] and get_cell_item(Vector3(x, 3, z)) == -1:
+				if randf() < 0.2:
+					set_cell_item(Vector3(x, 3, z), 14)  # Spawn snowflake (ID 14) at y=3
 
 
 func spawn_character():
