@@ -242,6 +242,46 @@ func spawn_snow_biome_assets():
 				if randf() < 0.2:
 					set_cell_item(Vector3(x, 3, z), 14)  # Spawn snowflake (ID 14) at y=3
 
+func spawn_stone_biome_assets():
+	var random_asset_id
+	for x in range(int(grid_size.x)):
+		for z in range(int(grid_size.y)):
+			# Check if the current cell is on the ground floor (y=0) of the stone biome and empty
+			if get_cell_item(Vector3(x, 0, z)) == 18 and get_cell_item(Vector3(x, 1, z)) == -1:
+				if randf() < 0.025:
+					# Randomly choose between spawning a skull (ID 17), a mountain (ID 16), or a big stone (ID 15)
+					random_asset_id = randi_range(0, 2)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 1, z), 17)  # Spawn skull (ID 17) at y=1
+					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 1, z), 16)  # Spawn mountain (ID 16) at y=1
+					else:
+						set_cell_item(Vector3(x, 1, z), 15)  # Spawn big stone (ID 15) at y=1
+			
+			# Check if the current cell is on the hill layer (y=1) of the stone biome and empty
+			if get_cell_item(Vector3(x, 1, z)) == 18 and get_cell_item(Vector3(x, 2, z)) == -1:
+				if randf() < 0.025:
+					# Randomly choose between spawning a skull (ID 17), a mountain (ID 16), or a big stone (ID 15)
+					random_asset_id = randi_range(0, 2)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 2, z), 17)  # Spawn skull (ID 17) at y=2
+					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 2, z), 16)  # Spawn mountain (ID 16) at y=2
+					else:
+						set_cell_item(Vector3(x, 2, z), 15)  # Spawn big stone (ID 15) at y=2
+						
+			# Check if the current cell is on the hill layer (y=2) of the stone biome and empty
+			if get_cell_item(Vector3(x, 2, z)) == 18 and get_cell_item(Vector3(x, 3, z)) == -1:
+				if randf() < 0.025:
+					# Randomly choose between spawning a skull (ID 17), a mountain (ID 16), or a big stone (ID 15)
+					random_asset_id = randi_range(0, 2)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 3, z), 17)  # Spawn skull (ID 17) at y=3
+					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 3, z), 16)  # Spawn mountain (ID 16) at y=3
+					else:
+						set_cell_item(Vector3(x, 3, z), 15)  # Spawn big stone (ID 15) at y=3
+
 
 func spawn_character():
 	# Find the Camera node in the scene tree

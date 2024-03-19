@@ -18,7 +18,8 @@
 
 
 1. 1. - DONE
-3. Tile Placement For Spawning 
+3. Tile Placement For Spawning - DONE
 3. StatMachines / Ray Tracing
 4. Debug menu
 5. Different shapes for different biomes
+6. Sort Out Sizing for assets on biomes and ice biome gen
