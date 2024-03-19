@@ -69,7 +69,8 @@ func _physics_process(delta):
 
 	if flying:
 		if Input.is_action_pressed("Sprint"):
-			speed = 140.0
+			speed = 500.0
+			ascend_speed = 10.0  # Increase ascend speed when sprinting
 		else:
 			speed = 5.0
 	else:
