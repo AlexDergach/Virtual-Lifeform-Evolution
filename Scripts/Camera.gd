@@ -14,7 +14,7 @@ var fov_change_speed = 50.0
 var flying = true  # Start in flying state
 var fly_speed = 10.0
 var ascend_speed = 5.0
-var descend_speed = 5.0 
+var descend_speed = 15.0 
 var last_jump_time = 0.0
 var double_jump_threshold = 500  # milliseconds
 
