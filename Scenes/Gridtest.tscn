@@ -23,7 +23,7 @@ glow_enabled = true
 fog_light_color = Color(0.72549, 0.807843, 0.92549, 1)
 fog_light_energy = 0.68
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.01
+volumetric_fog_density = 0.005
 volumetric_fog_albedo = Color(0.827451, 1, 1, 1)
 volumetric_fog_length = 400.0
 
@@ -45,3 +45,5 @@ environment = SubResource("Environment_ugwyh")
 transform = Transform3D(-0.149663, 0.611859, -0.776679, 0.115773, 0.790967, 0.600806, 0.981936, 4.5263e-08, -0.189215, -19.3321, 30.4911, -5.70308)
 light_energy = 2.0
 shadow_enabled = true
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]

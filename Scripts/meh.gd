@@ -55,6 +55,7 @@ func generate_biomes():
 	spawn_red_biome_assets()
 	spawn_snow_biome_assets()
 	spawn_stone_biome_assets()
+	spawn_forest_biome_assets()
 
 # Function to check if a cluster collides with existing clusters of the same or different biome type
 func check_cluster_collision(biome_map, cluster_center, clustering_factor, biome_id):
@@ -282,6 +283,45 @@ func spawn_stone_biome_assets():
 					else:
 						set_cell_item(Vector3(x, 3, z), 15)  # Spawn big stone (ID 15) at y=3
 
+func spawn_forest_biome_assets():
+	var random_asset_id
+	for x in range(int(grid_size.x)):
+		for z in range(int(grid_size.y)):
+			# Check if the current cell is on the ground floor (y=0) of the forest biome and empty
+			if get_cell_item(Vector3(x, 0, z)) == 20 and get_cell_item(Vector3(x, 1, z)) == -1:
+				if randf() < 0.025:
+					# Randomly choose between spawning a birch tree (ID 19), a forest tree (ID 22), or a stump (ID 23)
+					random_asset_id = randi_range(0, 2)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 1, z), 19)  # Spawn birch tree (ID 19) at y=1
+					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 1, z), 22)  # Spawn forest tree (ID 22) at y=1
+					else:
+						set_cell_item(Vector3(x, 1, z), 23)  # Spawn stump (ID 23) at y=1
+			
+			# Check if the current cell is on the hill layer (y=1) of the forest biome and empty
+			if get_cell_item(Vector3(x, 1, z)) == 20 and get_cell_item(Vector3(x, 2, z)) == -1:
+				if randf() < 0.025:
+					# Randomly choose between spawning a birch tree (ID 19), a forest tree (ID 22), or a stump (ID 23)
+					random_asset_id = randi_range(0, 2)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 2, z), 19)  # Spawn birch tree (ID 19) at y=2
+					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 2, z), 22)  # Spawn forest tree (ID 22) at y=2
+					else:
+						set_cell_item(Vector3(x, 2, z), 23)  # Spawn stump (ID 23) at y=2
+						
+			# Check if the current cell is on the hill layer (y=2) of the forest biome and empty
+			if get_cell_item(Vector3(x, 2, z)) == 20 and get_cell_item(Vector3(x, 3, z)) == -1:
+				if randf() < 0.025:
+					# Randomly choose between spawning a birch tree (ID 19), a forest tree (ID 22), or a stump (ID 23)
+					random_asset_id = randi_range(0, 2)
+					if random_asset_id == 0:
+						set_cell_item(Vector3(x, 3, z), 19)  # Spawn birch tree (ID 19) at y=3
+					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 3, z), 22)  # Spawn forest tree (ID 22) at y=3
+					else:
+						set_cell_item(Vector3(x, 3, z), 23)  # Spawn stump (ID 23) at y=3
 
 func spawn_character():
 	# Find the Camera node in the scene tree
