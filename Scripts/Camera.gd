@@ -6,13 +6,12 @@ var default_fov = 80
 var sprint_fov_increase = 15
 var fov_change_speed = 50.0
 
-
 # For pivot of Camera
 @onready var head = $Camera
 @onready var camera = $Camera/Camera3D
 @onready var ocean = $"../Ocean"
 
-var flying = false
+var flying = true  # Start in flying state
 var fly_speed = 10.0
 var ascend_speed = 5.0
 var descend_speed = 5.0 
