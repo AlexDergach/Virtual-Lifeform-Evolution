@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6p2g2yqj3716"]
+[gd_scene load_steps=10 format=3 uid="uid://b6p2g2yqj3716"]
 
 [ext_resource type="MeshLibrary" uid="uid://c6k1vdv8puxo0" path="res://Assets/Mesh Library/Tiles2.tres" id="1_qhdku"]
 [ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="1_ruc0m"]
@@ -23,20 +23,18 @@ glow_enabled = true
 fog_light_color = Color(0.72549, 0.807843, 0.92549, 1)
 fog_light_energy = 0.68
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.005
+volumetric_fog_density = 0.01
 volumetric_fog_albedo = Color(0.827451, 1, 1, 1)
 volumetric_fog_length = 400.0
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_bjvcu"]
 
 [node name="Gridtest" type="Node3D"]
 
 [node name="Camera" parent="." instance=ExtResource("1_ruc0m")]
 
-[node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource("1_qhdku")
-script = ExtResource("3_o2po0")
-
 [node name="Ocean" parent="." instance=ExtResource("4_1qjve")]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(25, 0, 0, 0, 1, 0, 0, 0, 25, 0, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ugwyh")
@@ -47,3 +45,8 @@ light_energy = 2.0
 shadow_enabled = true
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_bjvcu")
+
+[node name="GridMap" type="GridMap" parent="NavigationRegion3D"]
+mesh_library = ExtResource("1_qhdku")
+script = ExtResource("3_o2po0")

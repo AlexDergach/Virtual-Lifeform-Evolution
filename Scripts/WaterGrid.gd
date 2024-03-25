@@ -1,5 +1,5 @@
 extends Resource
 
-@export var spawnPoints : Array[Vector2] = [];
-@export var subdivision : Array[int] = [];
-@export var scale : Array[int] = [];
+@export var sP : Array[Vector2] = [];
+@export var sD : Array[int] = [];
+@export var s : Array[int] = [];

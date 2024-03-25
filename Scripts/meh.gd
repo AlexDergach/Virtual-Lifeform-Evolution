@@ -1,14 +1,34 @@
 extends GridMap
 
-var grid_size = Vector2(400, 400)  # Size of the grid map
+var grid_size = Vector2(150, 150)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
 var character_body = null
 var snow_island_spawned = false  # Track if a snow island has been spawned
 
+var food_scene = load("res://Scenes/Food.tscn")
+var rabbit_scene = load("res://Scenes/Rabbit.tscn")
+var enemy_scene = load("res://Scenes/Enemy.tscn")
+
+var food_size = 0.5
+var rabbit_size = 1
+var spawn_rate = 1
+var rabbit_instance
+var enemy_instance
+
+@onready var nav_region = get_node("/root/Gridtest/NavigationRegion3D")
+
 func _ready():
 	generate_biomes()
-	spawn_character()
+	spawn_character()#Setting camera to spawn in the center of the grid map
+	
+	
+	if nav_region:
+		nav_region.bake_navigation_mesh()
+	else:
+		print("NavigationRegion3D node not found!")
+
+
 
 func generate_biomes():
 	var biome_map = []
@@ -20,19 +40,20 @@ func generate_biomes():
 			column.append(-1)
 		biome_map.append(column)
 
+	#Dictonary for all the biomes
 	var biome_ids = { "Desert_Cube": 2, "Lava_Cube": 7, "Forest_Cube": 20, "Ice_Cube": 12, "Stone_Cube": 18 }
 
 	# Generate clusters for each biome
 	for biome_name in biome_ids.keys():
 		var biome_id = biome_ids[biome_name]
-		var num_clusters = 10  # Adjust the number of clusters as needed
+		var num_clusters = 5
 
-		# Determine clustering factor based on biome type
-		var clustering_factor = 1.4
+		# Clustering factor based on biome type
+		var clustering_factor = 2
 		if biome_id == 12 or biome_id == 18:  # Ice_Cube or Stone_Cube
-			clustering_factor = 0.5  # Adjust the clustering factor for these biomes
+			clustering_factor = 0.5  # Adjust the clustering factor for these biomes to make them smaller than the rest
 		
-		# Generate initial clusters
+		# Generate initial clusters and have at least one snow biome
 		if biome_id == 12 and !snow_island_spawned:
 			for i in range(num_clusters):
 				var cluster_center = Vector2(randf_range(0.0, grid_size.x), randf_range(0.0, grid_size.y))
@@ -51,6 +72,8 @@ func generate_biomes():
 			var biome_id = biome_map[x][y]
 			if biome_id != -1:
 				set_cell_item(Vector3(x, 0, y), biome_id)
+				
+	#Change method names
 	spawn_cacti_and_palm_trees()
 	spawn_red_biome_assets()
 	spawn_snow_biome_assets()
@@ -79,7 +102,7 @@ func check_cluster_collision(biome_map, cluster_center, clustering_factor, biome
 					if touching:
 						return true
 
-					# Check if any adjacent cell is occupied by another biome
+					# Check if any adjacent cell is occupied by another biome so snow biome spawns on the ocean by itself
 					var snow_adjacent = false
 					if biome_id == 12 and !snow_island_spawned:
 						for nx in range(x - 1, x + 2):
@@ -325,11 +348,10 @@ func spawn_forest_biome_assets():
 
 func spawn_character():
 	# Find the Camera node in the scene tree
-	var character_body = get_node("../Camera")
+	var character_body = get_node("../../Camera")
 	if character_body:
-		# Calculate the local position of the grid center relative to the Camera node
+		# Local position of the grid center relative to the Camera node
 		var center_local_position = Vector3(map_center.x * tile_size.x, 10, map_center.y * tile_size.z)
-		# Convert the local position to global position
 		var center_world_position = self.to_global(center_local_position)
 		# Set the character's global position to the calculated position
 		character_body.global_transform.origin = center_world_position

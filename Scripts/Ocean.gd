@@ -2,29 +2,33 @@
 
 extends Node3D
 
-var OceanTile = preload("res://Scenes/WaterPlane.tscn");
-var spawnPoint = preload("res://Resources/WaterGrid.tres");
+var WaterPlane = preload("res://Scenes/WaterPlane.tscn");
+var waterGrid = preload("res://Resources/WaterGrid.tres");
 
-# Creates tile grid for infinite ocean
 func createOceanTiles():
-	for i in 17: # Loop through 17 tiles
+	for i in 17: # 17 tiles in arrays for waterGird
 		
-		# Get loction, subdivision, and scale of each tile and create instance
-		var spawnLocation = spawnPoint.spawnPoints[i];
-		var tileSubdivision = spawnPoint.subdivision[i];
-		var tileScale = spawnPoint.scale[i];
-		var instance = OceanTile.instantiate();
+		#Spawn Loc
+		var sL = waterGrid.sP[i];
+		# Tile Sub division
+		var tSub = waterGrid.sD[i];
+		# Scale
+		var tS = waterGrid.s[i];
+		
+		var instance = WaterPlane.instantiate();
 		
 		add_child(instance);
 		
-		# Set tile position, subdivision, and scale
-		instance.position = Vector3(spawnLocation.x,0.0,spawnLocation.y) * 10.05; # Multiply by mesh width 10.5m
-		instance.mesh.set_subdivide_width(tileSubdivision);
-		instance.mesh.set_subdivide_depth(tileSubdivision);
-		instance.set_scale(Vector3(tileScale, 1.0, tileScale)); # Ignore Y value because of planes
+		# Set pos scale and subs for the instantces
+		instance.position = Vector3(sL.x,0.0,sL.y) * 10.05; #Water plane size multiple (10.05)
+		instance.mesh.set_subdivide_width(tSub);
+		instance.mesh.set_subdivide_depth(tSub);
+		instance.set_scale(Vector3(tS, 1.0, tS));
 
 func _ready():
+	#Create ocean
 	createOceanTiles();
 
 func _process(delta):
-	RenderingServer.global_shader_parameter_set("oceanpos", self.position); # Update global shader parameter 'ocean_pos' to match the ocean node position
+	#oceanpos in project seetings for rendering sharders
+	RenderingServer.global_shader_parameter_set("oceanpos", self.position);
