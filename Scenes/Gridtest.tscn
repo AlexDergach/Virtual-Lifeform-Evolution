@@ -50,3 +50,5 @@ navigation_mesh = SubResource("NavigationMesh_bjvcu")
 [node name="GridMap" type="GridMap" parent="NavigationRegion3D"]
 mesh_library = ExtResource("1_qhdku")
 script = ExtResource("3_o2po0")
+
+[connection signal="bake_finished" from="NavigationRegion3D" to="NavigationRegion3D/GridMap" method="_on_navigation_region_3d_bake_finished"]

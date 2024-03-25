@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
-@onready var roam_size = get_node("../NavigationRegion3D/CSGBox3D").get_scale()
+var roam_size = 20.0
 
 var time:float = 0.0
 
@@ -28,9 +28,9 @@ func _ready():
 	pass
 	
 func _physics_process(delta):
-
 	time += delta
-	if time >= 2.0:
+	
+	if time >= 1:  # Update target position more frequently
 		if stop:
 			target_pos = global_position
 			stop = false
@@ -41,29 +41,24 @@ func _physics_process(delta):
 				hunger += 1
 				stop = true
 			else:
-				target_pos = Vector3(randf_range(-roam_size.x/2,roam_size.x/2),0.1,randf_range(-roam_size.z/2,roam_size.z/2))
+				# Add some randomness to the target position within the roam area
+				var random_dir = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+				target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.y * roam_size)
 				stop = true
+		
 		time = 0.0
-		
-		#print("Amount Eaten= ",hunger)
-		#print("Hungry= ",_hungry())
-		#print("Food Spotted=",food_target)
-		
 	
-	
-		
 	nav.target_position = target_pos
 
 	direction = nav.get_next_path_position() - global_position
 	direction = direction.normalized()
 	
 	velocity = velocity.lerp(direction * speed, accel * delta)
-	
 	move_and_slide()
 
 func _hungry():
 	
-	if hunger == -3:
+	if hunger == -10:
 		queue_free()
 
 	if hunger >= metabolism:

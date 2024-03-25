@@ -1,10 +1,12 @@
 extends GridMap
 
-var grid_size = Vector2(150, 150)  # Size of the grid map
+var grid_size = Vector2(100, 100)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
 var character_body = null
 var snow_island_spawned = false  # Track if a snow island has been spawned
+var playpos
+var test = 0
 
 var food_scene = load("res://Scenes/Food.tscn")
 var rabbit_scene = load("res://Scenes/Rabbit.tscn")
@@ -20,16 +22,15 @@ var enemy_instance
 
 func _ready():
 	generate_biomes()
-	spawn_character()#Setting camera to spawn in the center of the grid map
-	
+	spawn_character()
 	
 	if nav_region:
-		#nav_region.bake_navigation_mesh()
-		print("yay")
+		nav_region.bake_navigation_mesh()
 	else:
-		print("NavigationRegion3D node not found!")
-
-
+		print("NavigationRegion3D node not found")
+	
+func _physics_process(delta):
+	pass
 
 func generate_biomes():
 	var biome_map = []
@@ -72,7 +73,9 @@ func generate_biomes():
 		for y in range(int(grid_size.y)):
 			var biome_id = biome_map[x][y]
 			if biome_id != -1:
-				set_cell_item(Vector3(x, 0, y), biome_id)
+				# Ensure that each cell only contains one type of tile
+				if get_cell_item(Vector3(x, 0, y)) == -1:
+					set_cell_item(Vector3(x, 0, y), biome_id)
 				
 	#Change method names
 	spawn_cacti_and_palm_trees()
@@ -80,6 +83,7 @@ func generate_biomes():
 	spawn_snow_biome_assets()
 	spawn_stone_biome_assets()
 	spawn_forest_biome_assets()
+	
 
 # Function to check if a cluster collides with existing clusters of the same or different biome type
 func check_cluster_collision(biome_map, cluster_center, clustering_factor, biome_id):
@@ -163,7 +167,26 @@ func generate_cluster(biome_map, cluster_center, biome_id, initial_cluster_radiu
 								
 							biome_map[x][y] = tile_type
 							set_cell_item(Vector3(x, y_coord, y), tile_type)
-							
+
+func _spawn_food():
+	var food_instance = food_scene.instantiate()
+	var food_instance_scale = Vector3(food_size,food_size,food_size)
+	add_child(food_instance)
+	food_instance.scale = food_instance_scale
+
+func _spawn_rabbit(pos):
+	rabbit_instance = rabbit_scene.instantiate()
+	var rabbit_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
+	add_child(rabbit_instance)
+	rabbit_instance.position = pos
+	rabbit_instance.scale = rabbit_instance_scale
+
+func _spawn_enemy():
+	enemy_instance = enemy_scene.instantiate()
+	var enemy_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
+	add_child(enemy_instance)
+	enemy_instance.scale = enemy_instance_scale
+
 func spawn_cacti_and_palm_trees():
 	var random_asset_id
 	for x in range(int(grid_size.x)):
@@ -210,12 +233,12 @@ func spawn_red_biome_assets():
 			if get_cell_item(Vector3(x, 0, z)) in [6, 7] and get_cell_item(Vector3(x, 1, z)) == -1:
 				if randf() < 0.025:
 					# Randomly choose between spawning a spike (ID 5), a red spike (ID 8), or a red tree (ID 9)
-					random_asset_id = randi_range(0, 2)
+					random_asset_id = randi_range(0, 3)
 					if random_asset_id == 0:
 						set_cell_item(Vector3(x, 1, z), 5)  # Spawn spike (ID 5) at y=1
 					elif random_asset_id == 1:
 						set_cell_item(Vector3(x, 1, z), 8)  # Spawn red spike (ID 8) at y=1
-					else:
+					elif random_asset_id == 2:
 						set_cell_item(Vector3(x, 1, z), 9)  # Spawn red tree (ID 9) at y=1
 			
 			# Check if the current cell is on the hill layer (y=1) of the red biome and empty
@@ -356,3 +379,51 @@ func spawn_character():
 		var center_world_position = self.to_global(center_local_position)
 		# Set the character's global position to the calculated position
 		character_body.global_transform.origin = center_world_position
+
+
+func spawn():
+	var spawn_count = 0
+	var spawned_positions = []
+	var spawn_y = 2.6
+	while spawn_count < 10:
+		for i in range(10):
+			var x = randi() % int(grid_size.x)
+			var z = randi() % int(grid_size.y)
+			
+			if get_cell_item(Vector3(x, 0, z)) == 7 and get_cell_item(Vector3(x, 1, z)) == -1:
+				var position = Vector3(x*2, spawn_y , z*2)
+				
+				if position not in spawned_positions:
+					_spawn_rabbit(position)
+					spawned_positions.append(position)
+					spawn_count += 1
+					break  # Exit the inner loop once a valid position is found
+					
+			if get_cell_item(Vector3(x, 1, z)) in [6,7] and get_cell_item(Vector3(x, 2, z)) == -1:
+				var position = Vector3(x*2, spawn_y+2 , z*2)
+				
+				if position not in spawned_positions:
+					_spawn_rabbit(position)
+					spawned_positions.append(position)
+					spawn_count += 1
+					break  # Exit the inner loop once a valid position is found
+					
+			if get_cell_item(Vector3(x, 2, z)) in [6,7] and get_cell_item(Vector3(x, 3, z)) == -1:
+				var position = Vector3(x*2, spawn_y+4 , z*2)
+				
+				if position not in spawned_positions:
+					_spawn_rabbit(position)
+					spawned_positions.append(position)
+					spawn_count += 1
+					break  # Exit the inner loop once a valid position is found
+			
+			
+				
+
+
+func _on_navigation_region_3d_bake_finished():
+	print("Navigation mesh baking finished")
+	if test == 0:
+		print("test")
+		spawn()
+		test = 1

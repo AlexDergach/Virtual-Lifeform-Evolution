@@ -48,7 +48,8 @@ func _unhandled_input(event):
 
 func _physics_process(delta):
 	var target_fov: float
-
+	if Input.is_action_just_released("Sprint"):
+		print(global_transform.origin)
 	if sprinting:
 		target_fov = default_fov + sprint_fov_increase
 	else:
