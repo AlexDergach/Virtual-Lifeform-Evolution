@@ -24,7 +24,8 @@ func _ready():
 	
 	
 	if nav_region:
-		nav_region.bake_navigation_mesh()
+		#nav_region.bake_navigation_mesh()
+		print("yay")
 	else:
 		print("NavigationRegion3D node not found!")
 
