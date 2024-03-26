@@ -9,7 +9,6 @@ var traits = ["Speed", "Size", "Acceleration", "SensoryRadius", "Self", "Metabol
 var size:float = randf_range(3.0,5.0)
 var metabolism:float = size / 2.0
 var hunger:float = 0.0
-var reproduction: float = 1.0  # Initial reproduction value
 
 var hunt = true
 
@@ -24,23 +23,9 @@ var direction = Vector3()
 var speed = 2
 var accel = 5
 
-var hunger_label: Label
-var reproduction_label: Label
-
 func _ready():
 	$Timer.start()
-	
-	hunger_label = Label.new()
-	hunger_label.text = "Hunger: " + str(hunger)
-	hunger_label.set_position(Vector2(0, -40))  # Adjust position as needed
-	add_child(hunger_label)
-
-	# Create and configure reproduction label
-	reproduction_label = Label.new()
-	reproduction_label.text = "Reproduction: " + str(reproduction)
-	reproduction_label.set_position(Vector2(0, -60))  # Adjust position as needed
-	add_child(reproduction_label)
-
+	pass
 	
 func _physics_process(delta):
 	time += delta
@@ -67,16 +52,13 @@ func _physics_process(delta):
 
 	direction = nav.get_next_path_position() - global_position
 	direction = direction.normalized()
+	
 	velocity = velocity.lerp(direction * speed, accel * delta)
 	move_and_slide()
-	
-	# Update labels
-	hunger_label.text = "Hunger: " + str(hunger)
-	reproduction_label.text = "Reproduction: " + str(reproduction)
 
 func _hungry():
 	
-	if hunger == -10:
+	if hunger == -3:
 		queue_free()
 
 	if hunger >= metabolism:

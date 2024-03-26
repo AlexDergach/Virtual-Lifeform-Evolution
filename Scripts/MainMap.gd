@@ -1,6 +1,6 @@
 extends GridMap
 
-var grid_size = Vector2(150, 150)  # Size of the grid map
+var grid_size = Vector2(100, 100)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
 var character_body = null
@@ -12,8 +12,9 @@ var desert_prey = load("res://Scenes/Prey/Desert_Prey.tscn")
 var fire_prey = load("res://Scenes/Prey/Fire_Prey.tscn")
 var forest_prey = load("res://Scenes/Prey/Forest_Prey.tscn")
 var ice_prey = load("res://Scenes/Prey/Ice_Prey.tscn")
+var stone_prey = load("res://Scenes/Prey/Stone_Prey.tscn")
 
-var prey_scenes = [fire_prey, desert_prey,forest_prey,ice_prey]
+var prey_scenes = [fire_prey, desert_prey,forest_prey,ice_prey,stone_prey]
 
 var food_size = 0.5
 var rabbit_size = 0.5
@@ -393,9 +394,9 @@ func spawn():
 	var spawn_count = 0
 	var spawned_positions = []
 	var spawn_y = 5
-	var biomes = [[6,7],[1,2],[20,21],[10,11,12]]
-	while spawn_count < 20:
-		for i in range(4):
+	var biomes = [[6,7],[1,2],[20,21],[10,11,12],[18]]
+	while spawn_count < 15:
+		for i in range(5):
 			print(i)
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)

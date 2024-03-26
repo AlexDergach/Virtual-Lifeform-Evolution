@@ -6,28 +6,28 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_u2wer"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hc4cx"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6rlm"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jic37"]
-material = SubResource("StandardMaterial3D_hc4cx")
+material = SubResource("StandardMaterial3D_a6rlm")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1g5gv"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3tic"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5gu1q"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bkmbl"]
-material = SubResource("StandardMaterial3D_o3tic")
+material = SubResource("StandardMaterial3D_5gu1q")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1swvi"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o1bb1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6jbk"]
 albedo_color = Color(0.101961, 1, 1, 1)
 roughness = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_t28ed"]
-material = SubResource("StandardMaterial3D_o1bb1")
+material = SubResource("StandardMaterial3D_s6jbk")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ds0ia"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
@@ -35,11 +35,11 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xe55b"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dq0an"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_520jk"]
 albedo_color = Color(0.34902, 0.52549, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_smykm"]
-material = SubResource("StandardMaterial3D_dq0an")
+material = SubResource("StandardMaterial3D_520jk")
 
 [node name="Ice_Pre" type="CharacterBody3D"]
 script = ExtResource("1_rgks4")
