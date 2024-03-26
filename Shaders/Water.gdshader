@@ -1,115 +1,63 @@
 shader_type spatial;
 
-global uniform vec3 oceanpos; // Global shader value for the player position
+global uniform vec3 oceanpos;
 
-uniform vec3 albedo : source_color;
-uniform vec3 albedo2 : source_color;
-uniform float metallic : hint_range(0.0, 1.0) = 0;
-uniform float roughness : hint_range(0.0, 1.0) = 0.02;
+uniform vec3 base_albedo : source_color;
+uniform vec3 secondary_albedo : source_color;
+uniform float metallic_factor : hint_range(0.0, 1.0) = 0.0;
+uniform float surface_roughness : hint_range(0.0, 1.0) = 0.02;
 
-uniform sampler2D texture_normal;
-uniform sampler2D texture_normal2;
+uniform sampler2D base_normal_map;
+uniform sampler2D secondary_normal_map;
 
-uniform sampler2D wave;
-uniform sampler2D wave_bump;
-uniform vec2 wave_direction = vec2(2.0,0.0);
-uniform vec2 wave_direction2 = vec2(0.0,1.0);
+uniform sampler2D wave_texture;
+uniform sampler2D wave_bump_texture;
+uniform vec2 primary_wave_direction = vec2(2.0, 0.0);
+uniform vec2 secondary_wave_direction = vec2(0.0, 1.0);
+uniform float wave_time_scale : hint_range(0.0, 0.2, 0.005) = 0.025;
 
-uniform float time_scale : hint_range(0.0, 0.2, 0.005) = 0.025;
+uniform float height_scaling : hint_range(0.0, 1.0) = 0.15;
+uniform float noise_scaling : hint_range(0.0, 50.0) = 10.0;
 
-uniform float height_scale = 0.15;
-uniform float noise_scale = 10.0;
-varying float height;
-varying vec3 world_pos;
+varying float distance_to_ocean;
+varying vec2 vertex_position;
+varying vec3 world_position;
 
-varying float vertex_distance;
-varying float vertex_distance_clamped;
-varying vec2 vertex_pos;
-
-uniform float edge_scale = 0.1;
-uniform float near = 0.5;
-uniform float far = 100.0;
-uniform vec3 edge_color : source_color;
-
-
-float fresnel(float amount, vec3 normal, vec3 view)
-{
-	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0)), amount);
-}
-
-float edge(float depth) {
-	depth = 2.0 * depth - 1.0;
-	return near * far / (far + depth * (near - far));
-}
-
-float waveheight(vec2 offset, int mode) {
-	float h1 = 0.0; // Wave1 texture height
-	float h2 = 0.0; // Wave2 texture height
-	float hmix = 0.0; // Wave texture heights mixed
-	switch (mode) {
-		case 0: // For getting only the Wave1 height
-			h1 = texture(wave, (world_pos.xz + offset) / noise_scale + (TIME * wave_direction) * time_scale).r;
-			return h1;
-		case 1: // For getting only the Wave2 height
-			h2 = texture(wave, (world_pos.xz + offset) / noise_scale + (TIME * wave_direction2) * time_scale).r;
-			return h2;
-		case 2: // For getting both Wave1 and Wave2 heights and getting the average
-			h1 = texture(wave, (world_pos.xz + offset) / noise_scale + (TIME * wave_direction) * time_scale).r;
-			h2 = texture(wave, (world_pos.xz + offset) / noise_scale + (TIME * wave_direction2) * time_scale).r;
-			hmix = mix(h1, h2, 0.5);
-			return hmix;
-	}
-}
-
-void vertex(){
-	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	
-	vertex_distance = distance(world_pos, oceanpos);
-	vertex_distance = clamp(vertex_distance, 0.0, 85.0);
-	vertex_distance_clamped = vertex_distance / 85.0;
-	
-	float prev_height_x = waveheight(vec2(-0.3,0.0),2);
-	float next_height_x = waveheight(vec2(0.3,0.0),2);
-	float prev_height_y = waveheight(vec2(0.0,-0.3),2);
-	float next_height_y = waveheight(vec2(0.0,0.3),2);
-	
-	float height_mix = waveheight(vec2(0.0,0.0),2);
-	
-	VERTEX.y += height_mix * height_scale * (1.0 - vertex_distance_clamped);
-	
-	float fraction_x = fract(round(UV.x * 1000.0) / 10.0);
-	float fraction_y = fract(round(UV.y * 1000.0) / 10.0);
-	
-	if (fraction_x != 0.0) {
-	if (fract(UV.y) == 0.0) {
-		VERTEX.y = ((prev_height_x + next_height_x) * height_scale * (1.0 - vertex_distance_clamped)) / 2.0;
-	}
-	}
-	if (fraction_y != 0.0) {
-		if (fract(UV.x) == 0.0) {
-			VERTEX.y = ((prev_height_y + next_height_y) * height_scale * (1.0 - vertex_distance_clamped)) / 2.0;
-		}
-	}
+void vertex() {
+    world_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+    
+    // Calculate distance to ocean
+    distance_to_ocean = length(world_position - oceanpos);
+    
+    // Adjust vertex height based on waves
+    float wave_height_mix = texture(wave_texture, (world_position.xz / noise_scaling) + (TIME * primary_wave_direction) * wave_time_scale).r;
+    VERTEX.y += wave_height_mix * height_scaling * (1.0 - clamp(distance_to_ocean / 85.0, 0.0, 1.0));
 }
 
 void fragment() {
-
-	vec2 time = (TIME * wave_direction) * time_scale;
-	vec2 time2 = (TIME * wave_direction2) * time_scale;
 	
-	vec3 normal_blend = mix(texture(texture_normal,world_pos.xz / 10.0 + time / 10.0).rgb, 
-	texture(texture_normal2,world_pos.xz / 10.0 + time2 / 10.0).rgb, 0.5);
-	
-	// Blend Wave1 and Wave2 maps
-	vec3 wave_normal_blend = mix(texture(wave_bump, world_pos.xz / noise_scale + time).xyz,
-	texture(wave_bump, world_pos.xz / noise_scale + time2).xyz,0.3);
-	
-	float fresnel = fresnel(5.0, NORMAL, VIEW);
-	vec3 surface_color = mix(albedo, albedo2, fresnel);
-	
-	ALBEDO = clamp(surface_color,vec3(0.0),vec3(1.0));
-	SPECULAR = wave_normal_blend.r;
-	METALLIC = metallic;
-	ROUGHNESS = roughness;
-	NORMAL_MAP = mix(wave_normal_blend, normal_blend, 0.5);
+    // Calculate time for wave animation
+    vec2 primary_wave_time = (TIME * primary_wave_direction) * wave_time_scale;
+    vec2 secondary_wave_time = (TIME * secondary_wave_direction) * wave_time_scale;
+    
+    // Blend normal maps
+    vec3 blended_normal_map = mix(texture(base_normal_map, world_position.xz / 10.0 + primary_wave_time / 10.0).rgb, 
+                                   texture(secondary_normal_map, world_position.xz / 10.0 + secondary_wave_time / 10.0).rgb, 0.5);
+    
+    // Blend wave bump maps
+    vec3 blended_wave_bump_map = mix(texture(wave_bump_texture, world_position.xz / noise_scaling + primary_wave_time).xyz,
+                                      texture(wave_bump_texture, world_position.xz / noise_scaling + secondary_wave_time).xyz, 0.3);
+    
+    // Calculate fresnel effect
+    float fresnel_effect = pow((1.0 - abs(dot(normalize(NORMAL), normalize(VIEW)))), 5.0);
+    
+    // Blend surface colors based on fresnel effect
+    vec3 blended_surface_color = mix(base_albedo, secondary_albedo, fresnel_effect);
+    
+    // Output final fragment color
+    ALBEDO = clamp(blended_surface_color, vec3(0.0), vec3(1.0));
+    SPECULAR = blended_wave_bump_map.r;
+    METALLIC = metallic_factor;
+    ROUGHNESS = surface_roughness;
+    NORMAL_MAP = mix(blended_wave_bump_map, blended_normal_map, 0.5);
 }
