@@ -6,19 +6,19 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_volma"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hc4cx"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pqjtg"]
 albedo_color = Color(0.376471, 0.137255, 0.054902, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d0kds"]
-material = SubResource("StandardMaterial3D_hc4cx")
+material = SubResource("StandardMaterial3D_pqjtg")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t8kuh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3tic"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymxct"]
 albedo_color = Color(0.376471, 0.137255, 0.054902, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qpfqx"]
-material = SubResource("StandardMaterial3D_o3tic")
+material = SubResource("StandardMaterial3D_ymxct")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rud14"]
 
@@ -83,15 +83,6 @@ mesh = SubResource("CapsuleMesh_qpfqx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Leg4/StaticBody3D"]
 shape = SubResource("CapsuleShape3D_rud14")
 
-[node name="Main" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.25, 0, 0, 0, -0.00966455, -1.24996, 0, 1.24996, -0.00966455, 0.685683, 0.498282, 0.770942)
-mesh = SubResource("CapsuleMesh_xt2hj")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Main"]
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Main/StaticBody3D"]
-shape = SubResource("CapsuleShape3D_ft8ce")
-
 [node name="Leg2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 1.05251, -0.110555, 1.30866)
 mesh = SubResource("CapsuleMesh_d0kds")
@@ -110,6 +101,15 @@ mesh = SubResource("CapsuleMesh_qpfqx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Leg5/StaticBody3D"]
 shape = SubResource("CapsuleShape3D_rud14")
+
+[node name="Main" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.25, 0, 0, 0, -0.00966455, -1.24996, 0, 1.24996, -0.00966455, 0.685683, 0.498282, 0.770942)
+mesh = SubResource("CapsuleMesh_xt2hj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Main"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Main/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_ft8ce")
 
 [node name="Mane" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.53937, -0.59083, 0, 0.59083, 0.53937, 0.672612, 0.630345, 1.66127)

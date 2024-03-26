@@ -1,6 +1,6 @@
 extends GridMap
 
-var grid_size = Vector2(100, 100)  # Size of the grid map
+var grid_size = Vector2(150, 150)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
 var character_body = null
@@ -11,15 +11,13 @@ var test = 0
 var desert_prey = load("res://Scenes/Prey/Desert_Prey.tscn")
 var fire_prey = load("res://Scenes/Prey/Fire_Prey.tscn")
 var forest_prey = load("res://Scenes/Prey/Forest_Prey.tscn")
+var ice_prey = load("res://Scenes/Prey/Ice_Prey.tscn")
 
-var prey_scenes = [fire_prey, desert_prey,forest_prey]
+var prey_scenes = [fire_prey, desert_prey,forest_prey,ice_prey]
 
 var food_size = 0.5
 var rabbit_size = 0.5
 var spawn_rate = 1
-var desert_instance
-var fire_instance
-var enemy_instance
 
 @onready var nav_region = get_node("/root/MainMap/NavigationRegion3D")
 
@@ -54,7 +52,7 @@ func generate_biomes():
 		var num_clusters = 5
 
 		# Clustering factor based on biome type
-		var clustering_factor = 2
+		var clustering_factor = 1.5
 		if biome_id == 12 or biome_id == 18:  # Ice_Cube or Stone_Cube
 			clustering_factor = 0.5  # Adjust the clustering factor for these biomes to make them smaller than the rest
 		
@@ -192,6 +190,7 @@ func _spawn_creature(pos, index):
 	# Set the position of the prey instance
 	prey_instance.position = pos
 	prey_instance.scale = rabbit_instance_scale
+	print("Spawned:", index)
 	# Add the prey ins.scale = rabbit_instance_scaletance as a child of the grid map
 	add_child(prey_instance)
 	
@@ -394,9 +393,9 @@ func spawn():
 	var spawn_count = 0
 	var spawned_positions = []
 	var spawn_y = 5
-	var biomes = [[6,7],[1,2],[20,21]]
-	while spawn_count < 10:
-		for i in range(3):
+	var biomes = [[6,7],[1,2],[20,21],[10,11,12]]
+	while spawn_count < 20:
+		for i in range(4):
 			print(i)
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)
@@ -427,9 +426,6 @@ func spawn():
 					spawned_positions.append(position)
 					spawn_count += 1
 					break  # Exit the inner loop once a valid position is found
-			
-			
-				
 
 
 func _on_navigation_region_3d_bake_finished():
