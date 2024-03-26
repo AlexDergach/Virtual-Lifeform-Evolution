@@ -52,12 +52,13 @@ func _physics_process(delta):
 
 	direction = nav.get_next_path_position() - global_position
 	direction = direction.normalized()
+	
 	velocity = velocity.lerp(direction * speed, accel * delta)
 	move_and_slide()
 
 func _hungry():
 	
-	if hunger == -10:
+	if hunger == -3:
 		queue_free()
 
 	if hunger >= metabolism:

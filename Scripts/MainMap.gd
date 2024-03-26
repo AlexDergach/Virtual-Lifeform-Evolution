@@ -9,13 +9,16 @@ var playpos
 var test = 0
 
 var desert_prey = load("res://Scenes/Prey/Desert_Prey.tscn")
-var rabbit_scene = load("res://Scenes/Rabbit.tscn")
-var enemy_scene = load("res://Scenes/Enemy.tscn")
+var fire_prey = load("res://Scenes/Prey/Fire_Prey.tscn")
+var forest_prey = load("res://Scenes/Prey/Forest_Prey.tscn")
+
+var prey_scenes = [fire_prey, desert_prey,forest_prey]
 
 var food_size = 0.5
-var rabbit_size = 1
+var rabbit_size = 0.5
 var spawn_rate = 1
 var desert_instance
+var fire_instance
 var enemy_instance
 
 @onready var nav_region = get_node("/root/MainMap/NavigationRegion3D")
@@ -78,6 +81,8 @@ func generate_biomes():
 					set_cell_item(Vector3(x, 0, y), biome_id)
 				
 	#Change method names
+	# Change sizes
+	# collissions of assets out of place
 	spawn_cacti_and_palm_trees()
 	spawn_red_biome_assets()
 	spawn_snow_biome_assets()
@@ -175,18 +180,21 @@ func _spawn_food():
 	#food_instance.scale = food_instance_scale
 	pass
 
-func _spawn_rabbit(pos):
-	desert_instance = desert_prey.instantiate()
+func _spawn_creature(pos, index):
+	
+		# Randomly select a prey scene from the array
+	var prey_scene = prey_scenes[index]
+	
+	# Instantiate the selected prey scene
+	var prey_instance = prey_scene.instantiate()
 	var rabbit_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
-	add_child(desert_instance)
-	desert_instance.position = pos
-	desert_instance.scale = rabbit_instance_scale
-
-func _spawn_enemy():
-	enemy_instance = enemy_scene.instantiate()
-	var enemy_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
-	add_child(enemy_instance)
-	enemy_instance.scale = enemy_instance_scale
+	
+	# Set the position of the prey instance
+	prey_instance.position = pos
+	prey_instance.scale = rabbit_instance_scale
+	# Add the prey ins.scale = rabbit_instance_scaletance as a child of the grid map
+	add_child(prey_instance)
+	
 
 func spawn_cacti_and_palm_trees():
 	var random_asset_id
@@ -386,34 +394,36 @@ func spawn():
 	var spawn_count = 0
 	var spawned_positions = []
 	var spawn_y = 5
-	while spawn_count < 2:
-		for i in range(10):
+	var biomes = [[6,7],[1,2],[20,21]]
+	while spawn_count < 10:
+		for i in range(3):
+			print(i)
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)
 			
-			if get_cell_item(Vector3(x, 0, z)) == 7 and get_cell_item(Vector3(x, 1, z)) == -1:
+			if get_cell_item(Vector3(x, 0, z)) in biomes[i] and get_cell_item(Vector3(x, 1, z)) == -1:
 				var position = Vector3(x*2, spawn_y , z*2)
 				
 				if position not in spawned_positions:
-					_spawn_rabbit(position)
+					_spawn_creature(position, i)
 					spawned_positions.append(position)
 					spawn_count += 1
 					break  # Exit the inner loop once a valid position is found
 					
-			if get_cell_item(Vector3(x, 1, z)) in [6,7] and get_cell_item(Vector3(x, 2, z)) == -1:
+			if get_cell_item(Vector3(x, 1, z)) in biomes[i] and get_cell_item(Vector3(x, 2, z)) == -1:
 				var position = Vector3(x*2, spawn_y+2 , z*2)
 				
 				if position not in spawned_positions:
-					_spawn_rabbit(position)
+					_spawn_creature(position, i)
 					spawned_positions.append(position)
 					spawn_count += 1
 					break  # Exit the inner loop once a valid position is found
 					
-			if get_cell_item(Vector3(x, 2, z)) in [6,7] and get_cell_item(Vector3(x, 3, z)) == -1:
+			if get_cell_item(Vector3(x, 2, z)) in biomes[i] and get_cell_item(Vector3(x, 3, z)) == -1:
 				var position = Vector3(x*2, spawn_y+4 , z*2)
 				
 				if position not in spawned_positions:
-					_spawn_rabbit(position)
+					_spawn_creature(position, i)
 					spawned_positions.append(position)
 					spawn_count += 1
 					break  # Exit the inner loop once a valid position is found

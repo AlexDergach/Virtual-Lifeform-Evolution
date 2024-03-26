@@ -1,3 +1,133 @@
-[gd_scene format=3 uid="uid://c74tstpolbvwi"]
+[gd_scene load_steps=17 format=3 uid="uid://c74tstpolbvwi"]
 
-[node name="lLapis" type="Node3D"]
+[ext_resource type="Script" path="res://Scenes/Prey/Forest_Prey.gd" id="1_aje47"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xtyg6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_volma"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hc4cx"]
+albedo_color = Color(0.376471, 0.137255, 0.054902, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_d0kds"]
+material = SubResource("StandardMaterial3D_hc4cx")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t8kuh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3tic"]
+albedo_color = Color(0.376471, 0.137255, 0.054902, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qpfqx"]
+material = SubResource("StandardMaterial3D_o3tic")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rud14"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0oi6t"]
+albedo_color = Color(0.376471, 0.137255, 0.054902, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xt2hj"]
+material = SubResource("StandardMaterial3D_0oi6t")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ft8ce"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqjjn"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3jk1t"]
+material = SubResource("StandardMaterial3D_eqjjn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nqeb"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xgs03"]
+material = SubResource("StandardMaterial3D_6nqeb")
+
+[node name="Forest_Prey" type="CharacterBody3D"]
+script = ExtResource("1_aje47")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[node name="Self" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
+transform = Transform3D(1.6, 0, 0, 0, 0.187256, -1.589, 0, 1.589, 0.187256, 0.685449, 0.490682, 0.881534)
+shape = SubResource("CapsuleShape3D_xtyg6")
+
+[node name="Sensory" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0.631707, 0, 1.03678)
+shape = SubResource("SphereShape3D_volma")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+
+[node name="Leg1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 1.05251, -0.110555, 0)
+mesh = SubResource("CapsuleMesh_d0kds")
+skeleton = NodePath("../Leg4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Leg1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Leg1/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_t8kuh")
+
+[node name="Leg4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 0.307589, -0.110555, 0)
+mesh = SubResource("CapsuleMesh_qpfqx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Leg4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Leg4/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_rud14")
+
+[node name="Main" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.25, 0, 0, 0, -0.00966455, -1.24996, 0, 1.24996, -0.00966455, 0.685683, 0.498282, 0.770942)
+mesh = SubResource("CapsuleMesh_xt2hj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Main"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Main/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_ft8ce")
+
+[node name="Leg2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 1.05251, -0.110555, 1.30866)
+mesh = SubResource("CapsuleMesh_d0kds")
+skeleton = NodePath("../Leg4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Leg2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Leg2/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_t8kuh")
+
+[node name="Leg5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 0.307589, -0.110555, 1.25603)
+mesh = SubResource("CapsuleMesh_qpfqx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Leg5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Leg5/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_rud14")
+
+[node name="Mane" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.53937, -0.59083, 0, 0.59083, 0.53937, 0.672612, 0.630345, 1.66127)
+mesh = SubResource("CapsuleMesh_3jk1t")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.48301, -0.129232, 0, 0.129232, 0.48301, 0.693352, 1.20323, 2.06727)
+mesh = SubResource("CapsuleMesh_d0kds")
+skeleton = NodePath("../Leg4")
+
+[node name="Horn" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.133715, 0.148729, 0, -0.148729, -0.133715, 0, 0, 0, 0.2, 0.407749, 1.56414, 2.06959)
+mesh = SubResource("CapsuleMesh_xgs03")
+
+[node name="Horn2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.133595, -0.148597, 0.0084414, -0.148729, -0.133715, 0, 0.00564369, -0.00627742, -0.199822, 0.948851, 1.56414, 2.06959)
+mesh = SubResource("CapsuleMesh_xgs03")
+
+[connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
+[connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
