@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://dspwh4tnvkmhw"]
+
+[ext_resource type="Script" path="res://Scenes/Prey/Desert_Prey.gd" id="1_wcyfr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vbn0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_p75ai"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_h4km0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ubtrd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nq7ae"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bccjd"]
+
+[node name="Desert_Prey" type="CharacterBody3D" groups=["prey"]]
+script = ExtResource("1_wcyfr")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[node name="Self" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_3vbn0")
+
+[node name="Sensory" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("SphereShape3D_p75ai")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+
+[node name="Main" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_h4km0")
+
+[node name="Leg1" type="MeshInstance3D" parent="Main"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+mesh = SubResource("CapsuleMesh_ubtrd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Main/Leg1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Main/Leg1/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_nq7ae")
+
+[node name="Leg2" type="MeshInstance3D" parent="Main"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+mesh = SubResource("CapsuleMesh_ubtrd")
+skeleton = NodePath("../Leg1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Main/Leg2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Main/Leg2/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_nq7ae")
+
+[node name="Leg3" type="MeshInstance3D" parent="Main"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+mesh = SubResource("CapsuleMesh_ubtrd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Main/Leg3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Main/Leg3/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_nq7ae")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_bccjd")
+
+[connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
+[connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

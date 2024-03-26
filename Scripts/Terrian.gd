@@ -1,7 +1,7 @@
 extends Node3D
 
 var food_scene = load("res://Scenes/Food.tscn")
-var rabbit_scene = load("res://Scenes/Rabbit.tscn")
+var rabbit_scene = load("res://Scenes/Prey/Desert_Prey.tscn")
 var enemy_scene = load("res://Scenes/Enemy.tscn")
 
 var food_size = 0.5

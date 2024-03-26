@@ -8,17 +8,17 @@ var snow_island_spawned = false  # Track if a snow island has been spawned
 var playpos
 var test = 0
 
-var food_scene = load("res://Scenes/Food.tscn")
+var desert_prey = load("res://Scenes/Prey/Desert_Prey.tscn")
 var rabbit_scene = load("res://Scenes/Rabbit.tscn")
 var enemy_scene = load("res://Scenes/Enemy.tscn")
 
 var food_size = 0.5
 var rabbit_size = 1
 var spawn_rate = 1
-var rabbit_instance
+var desert_instance
 var enemy_instance
 
-@onready var nav_region = get_node("/root/Gridtest/NavigationRegion3D")
+@onready var nav_region = get_node("/root/MainMap/NavigationRegion3D")
 
 func _ready():
 	generate_biomes()
@@ -169,17 +169,18 @@ func generate_cluster(biome_map, cluster_center, biome_id, initial_cluster_radiu
 							set_cell_item(Vector3(x, y_coord, y), tile_type)
 
 func _spawn_food():
-	var food_instance = food_scene.instantiate()
-	var food_instance_scale = Vector3(food_size,food_size,food_size)
-	add_child(food_instance)
-	food_instance.scale = food_instance_scale
+	#var food_instance = food_scene.instantiate()
+	#var food_instance_scale = Vector3(food_size,food_size,food_size)
+	#add_child(food_instance)
+	#food_instance.scale = food_instance_scale
+	pass
 
 func _spawn_rabbit(pos):
-	rabbit_instance = rabbit_scene.instantiate()
+	desert_instance = desert_prey.instantiate()
 	var rabbit_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
-	add_child(rabbit_instance)
-	rabbit_instance.position = pos
-	rabbit_instance.scale = rabbit_instance_scale
+	add_child(desert_instance)
+	desert_instance.position = pos
+	desert_instance.scale = rabbit_instance_scale
 
 func _spawn_enemy():
 	enemy_instance = enemy_scene.instantiate()
@@ -384,8 +385,8 @@ func spawn_character():
 func spawn():
 	var spawn_count = 0
 	var spawned_positions = []
-	var spawn_y = 2.6
-	while spawn_count < 10:
+	var spawn_y = 5
+	while spawn_count < 2:
 		for i in range(10):
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)
@@ -423,7 +424,4 @@ func spawn():
 
 func _on_navigation_region_3d_bake_finished():
 	print("Navigation mesh baking finished")
-	if test == 0:
-		print("test")
-		spawn()
-		test = 1
+	spawn()

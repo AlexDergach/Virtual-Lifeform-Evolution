@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3frrhbug2002"]
+
+[ext_resource type="Script" path="res://Scenes/Prey/Fire_Prey.gd" id="1_llo42"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqefb"]
+albedo_color = Color(0.909804, 0.129412, 0.392157, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7axhn"]
+material = SubResource("StandardMaterial3D_bqefb")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hm84j"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_herhg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cv1sh"]
+
+[node name="Fire_Prey" type="CharacterBody3D"]
+script = ExtResource("1_llo42")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_7axhn")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_hm84j")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[node name="Self" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.511953, -0.859013, 0, 0.859013, 0.511953, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_herhg")
+
+[node name="Sensory" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("SphereShape3D_cv1sh")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+
+[connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
+[connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

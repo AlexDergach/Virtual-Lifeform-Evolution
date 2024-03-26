@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://2mathsfwagr5"]
+[gd_scene load_steps=7 format=3 uid="uid://2mathsfwagr5"]
 
 [ext_resource type="Script" path="res://Scripts/Terrian.gd" id="1_pg4dx"]
+[ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="2_vctmi"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_lqi4r"]
 vertices = PackedVector3Array(-14.5, 0.45, 7.25, -14.5, 0.45, 14.5, -7.25, 0.45, 14.5, 7.25, 0.45, 14.5, 14.5, 0.45, 14.5, 14.5, 0.45, 7.25, 14.5, 0.45, -7.25, 14.5, 0.45, -14.5, 7.25, 0.45, -14.5, -7.25, 0.45, -14.5, -14.5, 0.45, -14.5, -14.5, 0.45, -7.25, -14.5, 0.45, 0, -14.5, 0.45, 7.25, -7.25, 0.45, 14.5, 0, 0.45, 14.5, 7.25, 0.45, 14.5, 14.5, 0.45, 7.25, 14.5, 0.45, 0, 14.5, 0.45, -7.25, 7.25, 0.45, -14.5, 0, 0.45, -14.5, 0, 0.45, -14.5, -7.25, 0.45, -14.5, -14.5, 0.45, -7.25, -14.5, 0.45, 0, 14.5, 0.45, 0, 0, 0.45, -14.5, -14.5, 0.45, 0, -7.25, 0.45, 14.5, 0, 0.45, 14.5, 14.5, 0.45, 7.25)
@@ -36,5 +37,7 @@ environment = SubResource("Environment_mqsmc")
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 4.0
+
+[node name="Camera" parent="." instance=ExtResource("2_vctmi")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

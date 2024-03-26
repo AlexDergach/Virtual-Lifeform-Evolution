@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://b6p2g2yqj3716"]
 
-[ext_resource type="MeshLibrary" uid="uid://c6k1vdv8puxo0" path="res://Assets/Mesh Library/Tiles2.tres" id="1_qhdku"]
-[ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="1_ruc0m"]
-[ext_resource type="Script" path="res://Scripts/meh.gd" id="3_o2po0"]
-[ext_resource type="PackedScene" uid="uid://cl25jtx4c5hkl" path="res://Scenes/Ocean.tscn" id="4_1qjve"]
-[ext_resource type="Texture2D" uid="uid://bg42qar0x0w74" path="res://Assets/HDRI/kloofendal_43d_clear_puresky_4k.hdr" id="5_017aw"]
+[ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="1_kprso"]
+[ext_resource type="PackedScene" uid="uid://cl25jtx4c5hkl" path="res://Scenes/Ocean.tscn" id="2_vgvq1"]
+[ext_resource type="Texture2D" uid="uid://bg42qar0x0w74" path="res://Assets/HDRI/kloofendal_43d_clear_puresky_4k.hdr" id="3_1ujwa"]
+[ext_resource type="MeshLibrary" uid="uid://c6k1vdv8puxo0" path="res://Assets/Mesh Library/Tiles2.tres" id="4_65ljc"]
+[ext_resource type="Script" path="res://Scripts/meh.gd" id="5_0a0e7"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_b4w4i"]
-panorama = ExtResource("5_017aw")
+panorama = ExtResource("3_1ujwa")
 
 [sub_resource type="Sky" id="Sky_yqp3m"]
 sky_material = SubResource("PanoramaSkyMaterial_b4w4i")
@@ -29,11 +29,11 @@ volumetric_fog_length = 400.0
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_bjvcu"]
 
-[node name="Gridtest" type="Node3D"]
+[node name="MainMap" type="Node3D"]
 
-[node name="Camera" parent="." instance=ExtResource("1_ruc0m")]
+[node name="Camera" parent="." instance=ExtResource("1_kprso")]
 
-[node name="Ocean" parent="." instance=ExtResource("4_1qjve")]
+[node name="Ocean" parent="." instance=ExtResource("2_vgvq1")]
 transform = Transform3D(25, 0, 0, 0, 1, 0, 0, 0, 25, 0, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -48,7 +48,7 @@ shadow_enabled = true
 navigation_mesh = SubResource("NavigationMesh_bjvcu")
 
 [node name="GridMap" type="GridMap" parent="NavigationRegion3D"]
-mesh_library = ExtResource("1_qhdku")
-script = ExtResource("3_o2po0")
+mesh_library = ExtResource("4_65ljc")
+script = ExtResource("5_0a0e7")
 
 [connection signal="bake_finished" from="NavigationRegion3D" to="NavigationRegion3D/GridMap" method="_on_navigation_region_3d_bake_finished"]
