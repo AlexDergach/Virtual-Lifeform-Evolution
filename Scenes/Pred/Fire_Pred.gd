@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
-@onready var roam_size = get_node("../NavigationRegion3D/CSGBox3D").get_scale()
+var roam_size = 20.0
 
 var time:float = 0.0
 
@@ -56,7 +56,7 @@ func _physics_process(delta):
 					target_pos = prey
 
 			else:
-				target_pos = Vector3(randf_range(-roam_size.x/2,roam_size.x/2),0,randf_range(-roam_size.z/2,roam_size.z/2))
+				target_pos = Vector3(randf_range(-roam_size,roam_size),0,randf_range(-roam_size,roam_size))
 				#rotation issue when looking on value on same axis
 				look_at(Vector3(-target_pos.x, global_position.y, -target_pos.z), Vector3.UP)
 			

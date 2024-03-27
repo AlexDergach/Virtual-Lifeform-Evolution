@@ -6,35 +6,35 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_p75ai"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lclj3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kerob"]
 albedo_color = Color(1, 0.337255, 0.180392, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ubtrd"]
-material = SubResource("StandardMaterial3D_lclj3")
+material = SubResource("StandardMaterial3D_kerob")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nq7ae"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tcg22"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhl3u"]
 albedo_color = Color(1, 0.337255, 0.180392, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_h4km0"]
-material = SubResource("StandardMaterial3D_tcg22")
+material = SubResource("StandardMaterial3D_qhl3u")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bccjd"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rf3yg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gkmd"]
 albedo_color = Color(1, 0.337255, 0.180392, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8yxpn"]
-material = SubResource("StandardMaterial3D_rf3yg")
+material = SubResource("StandardMaterial3D_2gkmd")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b6rqu"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2k6e7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wx2uy"]
 albedo_color = Color(0.129412, 0.129412, 0.129412, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qy4fh"]
-material = SubResource("StandardMaterial3D_2k6e7")
+material = SubResource("StandardMaterial3D_wx2uy")
 
 [node name="Desert_Prey" type="CharacterBody3D" groups=["prey"]]
 script = ExtResource("1_h6jmp")

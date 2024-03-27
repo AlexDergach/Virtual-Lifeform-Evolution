@@ -22,7 +22,8 @@ var prey_scenes = [fire_prey, desert_prey,forest_prey,ice_prey,stone_prey]
 var pred_scenes = [fire_pred, desert_pred]
 
 var food_size = 0.5
-var rabbit_size = 0.5
+var prey_size = 0.5
+var pred_size = 0.7
 var spawn_rate = 1
 
 @onready var nav_region = get_node("/root/MainMap/NavigationRegion3D")
@@ -85,10 +86,9 @@ func generate_biomes():
 				if get_cell_item(Vector3(x, 0, y)) == -1:
 					set_cell_item(Vector3(x, 0, y), biome_id)
 				
-	#Change method names
 	# Change sizes
 	# collissions of assets out of place
-	spawn_cacti_and_palm_trees()
+	spawn_desert_biome_assets()
 	spawn_red_biome_assets()
 	spawn_snow_biome_assets()
 	spawn_stone_biome_assets()
@@ -185,24 +185,35 @@ func _spawn_food():
 	#food_instance.scale = food_instance_scale
 	pass
 
-func _spawn_creature(pos, index):
+func _spawn_prey(pos, index):
 	
-		# Randomly select a prey scene from the array
+	# Randomly select a prey scene from the array
 	var prey_scene = prey_scenes[index]
 	
-	# Instantiate the selected prey scene
 	var prey_instance = prey_scene.instantiate()
-	var rabbit_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
+	var prey_instance_scale = Vector3(prey_size,prey_size,prey_size)
 	
-	# Set the position of the prey instance
 	prey_instance.position = pos
-	prey_instance.scale = rabbit_instance_scale
-	print("Spawned:", index)
-	# Add the prey ins.scale = rabbit_instance_scaletance as a child of the grid map
-	add_child(prey_instance)
+	prey_instance.scale = prey_instance_scale
 	
+	
+	add_child(prey_instance)
 
-func spawn_cacti_and_palm_trees():
+func _spawn_pred(pos, index):
+	
+	# Randomly select a pred scene from the array
+	if index in [0,1]:
+		var pred_scene = pred_scenes[index]
+		
+		var pred_instance = pred_scene.instantiate()
+		var pred_instance_scale = Vector3(pred_size,pred_size,pred_size)
+		
+		pred_instance.position = pos
+		pred_instance.scale = pred_instance_scale
+		
+		add_child(pred_instance)
+
+func spawn_desert_biome_assets():
 	var random_asset_id
 	for x in range(int(grid_size.x)):
 		for z in range(int(grid_size.y)):
@@ -400,7 +411,9 @@ func spawn():
 	var spawn_count = 0
 	var spawned_positions = []
 	var spawn_y = 5
+	
 	var biomes = [[6,7],[1,2],[20,21],[10,11,12],[18]]
+	
 	while spawn_count < 15:
 		for i in range(5):
 			print(i)
@@ -411,27 +424,33 @@ func spawn():
 				var position = Vector3(x*2, spawn_y , z*2)
 				
 				if position not in spawned_positions:
-					_spawn_creature(position, i)
+					_spawn_prey(position, i)
+					_spawn_pred(position, i)
+					
 					spawned_positions.append(position)
-					spawn_count += 1
+					spawn_count += 2
 					break  # Exit the inner loop once a valid position is found
 					
 			if get_cell_item(Vector3(x, 1, z)) in biomes[i] and get_cell_item(Vector3(x, 2, z)) == -1:
 				var position = Vector3(x*2, spawn_y+2 , z*2)
 				
 				if position not in spawned_positions:
-					_spawn_creature(position, i)
+					_spawn_prey(position, i)
+					_spawn_pred(position, i)
+					
 					spawned_positions.append(position)
-					spawn_count += 1
+					spawn_count += 2
 					break  # Exit the inner loop once a valid position is found
 					
 			if get_cell_item(Vector3(x, 2, z)) in biomes[i] and get_cell_item(Vector3(x, 3, z)) == -1:
 				var position = Vector3(x*2, spawn_y+4 , z*2)
 				
 				if position not in spawned_positions:
-					_spawn_creature(position, i)
+					_spawn_prey(position, i)
+					_spawn_pred(position, i)
+					
 					spawned_positions.append(position)
-					spawn_count += 1
+					spawn_count += 2
 					break  # Exit the inner loop once a valid position is found
 
 
