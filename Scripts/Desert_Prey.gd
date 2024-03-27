@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
+@onready var progress_bar = $SubViewport/ProgressBar
+@onready var progress_bar_text = $SubViewport/RichTextLabel
 var roam_size = 20.0
 
 var time:float = 0.0
@@ -8,7 +10,7 @@ var time:float = 0.0
 var traits = ["Speed", "Size", "Acceleration", "SensoryRadius", "Self", "Metabolism"]
 var size:float = randf_range(3.0,5.0)
 var metabolism:float = size / 2.0
-var hunger:float = 0.0
+var hunger:float = 3.0
 var reproduction: float = 1.0  # Initial reproduction value
 
 var hunt = true
@@ -29,31 +31,38 @@ var reproduction_label: Label3D
 #@onready var hunger_bar: TextureProgressBar = $Control/TextureProgressBar
 
 func _ready():
+	
 	$Timer.start()
 	
-	hunger_label = Label3D.new()
-	hunger_label.text = "Hunger: " + str(hunger)
-	hunger_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
-	hunger_label.modulate = Color(0.0, 1.0, 0.0)
-	hunger_label.outline_modulate = Color(0, 0, 0, 1)  # Black outline
-	add_child(hunger_label)
+	#hunger_label = Label3D.new()
+	#hunger_label.text = "Hunger: " + str(hunger)
+	#hunger_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
+	#hunger_label.modulate = Color(0.0, 1.0, 0.0)
+	#hunger_label.outline_modulate = Color(0, 0, 0, 1)  # Black outline
+	#add_child(hunger_label)
 
 	# Create and configure reproduction label
-	reproduction_label = Label3D.new()
-	reproduction_label.text = "Reproduction: " + str(reproduction)
-	reproduction_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
-	hunger_label.modulate = Color(1.0, 0.0, 1.0)
-	reproduction_label.outline_modulate = Color(0, 0, 0, 1)  # Black outline
-	add_child(reproduction_label)
+	#reproduction_label = Label3D.new()
+	#reproduction_label.text = "Reproduction: " + str(reproduction)
+	#reproduction_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
+	#hunger_label.modulate = Color(1.0, 0.0, 1.0)
+	#reproduction_label.outline_modulate = Color(0, 0, 0, 1)  # Black outline
+	#add_child(reproduction_label)
 
 
 func _process(delta):
 	
-	hunger_label.global_position = global_position
-	hunger_label.global_position.y += 1.25
+	if progress_bar.value > -4:
+		progress_bar.max_value = 3
+		progress_bar.min_value = -3
+		progress_bar.value = hunger
+		progress_bar_text.text = "Hunger : " + str(hunger)
+			
+	#hunger_label.global_position = global_position
+	#hunger_label.global_position.y += 1.25
 	
-	reproduction_label.global_position = global_position
-	reproduction_label.global_position.y += 1.5
+	#reproduction_label.global_position = global_position
+	#reproduction_label.global_position.y += 1.5
 	
 func _physics_process(delta):
 	time += delta

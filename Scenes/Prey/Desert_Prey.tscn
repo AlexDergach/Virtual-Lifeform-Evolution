@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dspwh4tnvkmhw"]
+[gd_scene load_steps=18 format=3 uid="uid://dspwh4tnvkmhw"]
 
 [ext_resource type="Script" path="res://Scripts/Desert_Prey.gd" id="1_h6jmp"]
 
@@ -35,6 +35,15 @@ albedo_color = Color(0.129412, 0.129412, 0.129412, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qy4fh"]
 material = SubResource("StandardMaterial3D_wx2uy")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yt0mm"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngqse"]
+bg_color = Color(0, 0, 0, 0.223529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msxqg"]
+bg_color = Color(0.6, 0.952941, 0.6, 1)
 
 [node name="Desert_Prey" type="CharacterBody3D" groups=["prey"]]
 script = ExtResource("1_h6jmp")
@@ -110,6 +119,51 @@ mesh = SubResource("CapsuleMesh_h4km0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Leg5/StaticBody3D"]
 shape = SubResource("CapsuleShape3D_bccjd")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7698, 2.60544, 1.80499)
+billboard = 1
+texture = SubResource("ViewportTexture_yt0mm")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -8.0
+offset_right = 64.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ngqse")
+theme_override_styles/fill = SubResource("StyleBoxFlat_msxqg")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -10.0
+offset_right = 47.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
 
 [connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
