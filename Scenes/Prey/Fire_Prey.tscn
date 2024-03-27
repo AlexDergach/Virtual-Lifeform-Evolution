@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3frrhbug2002"]
 
-[ext_resource type="Script" path="res://Scenes/Prey/Fire_Prey.gd" id="1_llo42"]
+[ext_resource type="Script" path="res://Scripts/Fire_Prey.gd" id="1_hv5ux"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ki404"]
 albedo_color = Color(0.227451, 0.00392157, 0.0745098, 1)
@@ -15,7 +15,7 @@ material = SubResource("StandardMaterial3D_ki404")
 [sub_resource type="SphereShape3D" id="SphereShape3D_cv1sh"]
 
 [node name="Fire_Prey" type="CharacterBody3D"]
-script = ExtResource("1_llo42")
+script = ExtResource("1_hv5ux")
 
 [node name="Body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0.5, 0)
@@ -25,14 +25,12 @@ skeleton = NodePath("")
 [node name="StaticBody3D" type="StaticBody3D" parent="Body"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Body/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_r2gmg")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
 [node name="Self" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
 transform = Transform3D(1.3846, 0, 0, 0, 1.97019, 0, 0, 0, 1.59594, 0, 0.490682, 0)
@@ -56,7 +54,6 @@ skeleton = NodePath("")
 [node name="StaticBody3D" type="StaticBody3D" parent="Arm"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Arm/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_r2gmg")
 
 [node name="Arm" type="MeshInstance3D" parent="Arm"]
@@ -72,7 +69,6 @@ skeleton = NodePath("")
 [node name="StaticBody3D" type="StaticBody3D" parent="Arm2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Arm2/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_r2gmg")
 
 [node name="Arm" type="MeshInstance3D" parent="Arm2"]
@@ -88,7 +84,6 @@ skeleton = NodePath("")
 [node name="StaticBody3D" type="StaticBody3D" parent="Arm3"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Arm3/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_r2gmg")
 
 [node name="Arm" type="MeshInstance3D" parent="Arm3"]

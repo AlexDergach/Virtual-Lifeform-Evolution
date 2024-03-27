@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dspwh4tnvkmhw"]
 
-[ext_resource type="Script" path="res://Scenes/Prey/Desert_Prey.gd" id="1_wcyfr"]
+[ext_resource type="Script" path="res://Scripts/Desert_Prey.gd" id="1_h6jmp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vbn0"]
 
@@ -37,7 +37,7 @@ albedo_color = Color(0.129412, 0.129412, 0.129412, 1)
 material = SubResource("StandardMaterial3D_2k6e7")
 
 [node name="Desert_Prey" type="CharacterBody3D" groups=["prey"]]
-script = ExtResource("1_wcyfr")
+script = ExtResource("1_h6jmp")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true

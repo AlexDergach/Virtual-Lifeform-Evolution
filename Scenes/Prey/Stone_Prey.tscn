@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://b6d87lymhvojn"]
 
-[ext_resource type="Script" path="res://Scenes/Prey/Stone_Prey.gd" id="1_0v05v"]
+[ext_resource type="Script" path="res://Scripts/Stone_Prey.gd" id="1_1et0s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q33i7"]
 
@@ -48,7 +48,7 @@ albedo_color = Color(0.188235, 0.188235, 0.188235, 1)
 material = SubResource("StandardMaterial3D_mypr7")
 
 [node name="Stone_Prey" type="CharacterBody3D"]
-script = ExtResource("1_0v05v")
+script = ExtResource("1_1et0s")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
@@ -123,7 +123,6 @@ mesh = SubResource("BoxMesh_85f8p")
 [node name="StaticBody3D" type="StaticBody3D" parent="Body"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Body/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_nxrsf")
 
 [node name="Eye" type="MeshInstance3D" parent="."]

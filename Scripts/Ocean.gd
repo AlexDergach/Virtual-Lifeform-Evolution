@@ -27,5 +27,6 @@ func _ready():
 	createOceanTiles()
 
 func _process(delta):
+	delta
 	# Ocean position in project settings for rendering shaders
 	RenderingServer.global_shader_parameter_set("oceanpos", global_transform.origin)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://ccneyu6qayd7u"]
 
-[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_tlkgc"]
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_v8cwk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ngx35"]
 albedo_color = Color(1, 1, 0.0901961, 1)
@@ -21,7 +21,7 @@ albedo_color = Color(1, 1, 0.101961, 1)
 material = SubResource("StandardMaterial3D_0kpmi")
 
 [node name="Enemy" type="CharacterBody3D" groups=["pred"]]
-script = ExtResource("1_tlkgc")
+script = ExtResource("1_v8cwk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_lq21a")

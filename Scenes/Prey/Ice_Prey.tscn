@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bm5ha3wic8n6q"]
 
-[ext_resource type="Script" path="res://Scenes/Prey/Ice_Prey.gd" id="1_rgks4"]
+[ext_resource type="Script" path="res://Scripts/Ice_Prey.gd" id="1_uhdiw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mbrid"]
 
@@ -42,7 +42,7 @@ albedo_color = Color(0.34902, 0.52549, 1, 1)
 material = SubResource("StandardMaterial3D_520jk")
 
 [node name="Ice_Pre" type="CharacterBody3D"]
-script = ExtResource("1_rgks4")
+script = ExtResource("1_uhdiw")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
@@ -117,7 +117,6 @@ mesh = SubResource("BoxMesh_t28ed")
 [node name="StaticBody3D" type="StaticBody3D" parent="Body"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Body/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_xe55b")
 
 [node name="Eye" type="MeshInstance3D" parent="."]

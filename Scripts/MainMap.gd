@@ -32,6 +32,7 @@ func _ready():
 		print("NavigationRegion3D node not found")
 	
 func _physics_process(delta):
+	delta
 	pass
 
 func generate_biomes():
@@ -381,7 +382,7 @@ func spawn_forest_biome_assets():
 
 func spawn_character():
 	# Find the Camera node in the scene tree
-	var character_body = get_node("../../Camera")
+	character_body = get_node("../../Camera")
 	if character_body:
 		# Local position of the grid center relative to the Camera node
 		var center_local_position = Vector3(map_center.x * tile_size.x, 10, map_center.y * tile_size.z)

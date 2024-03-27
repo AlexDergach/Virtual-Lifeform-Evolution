@@ -24,23 +24,39 @@ var direction = Vector3()
 var speed = 2
 var accel = 5
 
-var hunger_label: Label
-var reproduction_label: Label
+var hunger_label: Label3D
+var reproduction_label: Label3D
+var green_material =  StandardMaterial3D.new()
+var pink_material = StandardMaterial3D.new()
+#@onready var hunger_bar: TextureProgressBar = $Control/TextureProgressBar
 
 func _ready():
 	$Timer.start()
 	
-	hunger_label = Label.new()
+	green_material.albedo_color = Color(0.0, 1.0, 0.0)  # Green color
+	pink_material.albedo_color = Color(1.0, 0.0, 1.0)  # Pink color
+	
+	hunger_label = Label3D.new()
 	hunger_label.text = "Hunger: " + str(hunger)
-	hunger_label.set_position(Vector2(0, -40))  # Adjust position as needed
+	hunger_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
+	hunger_label.material_override = green_material
 	add_child(hunger_label)
 
 	# Create and configure reproduction label
-	reproduction_label = Label.new()
+	reproduction_label = Label3D.new()
 	reproduction_label.text = "Reproduction: " + str(reproduction)
-	reproduction_label.set_position(Vector2(0, -60))  # Adjust position as needed
+	reproduction_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
+	reproduction_label.material_override = pink_material
 	add_child(reproduction_label)
 
+
+func _process(delta):
+	
+	hunger_label.global_position = global_position
+	hunger_label.global_position.y += 1.25
+	
+	reproduction_label.global_position = global_position
+	reproduction_label.global_position.y += 1.5
 	
 func _physics_process(delta):
 	time += delta
@@ -73,6 +89,7 @@ func _physics_process(delta):
 	# Update labels
 	hunger_label.text = "Hunger: " + str(hunger)
 	reproduction_label.text = "Reproduction: " + str(reproduction)
+
 
 func _hungry():
 	
