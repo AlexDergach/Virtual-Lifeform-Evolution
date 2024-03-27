@@ -14,7 +14,12 @@ var forest_prey = load("res://Scenes/Prey/Forest_Prey.tscn")
 var ice_prey = load("res://Scenes/Prey/Ice_Prey.tscn")
 var stone_prey = load("res://Scenes/Prey/Stone_Prey.tscn")
 
+var desert_pred = load("res://Scenes/Pred/Desert_Pred.tscn")
+var fire_pred = load("res://Scenes/Pred/Fire_Pred.tscn")
+
+
 var prey_scenes = [fire_prey, desert_prey,forest_prey,ice_prey,stone_prey]
+var pred_scenes = [fire_pred, desert_pred]
 
 var food_size = 0.5
 var rabbit_size = 0.5
