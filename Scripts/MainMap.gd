@@ -38,7 +38,6 @@ func _ready():
 		print("NavigationRegion3D node not found")
 	
 func _physics_process(delta):
-	delta
 	pass
 
 func generate_biomes():

@@ -26,27 +26,24 @@ var accel = 5
 
 var hunger_label: Label3D
 var reproduction_label: Label3D
-var green_material =  StandardMaterial3D.new()
-var pink_material = StandardMaterial3D.new()
 #@onready var hunger_bar: TextureProgressBar = $Control/TextureProgressBar
 
 func _ready():
 	$Timer.start()
 	
-	green_material.albedo_color = Color(0.0, 1.0, 0.0)  # Green color
-	pink_material.albedo_color = Color(1.0, 0.0, 1.0)  # Pink color
-	
 	hunger_label = Label3D.new()
 	hunger_label.text = "Hunger: " + str(hunger)
 	hunger_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
-	hunger_label.material_override = green_material
+	hunger_label.modulate = Color(0.0, 1.0, 0.0)
+	hunger_label.outline_modulate = Color(0, 0, 0, 1)  # Black outline
 	add_child(hunger_label)
 
 	# Create and configure reproduction label
 	reproduction_label = Label3D.new()
 	reproduction_label.text = "Reproduction: " + str(reproduction)
 	reproduction_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
-	reproduction_label.material_override = pink_material
+	hunger_label.modulate = Color(1.0, 0.0, 1.0)
+	reproduction_label.outline_modulate = Color(0, 0, 0, 1)  # Black outline
 	add_child(reproduction_label)
 
 
