@@ -26,3 +26,4 @@
 
 
 1. Give life cycle to Ice creatures
+2. Make full screen

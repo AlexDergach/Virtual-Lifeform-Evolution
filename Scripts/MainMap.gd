@@ -237,8 +237,8 @@ func spawn_desert_biome_assets():
 						set_cell_item(Vector3(x, 1, z), 3)  # Spawn palm tree (ID 3) at y=1
 					else:
 						# Spawn additional smaller pyramids nearby
-						if randf() < 0.025:
-							set_cell_item(Vector3(x, 1.5, z), 4)
+						#if randf() < 0.025:
+						set_cell_item(Vector3(x, 1, z), 4)
 			
 			# Check if the current cell is on the hill layer (y=1) and empty
 			if get_cell_item(Vector3(x, 1, z)) in [1, 2] and get_cell_item(Vector3(x, 2, z)) == -1:
