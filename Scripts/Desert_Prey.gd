@@ -1,8 +1,10 @@
 extends CharacterBody3D
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
-@onready var progress_bar = $SubViewport/ProgressBar
+@onready var progress_bar = $SubViewport/Hunger
+@onready var progress_bar2 = $SubViewport/Repo
 @onready var progress_bar_text = $SubViewport/RichTextLabel
+@onready var progress_bar_text2 = $SubViewport/RichTextLabel2
 var roam_size = 20.0
 
 var time:float = 0.0
@@ -52,12 +54,20 @@ func _ready():
 
 func _process(delta):
 	
+	progress_bar.max_value = 3
+	progress_bar.min_value = -3
+	progress_bar2.max_value = 1
+	progress_bar2.min_value = 0
+	
+	
 	if progress_bar.value > -4:
-		progress_bar.max_value = 3
-		progress_bar.min_value = -3
 		progress_bar.value = hunger
-		progress_bar_text.text = "Hunger : " + str(hunger)
+		progress_bar_text.text = "Food : " + str(hunger)
 			
+	if reproduction == 1:
+		progress_bar2.value = reproduction
+		progress_bar_text2.text = "Looking For Mate"
+		
 	#hunger_label.global_position = global_position
 	#hunger_label.global_position.y += 1.25
 	
@@ -91,15 +101,11 @@ func _physics_process(delta):
 	direction = direction.normalized()
 	velocity = velocity.lerp(direction * speed, accel * delta)
 	move_and_slide()
-	
-	# Update labels
-	hunger_label.text = "Hunger: " + str(hunger)
-	reproduction_label.text = "Reproduction: " + str(reproduction)
 
 
 func _hungry():
 	
-	if hunger == -10:
+	if hunger == -3:
 		queue_free()
 
 	if hunger >= metabolism:

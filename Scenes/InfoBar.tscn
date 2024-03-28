@@ -4,13 +4,15 @@
 bg_color = Color(0, 0, 0, 0.223529)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msxqg"]
-bg_color = Color(0.6, 0.952941, 0.6, 1)
+bg_color = Color(0.286275, 0.792157, 0.364706, 1)
 
 [node name="InfoBar" type="SubViewportContainer"]
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
+handle_input_locally = false
 size = Vector2i(256, 256)
+render_target_update_mode = 4
 
 [node name="ProgressBar" type="ProgressBar" parent="SubViewport"]
 anchors_preset = 8
