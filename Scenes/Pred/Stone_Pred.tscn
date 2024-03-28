@@ -1,4 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://c05a8l460jptl"]
+[gd_scene load_steps=12 format=3 uid="uid://c05a8l460jptl"]
+
+[ext_resource type="Script" path="res://Scenes/Pred/Stone_Pred.gd" id="1_tf4bn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1grjd"]
 
@@ -27,6 +29,7 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_q7v01")
 
 [node name="Stone_Pred" type="CharacterBody3D"]
+script = ExtResource("1_tf4bn")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
@@ -111,3 +114,8 @@ mesh = SubResource("SphereMesh_g1ot3")
 [node name="Eye2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.900917, 0.21872, 2.6461)
 mesh = SubResource("SphereMesh_g1ot3")
+
+[connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
+[connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
+[connection signal="body_entered" from="Sensory" to="." method="_on_sensory_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

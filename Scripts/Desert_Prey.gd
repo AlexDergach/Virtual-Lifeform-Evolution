@@ -67,7 +67,14 @@ func _process(delta):
 	if reproduction == 1:
 		progress_bar2.value = reproduction
 		progress_bar_text2.text = "Looking For Mate"
+	else:
+		progress_bar2.value = reproduction
+		progress_bar_text2.text = " "
 		
+	if hunger == 0:
+		reproduction = 0
+	else: 
+		reproduction = 1
 	#hunger_label.global_position = global_position
 	#hunger_label.global_position.y += 1.25
 	

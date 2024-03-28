@@ -6,41 +6,41 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rewih"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pqjtg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqvkw"]
 albedo_color = Color(0.945098, 0.521569, 0.384314, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_i2y1h"]
-material = SubResource("StandardMaterial3D_pqjtg")
+material = SubResource("StandardMaterial3D_dqvkw")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gilf5"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymxct"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jeatr"]
 albedo_color = Color(0.945098, 0.521569, 0.384314, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bb21p"]
-material = SubResource("StandardMaterial3D_ymxct")
+material = SubResource("StandardMaterial3D_jeatr")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6kyah"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0oi6t"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8h2cb"]
 albedo_color = Color(0.945098, 0.521569, 0.384314, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_or03b"]
-material = SubResource("StandardMaterial3D_0oi6t")
+material = SubResource("StandardMaterial3D_8h2cb")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2sncw"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jw31p"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ql67n"]
 albedo_color = Color(0.984314, 1, 0.403922, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_e7ggi"]
-material = SubResource("StandardMaterial3D_jw31p")
+material = SubResource("StandardMaterial3D_ql67n")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_so8op"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ctqs2"]
 albedo_color = Color(0.945098, 0.521569, 0.384314, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5y513"]
-material = SubResource("StandardMaterial3D_so8op")
+material = SubResource("StandardMaterial3D_ctqs2")
 
 [node name="Desert_Pred" type="CharacterBody3D"]
 script = ExtResource("1_41tn2")

@@ -23,3 +23,6 @@
 4. Debug menu
 5. Different shapes for different biomes
 6. Sort Out Sizing for assets on biomes and ice biome gen
+
+
+1. Give life cycle to Ice creatures

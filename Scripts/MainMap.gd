@@ -16,10 +16,12 @@ var stone_prey = load("res://Scenes/Prey/Stone_Prey.tscn")
 
 var desert_pred = load("res://Scenes/Pred/Desert_Pred.tscn")
 var fire_pred = load("res://Scenes/Pred/Fire_Pred.tscn")
+var stone_pred = load("res://Scenes/Pred/Stone_Pred.tscn")
+var forest_pred = load("res://Scenes/Pred/Forest_Pred.tscn")
 
 
-var prey_scenes = [fire_prey, desert_prey,forest_prey,ice_prey,stone_prey]
-var pred_scenes = [fire_pred, desert_pred]
+var prey_scenes = [fire_prey, desert_prey, forest_prey, stone_prey,ice_prey]
+var pred_scenes = [fire_pred, desert_pred, forest_pred, stone_pred]
 
 var food_size = 0.5
 var prey_size = 0.5
@@ -85,7 +87,6 @@ func generate_biomes():
 				if get_cell_item(Vector3(x, 0, y)) == -1:
 					set_cell_item(Vector3(x, 0, y), biome_id)
 				
-	# Change sizes
 	# collissions of assets out of place
 	spawn_desert_biome_assets()
 	spawn_red_biome_assets()
@@ -201,7 +202,7 @@ func _spawn_prey(pos, index):
 func _spawn_pred(pos, index):
 	
 	# Randomly select a pred scene from the array
-	if index in [0,1]:
+	if index in [0,1,2,3]:
 		var pred_scene = pred_scenes[index]
 		
 		var pred_instance = pred_scene.instantiate()
@@ -411,7 +412,7 @@ func spawn():
 	var spawned_positions = []
 	var spawn_y = 5
 	
-	var biomes = [[6,7],[1,2],[20,21],[10,11,12],[18]]
+	var biomes = [[6,7],[1,2],[20,21],[18],[10,11,12]]
 	
 	while spawn_count < 15:
 		for i in range(5):

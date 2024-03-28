@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu1ajnosj76d0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cqqu0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3g0gx"]
+bg_color = Color(0.262745, 0.701961, 0.364706, 1)
+
+[sub_resource type="GDScript" id="GDScript_wmp7p"]
+script/source = "extends ProgressBar
+
+@onready var timer = $Timer
+@onready var damage_bar = $DamageBar
+
+
+var health = 0 : set = _set_health
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func _set_health(new_health):
+	var prev_health = health
+	health = min(max_value, new_health)
+	value = health
+	
+	if health <= 0:
+		queue_free()
+		
+	if health < prev_health:
+		timer.start()
+
+func init_health(_health):
+	health = _health
+	max_value = health
+	value = health
+	damage_bar.max_value = health
+	damage_bar.value = health
+
+
+
+func _on_timer_timeout():
+	damage_bar.value = health
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqcbn"]
+bg_color = Color(0.109804, 0.109804, 0.109804, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_color = Color(0, 0, 0, 0.27451)
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5yji"]
+bg_color = Color(0.494118, 0.0352941, 0.164706, 1)
+
+[node name="healthbar" type="ProgressBar"]
+z_index = 1
+offset_right = 240.0
+offset_bottom = 10.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_cqqu0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3g0gx")
+value = 60.0
+show_percentage = false
+script = SubResource("GDScript_wmp7p")
+
+[node name="Dmgbar" type="ProgressBar" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_oqcbn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_v5yji")
+value = 70.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

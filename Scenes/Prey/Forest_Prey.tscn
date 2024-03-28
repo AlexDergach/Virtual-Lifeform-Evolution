@@ -6,40 +6,40 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_volma"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0r46"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hss2g"]
 albedo_color = Color(0.376471, 0.137255, 0.054902, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d0kds"]
-material = SubResource("StandardMaterial3D_a0r46")
+material = SubResource("StandardMaterial3D_hss2g")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t8kuh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7wen2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8sk7"]
 albedo_color = Color(0.376471, 0.137255, 0.054902, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qpfqx"]
-material = SubResource("StandardMaterial3D_7wen2")
+material = SubResource("StandardMaterial3D_b8sk7")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rud14"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_86h45"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_taa8p"]
 albedo_color = Color(0.376471, 0.137255, 0.054902, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xt2hj"]
-material = SubResource("StandardMaterial3D_86h45")
+material = SubResource("StandardMaterial3D_taa8p")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ft8ce"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3emlq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ll8ox"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3jk1t"]
-material = SubResource("StandardMaterial3D_3emlq")
+material = SubResource("StandardMaterial3D_ll8ox")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mw8pb"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d1p4e"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xgs03"]
-material = SubResource("StandardMaterial3D_mw8pb")
+material = SubResource("StandardMaterial3D_d1p4e")
 
 [node name="Forest_Prey" type="CharacterBody3D"]
 script = ExtResource("1_j4uex")
