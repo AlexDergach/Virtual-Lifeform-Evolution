@@ -31,43 +31,42 @@ func _ready():
 	$Timer.start()
 	pass
 	
+const TARGET_UPDATE_INTERVAL = 1.0
+var time_since_last_target_update = 0.0
+
 func _physics_process(delta):
 	
-	time += delta
-	if time >= 2.0:
-		if stop:
-			target_pos = global_position
-			
-			stop = false
-		else:
-			if _hungry() && food_target:
-				#look_at(Vector3(-food_location.global_transform.origin.x, global_position.y, -food_location.global_transform.origin.z), Vector3.UP)
-				
-				if is_instance_valid(food_location):
-					prey = food_location.global_transform.origin
-				else:
-					prey = global_position
-						
-				if global_position == prey:
-					food_target = false
-					hunger += 1
-					stop = true
-				else:
-					target_pos = prey
+	time_since_last_target_update += delta
 
-			else:
-				target_pos = Vector3(randf_range(-roam_size,roam_size),0,randf_range(-roam_size,roam_size))
-				#rotation issue when looking on value on same axis
-				look_at(Vector3(-target_pos.x, global_position.y, -target_pos.z), Vector3.UP)
-			
-				stop = true
-		time = 0.0
-		
+	# Update target position less frequently
+	if time_since_last_target_update >= TARGET_UPDATE_INTERVAL:
+		update_target_position()
+		time_since_last_target_update = 0.0
+
+	# Calculate direction and velocity
+	calculate_movement(delta)
+	
+func update_target_position():
+	if stop:
+		target_pos = global_position
+		stop = false
+	else:
+		if _hungry() && food_target:
+			target_pos = food_location
+			food_target = false
+			hunger += 1
+			stop = true
+		else:
+			# Add some randomness to the target position within the roam area
+			var random_dir = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+			target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.y * roam_size)
+			stop = true
+
 	nav.target_position = target_pos
 
+func calculate_movement(delta):
 	direction = nav.get_next_path_position() - global_position
 	direction = direction.normalized()
-	
 	velocity = velocity.lerp(direction * speed, accel * delta)
 	move_and_slide()
 

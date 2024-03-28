@@ -49,6 +49,10 @@ navigation_mesh = SubResource("NavigationMesh_bjvcu")
 
 [node name="GridMap" type="GridMap" parent="NavigationRegion3D"]
 mesh_library = ExtResource("4_n2i37")
+data = {
+"cells": PackedInt32Array(2, 2, 2, 2, 3, 2, 1, 3, 2, 1, 2, 2, 1, 1, 2, 2, 1, 2, 0, 4, 2, 65535, 4, 2, 65534, 5, 2, 65532, 4, 2, 65531, 4, 2, 65530, 3, 2, 65530, 2, 2, 65531, 1, 2, 65532, 0, 2, 65533, 0, 2, 65534, 0, 2, 65535, 0, 2, 0, 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 65534, 4, 2, 65533, 3, 2, 65533, 2, 2, 65534, 1, 2, 65535, 2, 2, 65535, 3, 2, 65533, 5, 2, 65532, 5, 2, 65531, 5, 2, 65531, 3, 2, 65532, 3, 2, 65532, 2, 2, 65533, 1, 2, 65534, 2, 2, 65534, 3, 2, 65533, 6, 2, 65532, 6, 2, 65531, 6, 2, 65533, 4, 2, 65535, 1, 2, 65529, 3, 2, 65529, 4, 2, 65528, 4, 2, 65531, 2, 2, 65532, 1, 2, 65530, 4, 2)
+}
 script = ExtResource("5_14dy7")
+metadata/_editor_floor_ = Vector3(0, 1, 0)
 
 [connection signal="bake_finished" from="NavigationRegion3D" to="NavigationRegion3D/GridMap" method="_on_navigation_region_3d_bake_finished"]

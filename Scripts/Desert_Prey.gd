@@ -31,6 +31,9 @@ var accel = 5
 var hunger_label: Label3D
 var reproduction_label: Label3D
 #@onready var hunger_bar: TextureProgressBar = $Control/TextureProgressBar
+const TARGET_UPDATE_INTERVAL = 1.0
+var time_since_last_target_update = 0.0
+
 
 func _ready():
 	
@@ -82,33 +85,40 @@ func _process(delta):
 	#reproduction_label.global_position.y += 1.5
 	
 func _physics_process(delta):
-	time += delta
 	
-	if time >= 1:  # Update target position more frequently
-		if stop:
-			target_pos = global_position
-			stop = false
+	time_since_last_target_update += delta
+
+	# Update target position less frequently
+	if time_since_last_target_update >= TARGET_UPDATE_INTERVAL:
+		update_target_position()
+		time_since_last_target_update = 0.0
+
+	# Calculate direction and velocity
+	calculate_movement(delta)
+	
+func update_target_position():
+	if stop:
+		target_pos = global_position
+		stop = false
+	else:
+		if _hungry() && food_target:
+			target_pos = food_location
+			food_target = false
+			hunger += 1
+			stop = true
 		else:
-			if _hungry() && food_target:
-				target_pos = food_location
-				food_target = false
-				hunger += 1
-				stop = true
-			else:
-				# Add some randomness to the target position within the roam area
-				var random_dir = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
-				target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.y * roam_size)
-				stop = true
-		
-		time = 0.0
-	
+			# Add some randomness to the target position within the roam area
+			var random_dir = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+			target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.y * roam_size)
+			stop = true
+
 	nav.target_position = target_pos
 
+func calculate_movement(delta):
 	direction = nav.get_next_path_position() - global_position
 	direction = direction.normalized()
 	velocity = velocity.lerp(direction * speed, accel * delta)
 	move_and_slide()
-
 
 func _hungry():
 	

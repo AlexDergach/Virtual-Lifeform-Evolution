@@ -1,5 +1,7 @@
 extends GridMap
 
+
+
 func _ready():
 	# Ensure that the GridMap has a mesh library assigned
 	if mesh_library:

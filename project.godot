@@ -15,6 +15,10 @@ run/main_scene="res://MainMap.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [dotnet]
 
 project/assembly_name="TestAlgo"

@@ -1,6 +1,6 @@
 extends GridMap
 
-var grid_size = Vector2(100, 100)  # Size of the grid map
+var grid_size = Vector2(150, 150)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
 var character_body = null
@@ -38,6 +38,15 @@ func _ready():
 		nav_region.bake_navigation_mesh()
 	else:
 		print("NavigationRegion3D node not found")
+		
+	set_process(true)
+	
+func _process(delta):
+	# Monitor memory usage
+	#var static_mem = OS.get_static_memory_usage()
+	#var dynamic_mem = OS.get_static_memory_peak_usage()
+	#print("Static Memory Usage: ", static_mem, " Dynamic Memory Usage: ", dynamic_mem)
+	pass
 	
 func _physics_process(delta):
 	pass
@@ -155,7 +164,7 @@ func generate_cluster(biome_map, cluster_center, biome_id, initial_cluster_radiu
 				if x >= 0 and x < int(grid_size.x) and y >= 0 and y < int(grid_size.y):
 					var distance_to_center = cluster_center.distance_to(Vector2(x, y))
 					if y_coord == 0:  # Only add inclusion probability for the initial cluster
-						var inclusion_probability = 1.0 - (distance_to_center / (clustering_factor * final_cluster_radius)) * randf_range(0.8, 1.0)
+						var inclusion_probability = 0.8 - (distance_to_center / (clustering_factor * final_cluster_radius)) * randf_range(0.5, 0.7)
 						if inclusion_probability > 0.3 and biome_map[x][y] == -1:
 							biome_map[x][y] = biome_id
 							set_cell_item(Vector3(x, y_coord, y), biome_id)
@@ -324,24 +333,20 @@ func spawn_stone_biome_assets():
 			if get_cell_item(Vector3(x, 0, z)) == 18 and get_cell_item(Vector3(x, 1, z)) == -1:
 				if randf() < 0.025:
 					# Randomly choose between spawning a skull (ID 17), a mountain (ID 16), or a big stone (ID 15)
-					random_asset_id = randi_range(0, 2)
+					random_asset_id = randi_range(0, 1)
 					if random_asset_id == 0:
 						set_cell_item(Vector3(x, 1, z), 17)  # Spawn skull (ID 17) at y=1
 					elif random_asset_id == 1:
-						set_cell_item(Vector3(x, 1, z), 16)  # Spawn mountain (ID 16) at y=1
-					else:
 						set_cell_item(Vector3(x, 1, z), 15)  # Spawn big stone (ID 15) at y=1
 			
 			# Check if the current cell is on the hill layer (y=1) of the stone biome and empty
 			if get_cell_item(Vector3(x, 1, z)) == 18 and get_cell_item(Vector3(x, 2, z)) == -1:
 				if randf() < 0.025:
 					# Randomly choose between spawning a skull (ID 17), a mountain (ID 16), or a big stone (ID 15)
-					random_asset_id = randi_range(0, 2)
+					random_asset_id = randi_range(0, 1)
 					if random_asset_id == 0:
 						set_cell_item(Vector3(x, 2, z), 17)  # Spawn skull (ID 17) at y=2
 					elif random_asset_id == 1:
-						set_cell_item(Vector3(x, 2, z), 16)  # Spawn mountain (ID 16) at y=2
-					else:
 						set_cell_item(Vector3(x, 2, z), 15)  # Spawn big stone (ID 15) at y=2
 						
 			# Check if the current cell is on the hill layer (y=2) of the stone biome and empty
@@ -405,17 +410,16 @@ func spawn_character():
 		var center_world_position = self.to_global(center_local_position)
 		# Set the character's global position to the calculated position
 		character_body.global_transform.origin = center_world_position
-
-
+		
 func spawn():
 	var spawn_count = 0
 	var spawned_positions = []
-	var spawn_y = 5
+	var spawn_y = 2.6
 	
 	var biomes = [[6,7],[1,2],[20,21],[18],[10,11,12]]
 	
-	while spawn_count < 15:
-		for i in range(5):
+	while spawn_count < 100:
+		for i in range(0,5):
 			print(i)
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)
@@ -430,7 +434,6 @@ func spawn():
 					spawned_positions.append(position)
 					spawn_count += 2
 					break  # Exit the inner loop once a valid position is found
-					
 			if get_cell_item(Vector3(x, 1, z)) in biomes[i] and get_cell_item(Vector3(x, 2, z)) == -1:
 				var position = Vector3(x*2, spawn_y+2 , z*2)
 				
@@ -441,7 +444,6 @@ func spawn():
 					spawned_positions.append(position)
 					spawn_count += 2
 					break  # Exit the inner loop once a valid position is found
-					
 			if get_cell_item(Vector3(x, 2, z)) in biomes[i] and get_cell_item(Vector3(x, 3, z)) == -1:
 				var position = Vector3(x*2, spawn_y+4 , z*2)
 				
@@ -452,7 +454,6 @@ func spawn():
 					spawned_positions.append(position)
 					spawn_count += 2
 					break  # Exit the inner loop once a valid position is found
-
 
 func _on_navigation_region_3d_bake_finished():
 	print("Navigation mesh baking finished")
