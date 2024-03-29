@@ -116,7 +116,7 @@ var enemy = null
 func _on_sensory_area_entered(area):
 	
 	if area.is_in_group("desert_food") && _hungry():
-		print("Prey : Food spotted")
+		#print("Prey : Food spotted")
 		food_target = true
 		target_pos = area.global_position
 		nav.target_position = target_pos
@@ -128,13 +128,13 @@ func _on_sensory_area_entered(area):
 	
 func _on_self_area_entered(area):
 	if area.is_in_group("desert_pred"):
-		print("Dead")
+		#print("Dead")
 		queue_free()
 	#If food enters self area, it gets eaten
 	if area.is_in_group("desert_food"):
 		food_target = false
 		hunger += 1
-		print("Prey: Food ate")
+		#print("Prey: Food ate")
 
 #If Pred Leaves The Sensory Area
 func _on_sensory_area_exited(area):
@@ -155,7 +155,7 @@ func _on_wandering_state_entered():
 func _on_running_state_processing(delta):
 	# Check if it's time to update escape direction
 	if time_since_last_target_update >= randf_range(1.0, 10.0):
-		print("Running")
+		#print("Running")
 		# Calculate the direction away from the enemy
 		var direction_to_enemy = global_position - enemy.global_position
 		direction_to_enemy.y = 0  # Ignore vertical component

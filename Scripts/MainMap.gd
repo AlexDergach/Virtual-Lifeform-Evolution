@@ -25,6 +25,7 @@ var desert_food = load("res://Scenes/Food/Desert_Food.tscn")
 
 var prey_scenes = [fire_prey, desert_prey, forest_prey, stone_prey,ice_prey]
 var pred_scenes = [fire_pred, desert_pred, forest_pred, stone_pred]
+var food_scenes = [desert_food]
 
 var food_size = 0.5
 var prey_size = 0.5
@@ -34,6 +35,9 @@ var spawn_rate = 1
 @onready var nav_region = get_node("/root/MainMap/NavigationRegion3D")
 
 func _ready():
+	
+	$Timer.start()
+	
 	generate_biomes()
 	spawn_character()
 	
@@ -45,7 +49,7 @@ func _ready():
 	set_process(true)
 	
 func _process(delta):
-	# Monitor memory usage
+	# Monitor memory usage - Un Comment If Needed
 	#var static_mem = OS.get_static_memory_usage()
 	#var dynamic_mem = OS.get_static_memory_peak_usage()
 	#print("Static Memory Usage: ", static_mem, " Dynamic Memory Usage: ", dynamic_mem)
@@ -99,15 +103,12 @@ func generate_biomes():
 				if get_cell_item(Vector3(x, 0, y)) == -1:
 					set_cell_item(Vector3(x, 0, y), biome_id)
 				
-	# collissions of assets out of place
 	spawn_desert_biome_assets()
 	spawn_red_biome_assets()
 	spawn_snow_biome_assets()
 	spawn_stone_biome_assets()
 	spawn_forest_biome_assets()
-	
 
-# Function to check if a cluster collides with existing clusters of the same or different biome type
 func check_cluster_collision(biome_map, cluster_center, clustering_factor, biome_id):
 	var cluster_radius = 32.0
 	for x in range(int(cluster_center.x - clustering_factor * cluster_radius), int(cluster_center.x + clustering_factor * cluster_radius)):
@@ -189,13 +190,6 @@ func generate_cluster(biome_map, cluster_center, biome_id, initial_cluster_radiu
 								
 							biome_map[x][y] = tile_type
 							set_cell_item(Vector3(x, y_coord, y), tile_type)
-
-func _spawn_food():
-	#var food_instance = food_scene.instantiate()
-	#var food_instance_scale = Vector3(food_size,food_size,food_size)
-	#add_child(food_instance)
-	#food_instance.scale = food_instance_scale
-	pass
 
 func _spawn_prey(pos, index):
 	
@@ -429,7 +423,7 @@ func spawn():
 	var biomes = [[6,7],[1,2],[20,21],[18],[10,11,12]]
 	var type_of_creature = 1
 	
-	while spawn_count < 100:
+	while spawn_count < 80:
 		for i in range(0,5):
 			print(i)
 			var x = randi() % int(grid_size.x)
@@ -450,8 +444,9 @@ func spawn():
 						
 					spawned_positions.append(position)
 					break  # Exit the inner loop once a valid position is found
+					
 			if get_cell_item(Vector3(x, 1, z)) in biomes[i] and get_cell_item(Vector3(x, 2, z)) == -1:
-				var position = Vector3(x*2, spawn_y+2 , z*2)
+				var position = Vector3(x*2, spawn_y*2 , z*2)
 				
 				if position not in spawned_positions:
 					if type_of_creature == 1:
@@ -466,7 +461,7 @@ func spawn():
 					spawned_positions.append(position)
 					break  # Exit the inner loop once a valid position is found
 			if get_cell_item(Vector3(x, 2, z)) in biomes[i] and get_cell_item(Vector3(x, 3, z)) == -1:
-				var position = Vector3(x*2, spawn_y+4 , z*2)
+				var position = Vector3(x*2, spawn_y*3 , z*2)
 				
 				if position not in spawned_positions:
 					if type_of_creature == 1:
@@ -481,6 +476,75 @@ func spawn():
 					spawned_positions.append(position)
 					break  # Exit the inner loop once a valid position is found
 
+func spawn_food():
+	var spawn_count = 0
+	var spawned_positions = []
+	var spawn_y = 2.4
+	
+	var biomes = [[1,2]]
+	
+	while spawn_count < 120:
+		for i in range(0,1):
+			print(i)
+			var x = randi() % int(grid_size.x)
+			var z = randi() % int(grid_size.y)
+			
+			if get_cell_item(Vector3(x, 0, z)) in biomes[i] and get_cell_item(Vector3(x, 1, z)) == -1:
+				var position = Vector3(x*2, spawn_y , z*2)
+				
+				if position not in spawned_positions:
+					var food_scene = food_scenes[i]
+					
+					var food_instance = food_scene.instantiate()
+					var food_instance_scale = Vector3(food_size,food_size,food_size)
+					
+					food_instance.position = position
+					food_instance.scale = food_instance_scale
+					add_child(food_instance)
+					spawn_count += 1
+						
+					spawned_positions.append(position)
+					break  # Exit the inner loop once a valid position is found
+					
+			if get_cell_item(Vector3(x, 1, z)) in biomes[i] and get_cell_item(Vector3(x, 2, z)) == -1:
+				var position = Vector3(x*2, spawn_y*2 , z*2)
+				
+				if position not in spawned_positions:
+					var food_scene = food_scenes[i]
+					
+					var food_instance = food_scene.instantiate()
+					var food_instance_scale = Vector3(food_size,food_size,food_size)
+					
+					food_instance.position = position
+					food_instance.scale = food_instance_scale
+					add_child(food_instance)
+					spawn_count += 1
+					
+					spawned_positions.append(position)
+					break  # Exit the inner loop once a valid position is found
+			if get_cell_item(Vector3(x, 2, z)) in biomes[i] and get_cell_item(Vector3(x, 3, z)) == -1:
+				var position = Vector3(x*2, spawn_y*3 , z*2)
+				
+				if position not in spawned_positions:
+					var food_scene = food_scenes[i]
+					
+					var food_instance = food_scene.instantiate()
+					var food_instance_scale = Vector3(food_size,food_size,food_size)
+					
+					food_instance.position = position
+					food_instance.scale = food_instance_scale
+					add_child(food_instance)
+					spawn_count += 1
+						
+					spawned_positions.append(position)
+					break  # Exit the inner loop once a valid position is found
+
 func _on_navigation_region_3d_bake_finished():
 	print("Navigation mesh baking finished")
 	spawn()
+	spawn_food()
+
+
+func _on_timer_timeout():
+	print("spawned food")
+	spawn_food()
