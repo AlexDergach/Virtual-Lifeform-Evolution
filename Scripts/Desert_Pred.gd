@@ -111,22 +111,13 @@ func _on_timer_timeout():
 var prey = null
 
 func _on_sensory_area_entered(area):
-	
+	print("In this area")
+	print(_hungry())
 	if area.is_in_group("desert_prey") && _hungry():
 		print("Pred: Prey spotted")
 		food_target = true
 		prey = area
-
 		$StateChart.send_event("prey_entered")
-		
-
-
-#Once Enemy enters The Sensory Area
-func _on_sensory_body_entered(body):
-	if body.is_in_group("desert_prey"):
-		print("Prey Entered Area")
-		prey = body
-
 
 func _on_self_area_entered(area):
 	#If food enters self area, it gets eaten

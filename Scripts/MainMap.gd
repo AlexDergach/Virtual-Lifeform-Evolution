@@ -19,6 +19,9 @@ var fire_pred = load("res://Scenes/Pred/Fire_Pred.tscn")
 var stone_pred = load("res://Scenes/Pred/Stone_Pred.tscn")
 var forest_pred = load("res://Scenes/Pred/Forest_Pred.tscn")
 
+var desert_food = load("res://Scenes/Food/Desert_Food.tscn")
+
+
 
 var prey_scenes = [fire_prey, desert_prey, forest_prey, stone_prey,ice_prey]
 var pred_scenes = [fire_pred, desert_pred, forest_pred, stone_pred]

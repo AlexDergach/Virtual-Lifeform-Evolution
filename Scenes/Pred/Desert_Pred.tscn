@@ -250,8 +250,6 @@ transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 5, 0.791884, 0.533754, 0.917367)
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
-[connection signal="area_shape_exited" from="Sensory" to="." method="_on_sensory_area_shape_exited"]
-[connection signal="body_entered" from="Sensory" to="." method="_on_sensory_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="state_entered" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_entered"]
 [connection signal="state_processing" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_processing"]
