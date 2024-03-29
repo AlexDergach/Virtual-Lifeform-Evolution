@@ -5,7 +5,10 @@ extends CharacterBody3D
 @onready var progress_bar2 = $SubViewport/Repo
 @onready var progress_bar_text = $SubViewport/RichTextLabel
 @onready var progress_bar_text2 = $SubViewport/RichTextLabel2
+
 var roam_size = 20.0
+var rotation_speed = 5.0
+var should_take_break
 
 var time:float = 0.0
 
@@ -19,7 +22,7 @@ var hunt = true
 var done
 var gravity = 9.8
 var target_pos:Vector3 = Vector3.ZERO
-var stop = false
+var stop = true
 
 var food_target = false
 var food_location:Vector3 = Vector3.ZERO
@@ -31,28 +34,12 @@ var accel = 5
 
 var hunger_label: Label3D
 var reproduction_label: Label3D
-#@onready var hunger_bar: TextureProgressBar = $Control/TextureProgressBar
 var time_since_last_target_update = 0.0
 
 
 func _ready():
 	
 	$Timer.start()
-	
-	#hunger_label = Label3D.new()
-	#hunger_label.text = "Hunger: " + str(hunger)
-	#hunger_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
-	#hunger_label.modulate = Color(0.0, 1.0, 0.0)
-	#hunger_label.outline_modulate = Color(0, 0, 0, 1)  # Black outline
-	#add_child(hunger_label)
-
-	# Create and configure reproduction label
-	#reproduction_label = Label3D.new()
-	#reproduction_label.text = "Reproduction: " + str(reproduction)
-	#reproduction_label.font = load("res://Assets/Fonts/Roboto-Black.ttf")
-	#hunger_label.modulate = Color(1.0, 0.0, 1.0)
-	#reproduction_label.outline_modulate = Color(0, 0, 0, 1)  # Black outline
-	#add_child(reproduction_label)
 
 
 func _process(delta):
@@ -78,13 +65,9 @@ func _process(delta):
 		reproduction = 1
 	else: 
 		reproduction = 0
-	#hunger_label.global_position = global_position
-	#hunger_label.global_position.y += 1.25
-	
-	#reproduction_label.global_position = global_position
-	#reproduction_label.global_position.y += 1.5
 
 func _physics_process(delta):
+	
 	# Calculate the direction to the target
 	var target_direction = nav.target_position - global_position
 	target_direction.y = 0  # Ignore vertical component for 2D rotation
@@ -99,9 +82,9 @@ func _physics_process(delta):
 	
 	# Smoothly rotate towards the target rotation
 	rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
-	
+		
 	time = delta
-	# Calculate movement based on the new rotation
+	
 	calculate_movement(delta)
 
 func calculate_movement(delta):
@@ -127,37 +110,32 @@ func _on_timer_timeout():
 	hunger -= 1
 	
 var enemy = null
-var rotation_speed = 5.0
-
 
 func _on_sensory_area_entered(area):
 	
 	if area.is_in_group("desert_food") && _hungry():
-		print("Food spotted")
+		print("Prey : Food spotted")
 		food_target = true
-		food_location = area.global_position
-		nav.target_position = food_location
-
+		target_pos = area.global_position
+		nav.target_position = target_pos
+		
+	if area.is_in_group("desert_pred"):
+		enemy = area
+		$StateChart.send_event("enemy_entered")
+	
 func _on_self_area_entered(area):
 	if area.is_in_group("desert_pred"):
-		print("here")
+		print("Dead")
 		queue_free()
 	#If food enters self area, it gets eaten
 	if area.is_in_group("desert_food"):
 		food_target = false
 		hunger += 1
-		print("food ate")
+		print("Prey: Food ate")
 
 #If Pred Leaves The Sensory Area
-
-#Check if both work
-func _on_sensory_body_exited(body):
-	if body.is_in_group("desert_pred"):
-		$StateChart.send_event("enemy_exited")
-
 func _on_sensory_area_exited(area):
 	if area.is_in_group("desert_pred"):
-		print("in here")
 		$StateChart.send_event("enemy_exited")
 
 func _on_wandering_state_entered():
@@ -173,21 +151,17 @@ func _on_sensory_body_entered(body):
 		$StateChart.send_event("enemy_entered")
 
 func _on_running_state_processing(delta):
-	print("Running")
-	look_at(Vector3(enemy.global_position.x, 1 ,enemy.global_position.z), Vector3.UP, false)
+	look_at(Vector3(-enemy.global_position.x, 1 ,-enemy.global_position.z), Vector3.UP, false)
 
 
 func _on_wandering_state_processing(delta):
-	var TARGET_UPDATE_INTERVAL = randf_range(2.0,5.0)
-	time_since_last_target_update += time
-	print(TARGET_UPDATE_INTERVAL)
+	var TARGET_UPDATE_INTERVAL = randf_range(1.0, 10.0)
+	time_since_last_target_update += delta
 	
 	if food_target == false:
+		# Continue wandering
 		if time_since_last_target_update >= TARGET_UPDATE_INTERVAL:
-			print("Wandering")
-			var random_dir = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
-			target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.y * roam_size)
+			var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
+			target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
 			nav.target_position = target_pos
-			
 			time_since_last_target_update = 0.0
-	

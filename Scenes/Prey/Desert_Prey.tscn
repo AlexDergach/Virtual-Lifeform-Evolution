@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://dspwh4tnvkmhw"]
+[gd_scene load_steps=23 format=3 uid="uid://dspwh4tnvkmhw"]
 
 [ext_resource type="Script" path="res://Scripts/Desert_Prey.gd" id="1_h6jmp"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_e2xqq"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="3_epcxg"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_i2ov8"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_273on"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_gswmn"]
@@ -212,52 +211,32 @@ shape = SubResource("CapsuleShape3D_b6rqu")
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_e2xqq")
 
-[node name="Root" type="Node" parent="StateChart"]
-script = ExtResource("3_epcxg")
-
-[node name="AlertState" type="Node" parent="StateChart/Root"]
+[node name="AlertState" type="Node" parent="StateChart"]
 script = ExtResource("3_i2ov8")
 initial_state = NodePath("Wandering")
 
-[node name="Wandering" type="Node" parent="StateChart/Root/AlertState"]
+[node name="Wandering" type="Node" parent="StateChart/AlertState"]
 script = ExtResource("4_273on")
 
-[node name="To Running" type="Node" parent="StateChart/Root/AlertState/Wandering"]
+[node name="To Running" type="Node" parent="StateChart/AlertState/Wandering"]
 script = ExtResource("5_gswmn")
 to = NodePath("../../Running")
 event = &"enemy_entered"
 
-[node name="Running" type="Node" parent="StateChart/Root/AlertState"]
+[node name="Running" type="Node" parent="StateChart/AlertState"]
 script = ExtResource("4_273on")
 
-[node name="To Wandering" type="Node" parent="StateChart/Root/AlertState/Running"]
+[node name="To Wandering" type="Node" parent="StateChart/AlertState/Running"]
 script = ExtResource("5_gswmn")
 to = NodePath("../../Wandering")
 event = &"enemy_exited"
 delay_seconds = 1.0
 
-[node name="BerserkMode" type="Node" parent="StateChart/Root"]
-script = ExtResource("3_i2ov8")
-initial_state = NodePath("Normal")
-
-[node name="Normal" type="Node" parent="StateChart/Root/BerserkMode"]
-script = ExtResource("4_273on")
-
-[node name="To Berserk" type="Node" parent="StateChart/Root/BerserkMode/Normal"]
-script = ExtResource("5_gswmn")
-to = NodePath("../../Beserk")
-event = &"enemy_entered"
-
-[node name="Beserk" type="Node" parent="StateChart/Root/BerserkMode"]
-script = ExtResource("4_273on")
-
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
 [connection signal="body_entered" from="Sensory" to="." method="_on_sensory_body_entered"]
-[connection signal="body_exited" from="Sensory" to="." method="_on_sensory_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="state_entered" from="StateChart/Root/AlertState/Wandering" to="." method="_on_wandering_state_entered"]
-[connection signal="state_processing" from="StateChart/Root/AlertState/Wandering" to="." method="_on_wandering_state_processing"]
-[connection signal="state_processing" from="StateChart/Root/AlertState/Running" to="." method="_on_observing_state_processing"]
-[connection signal="state_processing" from="StateChart/Root/AlertState/Running" to="." method="_on_running_state_processing"]
+[connection signal="state_entered" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_entered"]
+[connection signal="state_processing" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_processing"]
+[connection signal="state_processing" from="StateChart/AlertState/Running" to="." method="_on_running_state_processing"]
