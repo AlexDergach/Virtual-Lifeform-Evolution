@@ -65,10 +65,12 @@ func update_target_position():
 	nav.target_position = target_pos
 
 func calculate_movement(delta):
-	direction = nav.get_next_path_position() - global_position
-	direction = direction.normalized()
-	velocity = velocity.lerp(direction * speed, accel * delta)
-	move_and_slide()
+	var test = randi_range(0,1)
+	if test == 0:
+		direction = nav.get_next_path_position() - global_position
+		direction = direction.normalized()
+		velocity = velocity.lerp(direction * speed, accel * delta)
+		move_and_slide()
 
 
 func _hungry():

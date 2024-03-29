@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://cs0xx3wis7r2c"]
 
-[ext_resource type="Script" path="res://Scenes/Pred/Fire_Pred.gd" id="1_4dv6x"]
+[ext_resource type="Script" path="res://Scripts/Fire_Pred.gd" id="1_ru8r4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pvry6"]
 
@@ -37,7 +37,7 @@ albedo_color = Color(0.427451, 0.427451, 0.427451, 1)
 material = SubResource("StandardMaterial3D_o7ghv")
 
 [node name="Fire_Pred" type="CharacterBody3D"]
-script = ExtResource("1_4dv6x")
+script = ExtResource("1_ru8r4")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true

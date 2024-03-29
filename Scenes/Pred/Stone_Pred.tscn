@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c05a8l460jptl"]
 
-[ext_resource type="Script" path="res://Scenes/Pred/Stone_Pred.gd" id="1_tf4bn"]
+[ext_resource type="Script" path="res://Scripts/Stone_Pred.gd" id="1_l8uvf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1grjd"]
 
@@ -29,7 +29,7 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_q7v01")
 
 [node name="Stone_Pred" type="CharacterBody3D"]
-script = ExtResource("1_tf4bn")
+script = ExtResource("1_l8uvf")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true

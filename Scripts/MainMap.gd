@@ -164,7 +164,7 @@ func generate_cluster(biome_map, cluster_center, biome_id, initial_cluster_radiu
 				if x >= 0 and x < int(grid_size.x) and y >= 0 and y < int(grid_size.y):
 					var distance_to_center = cluster_center.distance_to(Vector2(x, y))
 					if y_coord == 0:  # Only add inclusion probability for the initial cluster
-						var inclusion_probability = 0.8 - (distance_to_center / (clustering_factor * final_cluster_radius)) * randf_range(0.5, 0.7)
+						var inclusion_probability = 0.8 - (distance_to_center / (clustering_factor * final_cluster_radius)) * randf_range(0.5, 0.6)
 						if inclusion_probability > 0.3 and biome_map[x][y] == -1:
 							biome_map[x][y] = biome_id
 							set_cell_item(Vector3(x, y_coord, y), biome_id)
@@ -237,8 +237,8 @@ func spawn_desert_biome_assets():
 						set_cell_item(Vector3(x, 1, z), 3)  # Spawn palm tree (ID 3) at y=1
 					else:
 						# Spawn additional smaller pyramids nearby
-						#if randf() < 0.025:
-						set_cell_item(Vector3(x, 1, z), 4)
+						if randf() < 0.025:
+							set_cell_item(Vector3(x, 1, z), 4)
 			
 			# Check if the current cell is on the hill layer (y=1) and empty
 			if get_cell_item(Vector3(x, 1, z)) in [1, 2] and get_cell_item(Vector3(x, 2, z)) == -1:
@@ -310,7 +310,8 @@ func spawn_snow_biome_assets():
 					# Randomly choose between spawning a snowman (ID 13) or a snowflake (ID 14)
 					random_asset_id = randi_range(0, 1)
 					if random_asset_id == 0:
-						set_cell_item(Vector3(x, 1, z), 13)  # Spawn snowman (ID 13) at y=1
+						if randf() < 0.025:
+							set_cell_item(Vector3(x, 1, z), 13)  # Spawn snowman (ID 13) at y=1
 					else:
 						if randf() < 0.5:
 							set_cell_item(Vector3(x, 1, z), 14)  # Spawn snowflake (ID 14) at y=1
@@ -369,11 +370,13 @@ func spawn_forest_biome_assets():
 			if get_cell_item(Vector3(x, 0, z)) == 20 and get_cell_item(Vector3(x, 1, z)) == -1:
 				if randf() < 0.025:
 					# Randomly choose between spawning a birch tree (ID 19), a forest tree (ID 22), or a stump (ID 23)
-					random_asset_id = randi_range(0, 2)
+					random_asset_id = randi_range(0, 3)
 					if random_asset_id == 0:
 						set_cell_item(Vector3(x, 1, z), 19)  # Spawn birch tree (ID 19) at y=1
 					elif random_asset_id == 1:
 						set_cell_item(Vector3(x, 1, z), 22)  # Spawn forest tree (ID 22) at y=1
+					elif random_asset_id == 2:
+						set_cell_item(Vector3(x, 1, z), 22)  # Spawn forest tree (ID 22) at y=2
 					else:
 						set_cell_item(Vector3(x, 1, z), 23)  # Spawn stump (ID 23) at y=1
 			
@@ -381,10 +384,12 @@ func spawn_forest_biome_assets():
 			if get_cell_item(Vector3(x, 1, z)) == 20 and get_cell_item(Vector3(x, 2, z)) == -1:
 				if randf() < 0.025:
 					# Randomly choose between spawning a birch tree (ID 19), a forest tree (ID 22), or a stump (ID 23)
-					random_asset_id = randi_range(0, 2)
+					random_asset_id = randi_range(0, 3)
 					if random_asset_id == 0:
 						set_cell_item(Vector3(x, 2, z), 19)  # Spawn birch tree (ID 19) at y=2
 					elif random_asset_id == 1:
+						set_cell_item(Vector3(x, 2, z), 22)  # Spawn forest tree (ID 22) at y=2
+					elif random_asset_id == 2:
 						set_cell_item(Vector3(x, 2, z), 22)  # Spawn forest tree (ID 22) at y=2
 					else:
 						set_cell_item(Vector3(x, 2, z), 23)  # Spawn stump (ID 23) at y=2
@@ -393,11 +398,13 @@ func spawn_forest_biome_assets():
 			if get_cell_item(Vector3(x, 2, z)) == 20 and get_cell_item(Vector3(x, 3, z)) == -1:
 				if randf() < 0.025:
 					# Randomly choose between spawning a birch tree (ID 19), a forest tree (ID 22), or a stump (ID 23)
-					random_asset_id = randi_range(0, 2)
+					random_asset_id = randi_range(0, 3)
 					if random_asset_id == 0:
 						set_cell_item(Vector3(x, 3, z), 19)  # Spawn birch tree (ID 19) at y=3
 					elif random_asset_id == 1:
 						set_cell_item(Vector3(x, 3, z), 22)  # Spawn forest tree (ID 22) at y=3
+					elif random_asset_id == 2:
+						set_cell_item(Vector3(x, 3, z), 22)  # Spawn forest tree (ID 22) at y=2
 					else:
 						set_cell_item(Vector3(x, 3, z), 23)  # Spawn stump (ID 23) at y=3
 
@@ -417,6 +424,7 @@ func spawn():
 	var spawn_y = 2.6
 	
 	var biomes = [[6,7],[1,2],[20,21],[18],[10,11,12]]
+	var type_of_creature = 1
 	
 	while spawn_count < 100:
 		for i in range(0,5):
@@ -428,31 +436,46 @@ func spawn():
 				var position = Vector3(x*2, spawn_y , z*2)
 				
 				if position not in spawned_positions:
-					_spawn_prey(position, i)
-					_spawn_pred(position, i)
-					
+					if type_of_creature == 1:
+						_spawn_prey(position, i)
+						type_of_creature = 0
+						spawn_count += 1
+					else:
+						_spawn_pred(position, i)
+						type_of_creature = 1
+						spawn_count += 1
+						
 					spawned_positions.append(position)
-					spawn_count += 2
 					break  # Exit the inner loop once a valid position is found
 			if get_cell_item(Vector3(x, 1, z)) in biomes[i] and get_cell_item(Vector3(x, 2, z)) == -1:
 				var position = Vector3(x*2, spawn_y+2 , z*2)
 				
 				if position not in spawned_positions:
-					_spawn_prey(position, i)
-					_spawn_pred(position, i)
+					if type_of_creature == 1:
+						_spawn_prey(position, i)
+						type_of_creature = 0
+						spawn_count += 1
+					else:
+						_spawn_pred(position, i)
+						type_of_creature = 1
+						spawn_count += 1
 					
 					spawned_positions.append(position)
-					spawn_count += 2
 					break  # Exit the inner loop once a valid position is found
 			if get_cell_item(Vector3(x, 2, z)) in biomes[i] and get_cell_item(Vector3(x, 3, z)) == -1:
 				var position = Vector3(x*2, spawn_y+4 , z*2)
 				
 				if position not in spawned_positions:
-					_spawn_prey(position, i)
-					_spawn_pred(position, i)
-					
+					if type_of_creature == 1:
+						_spawn_prey(position, i)
+						type_of_creature = 0
+						spawn_count += 1
+					else:
+						_spawn_pred(position, i)
+						type_of_creature = 1
+						spawn_count += 1
+						
 					spawned_positions.append(position)
-					spawn_count += 2
 					break  # Exit the inner loop once a valid position is found
 
 func _on_navigation_region_3d_bake_finished():

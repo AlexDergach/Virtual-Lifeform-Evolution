@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://b0inl7bm1chl1"]
 
-[ext_resource type="Script" path="res://Scenes/Pred/Forest_Pred.gd" id="1_xs2nl"]
+[ext_resource type="Script" path="res://Scripts/Forest_Pred.gd" id="1_rmh2m"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_75tan"]
 
@@ -37,7 +37,7 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_6ymur")
 
 [node name="Forest_Pred" type="CharacterBody3D"]
-script = ExtResource("1_xs2nl")
+script = ExtResource("1_rmh2m")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true

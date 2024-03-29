@@ -27,3 +27,4 @@
 
 1. Give life cycle to Ice creatures
 2. Make full screen
+3. Add collision Masks

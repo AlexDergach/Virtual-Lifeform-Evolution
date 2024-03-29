@@ -16,7 +16,7 @@ var hunger:float = 3.0
 var reproduction: float = 1.0  # Initial reproduction value
 
 var hunt = true
-
+var done
 var gravity = 9.8
 var target_pos:Vector3 = Vector3.ZERO
 var stop = false
@@ -31,7 +31,7 @@ var accel = 5
 var hunger_label: Label3D
 var reproduction_label: Label3D
 #@onready var hunger_bar: TextureProgressBar = $Control/TextureProgressBar
-const TARGET_UPDATE_INTERVAL = 1.0
+const TARGET_UPDATE_INTERVAL = 5.0
 var time_since_last_target_update = 0.0
 
 
@@ -83,7 +83,7 @@ func _process(delta):
 	
 	#reproduction_label.global_position = global_position
 	#reproduction_label.global_position.y += 1.5
-	
+var rotation_speed = 5.0	
 func _physics_process(delta):
 	
 	time_since_last_target_update += delta
@@ -93,8 +93,28 @@ func _physics_process(delta):
 		update_target_position()
 		time_since_last_target_update = 0.0
 
+	if velocity.length_squared() > 0.01:  # Ensure the creature is moving
+		var target_rotation = atan2(velocity.x, velocity.z)
+
+		# Smooth out rotation speed when close to target rotation
+		var rotation_speed_adjusted = rotation_speed
+		if abs(rotation.y - target_rotation) < 0.1:
+			rotation_speed_adjusted *= 0.5
+
+		rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
+		done = 1
+	else:
+		if done == 1:
+			rotation.y = 0
+			rotation.x = 0
+			rotation.y = 0
+			done = 0
+			print(rotation.y)
+			
+		
 	# Calculate direction and velocity
 	calculate_movement(delta)
+
 	
 func update_target_position():
 	if stop:
@@ -115,10 +135,13 @@ func update_target_position():
 	nav.target_position = target_pos
 
 func calculate_movement(delta):
-	direction = nav.get_next_path_position() - global_position
-	direction = direction.normalized()
-	velocity = velocity.lerp(direction * speed, accel * delta)
-	move_and_slide()
+	
+	var test = randi_range(0,1)
+	if test == 0:
+		direction = nav.get_next_path_position() - global_position
+		direction = direction.normalized()
+		velocity = velocity.lerp(direction * speed, accel * delta)
+		move_and_slide()
 
 func _hungry():
 	

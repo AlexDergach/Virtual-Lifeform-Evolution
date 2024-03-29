@@ -30,6 +30,8 @@ func _ready():
 const TARGET_UPDATE_INTERVAL = 1.0
 var time_since_last_target_update = 0.0
 
+	
+var rotation_speed = 5.0	
 func _physics_process(delta):
 	
 	time_since_last_target_update += delta
@@ -38,6 +40,19 @@ func _physics_process(delta):
 	if time_since_last_target_update >= TARGET_UPDATE_INTERVAL:
 		update_target_position()
 		time_since_last_target_update = 0.0
+
+	if velocity.length_squared() > 0.01:  # Ensure the creature is moving
+		var target_rotation = atan2(velocity.x, velocity.z)
+
+		# Smooth out rotation speed when close to target rotation
+		var rotation_speed_adjusted = rotation_speed
+		if abs(rotation.y - target_rotation) < 0.1:
+			rotation_speed_adjusted *= 0.5
+
+		rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
+	else:
+		# If the creature is not moving, keep its rotation stable
+		rotation.y = 0
 
 	# Calculate direction and velocity
 	calculate_movement(delta)
@@ -61,10 +76,14 @@ func update_target_position():
 	nav.target_position = target_pos
 
 func calculate_movement(delta):
-	direction = nav.get_next_path_position() - global_position
-	direction = direction.normalized()
-	velocity = velocity.lerp(direction * speed, accel * delta)
-	move_and_slide()
+	
+	var test = randi_range(0,1)
+	if test == 0:
+		direction = nav.get_next_path_position() - global_position
+		direction = direction.normalized()
+		velocity = velocity.lerp(direction * speed, accel * delta)
+		move_and_slide()
+	
 
 func _hungry():
 	

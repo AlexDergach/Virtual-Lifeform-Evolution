@@ -1,8 +1,10 @@
 extends Node3D
 
-var food_scene = load("res://Scenes/Food.tscn")
-var rabbit_scene = load("res://Scenes/Prey/Desert_Prey.tscn")
-var enemy_scene = load("res://Scenes/Enemy.tscn")
+var food_scene = load("res://Scenes/Food/Food.tscn")
+var desert_prey = load("res://Scenes/Prey/Desert_Prey.tscn")
+var fire_prey = load("res://Scenes/Prey/Fire_Prey.tscn")
+var rabbit = load("res://Scenes/Prey/Rabbit.tscn")
+
 
 var food_size = 0.5
 var rabbit_size = 1
@@ -33,7 +35,7 @@ func _spawn_food():
 	food_instance.scale = food_instance_scale
 
 func _spawn_rabbit():
-	rabbit_instance = rabbit_scene.instantiate()
+	rabbit_instance = desert_prey.instantiate()
 	var rabbit_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
 	#fix the y position to work with tilts
 	rabbit_instance.position.x = randf_range(-map_size.x/2.1,map_size.x/2.1)
@@ -42,9 +44,20 @@ func _spawn_rabbit():
 	add_child(rabbit_instance)
 
 	rabbit_instance.scale = rabbit_instance_scale
+	
+func _spawn_rabbit2():
+	rabbit_instance = rabbit.instantiate()
+	var rabbit_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
+	#fix the y position to work with tilts
+	rabbit_instance.position.x = randf_range(-map_size.x/2.1,map_size.x/2.1)
+	rabbit_instance.position.z = randf_range(-map_size.z/2.1,map_size.z/2.1)
+	rabbit_instance.position.y = map_size.y
+	add_child(rabbit_instance)
+
+	rabbit_instance.scale = rabbit_instance_scale
 
 func _spawn_enemy():
-	enemy_instance = enemy_scene.instantiate()
+	enemy_instance = fire_prey.instantiate()
 	var enemy_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
 	#fix the y position to work with tilts
 	enemy_instance.position.x = randf_range(-map_size.x/2.1,map_size.x/2.1)
@@ -60,11 +73,21 @@ func _physics_process(delta):
 	
 	if spawn_rate == 1:
 		_spawn_rabbit()
-		_spawn_rabbit()
-		_spawn_rabbit()
-		_spawn_rabbit()
+		
+		_spawn_rabbit2()
+		_spawn_rabbit2()
+		_spawn_rabbit2()
+		_spawn_rabbit2()
+		_spawn_rabbit2()
+		_spawn_rabbit2()
+		_spawn_rabbit2()
+		_spawn_rabbit2()
+		
 		
 		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		
 		spawn_rate = 0
 		
 	if Input.is_action_just_pressed("Test"):
