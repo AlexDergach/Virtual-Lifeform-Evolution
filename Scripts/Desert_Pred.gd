@@ -61,7 +61,6 @@ func update_target_position():
 			var random_dir = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 			target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.y * roam_size)
 			stop = true
-
 	nav.target_position = target_pos
 
 func calculate_movement(delta):

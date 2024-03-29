@@ -74,19 +74,6 @@ func _physics_process(delta):
 	if spawn_rate == 1:
 		_spawn_rabbit()
 		
-		_spawn_rabbit2()
-		_spawn_rabbit2()
-		_spawn_rabbit2()
-		_spawn_rabbit2()
-		_spawn_rabbit2()
-		_spawn_rabbit2()
-		_spawn_rabbit2()
-		_spawn_rabbit2()
-		
-		
-		_spawn_enemy()
-		_spawn_enemy()
-		_spawn_enemy()
 		
 		spawn_rate = 0
 		
@@ -100,4 +87,3 @@ func _physics_process(delta):
 func _on_timer_timeout():
 	_spawn_food()
 
-	print("Food Spawned")

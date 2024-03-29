@@ -63,7 +63,7 @@ script = ExtResource("1_h6jmp")
 avoidance_enabled = true
 
 [node name="Self" type="Area3D" parent="." groups=["desert_prey"]]
-transform = Transform3D(1.5, 0, 0, 0, 0.803939, -1.26637, 0, 1.26637, 0.803939, 0.504575, 0.810548, 0.888334)
+transform = Transform3D(1.8, 0, 0, 0, 0.757406, -1.63289, 0, 1.63289, 0.757406, 0.504575, 0.158582, 0.888334)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
 transform = Transform3D(1.2, 0, 0, 0, 1.19995, 0.0104928, 0, -0.0104928, 1.19995, 0.124082, 0.0640882, -0.100952)
@@ -217,22 +217,22 @@ script = ExtResource("3_epcxg")
 
 [node name="AlertState" type="Node" parent="StateChart/Root"]
 script = ExtResource("3_i2ov8")
-initial_state = NodePath("Idle")
+initial_state = NodePath("Wandering")
 
-[node name="Idle" type="Node" parent="StateChart/Root/AlertState"]
+[node name="Wandering" type="Node" parent="StateChart/Root/AlertState"]
 script = ExtResource("4_273on")
 
-[node name="To Observing" type="Node" parent="StateChart/Root/AlertState/Idle"]
+[node name="To Running" type="Node" parent="StateChart/Root/AlertState/Wandering"]
 script = ExtResource("5_gswmn")
-to = NodePath("../../Observing")
+to = NodePath("../../Running")
 event = &"enemy_entered"
 
-[node name="Observing" type="Node" parent="StateChart/Root/AlertState"]
+[node name="Running" type="Node" parent="StateChart/Root/AlertState"]
 script = ExtResource("4_273on")
 
-[node name="To Idle" type="Node" parent="StateChart/Root/AlertState/Observing"]
+[node name="To Wandering" type="Node" parent="StateChart/Root/AlertState/Running"]
 script = ExtResource("5_gswmn")
-to = NodePath("../../Idle")
+to = NodePath("../../Wandering")
 event = &"enemy_exited"
 delay_seconds = 1.0
 
@@ -252,11 +252,12 @@ event = &"enemy_entered"
 script = ExtResource("4_273on")
 
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
-[connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
 [connection signal="body_entered" from="Sensory" to="." method="_on_sensory_body_entered"]
 [connection signal="body_exited" from="Sensory" to="." method="_on_sensory_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="state_entered" from="StateChart/Root/AlertState/Idle" to="." method="_on_idle_state_entered"]
-[connection signal="state_processing" from="StateChart/Root/AlertState/Observing" to="." method="_on_observing_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/AlertState/Wandering" to="." method="_on_wandering_state_entered"]
+[connection signal="state_processing" from="StateChart/Root/AlertState/Wandering" to="." method="_on_wandering_state_processing"]
+[connection signal="state_processing" from="StateChart/Root/AlertState/Running" to="." method="_on_observing_state_processing"]
+[connection signal="state_processing" from="StateChart/Root/AlertState/Running" to="." method="_on_running_state_processing"]
