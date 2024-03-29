@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://Scripts/Food.gd" id="1_3kkvd"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ga14"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hv4uj"]
 albedo_color = Color(0.32549, 0.356863, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_j35gy"]
-material = SubResource("StandardMaterial3D_3ga14")
+material = SubResource("StandardMaterial3D_hv4uj")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_djsdb"]
 

@@ -6,7 +6,7 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8chwk"]
 
-[node name="Camera" type="CharacterBody3D"]
+[node name="Camera" type="CharacterBody3D" groups=["camera"]]
 script = ExtResource("1_yk3hw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

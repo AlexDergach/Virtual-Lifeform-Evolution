@@ -1,3 +1,62 @@
-[gd_scene format=3 uid="uid://66gy8no12nqw"]
+[gd_scene load_steps=7 format=3 uid="uid://66gy8no12nqw"]
 
-[node name="Florascintilla" type="Node3D"]
+[ext_resource type="Script" path="res://Scenes/Food/Desert_Food.gd" id="1_jx5ki"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pxbqm"]
+albedo_color = Color(0.345098, 0.568627, 0.129412, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1ugxn"]
+material = SubResource("StandardMaterial3D_pxbqm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sddb8"]
+albedo_color = Color(1, 0.8, 0.435294, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vkk0f"]
+material = SubResource("StandardMaterial3D_sddb8")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_68ce0"]
+
+[node name="Desert_Food" type="Area3D" groups=["desert_food"]]
+script = ExtResource("1_jx5ki")
+
+[node name="Fern" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0935259, -0.353965, 0, 0.0353965, 0.935259, 0, 0, 0, 0.1, -0.336266, 0.401651, 0)
+mesh = SubResource("CapsuleMesh_1ugxn")
+
+[node name="Fern2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0992786, -0.103609, -0.00603378, 0.0116584, 0.951696, 0.0284049, 0.00279933, -0.289034, 0.0956909, -0.0862816, 0.401651, -0.193977)
+mesh = SubResource("CapsuleMesh_1ugxn")
+
+[node name="Fern3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0430087, -0.162774, 0.0887992, 0.0353965, 0.935259, 0, -0.0830502, 0.314318, 0.0459859, -0.123388, 0.401651, 0.274513)
+mesh = SubResource("CapsuleMesh_1ugxn")
+
+[node name="Fern4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.093185, 0.352675, -0.00852953, 0.0353965, 0.935259, 0, 0.00797732, -0.0301915, -0.0996356, 0.325188, 0.401651, 0)
+mesh = SubResource("CapsuleMesh_1ugxn")
+
+[node name="Fern5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.0367387, 0.139044, 0.0919616, 0.0353965, 0.935259, 0, -0.0860079, 0.325512, -0.0392819, 0.125893, 0.401651, 0.331515)
+mesh = SubResource("CapsuleMesh_1ugxn")
+
+[node name="Fern6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.0749126, 0.283519, -0.0598688, 0.0353965, 0.935259, 0, 0.0559928, -0.211914, -0.0800982, 0.183568, 0.401651, -0.193258)
+mesh = SubResource("CapsuleMesh_1ugxn")
+
+[node name="Circle" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.00462854, -0.286364, 0)
+mesh = SubResource("SphereMesh_vkk0f")
+
+[node name="Fern7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0999397, 0.034725, 0, -0.0034725, 0.999397, 0, 0, 0, 0.1, -0.000171453, 0.401651, 0)
+mesh = SubResource("CapsuleMesh_1ugxn")
+
+[node name="Circle2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.0337318, 1.32509, 0)
+mesh = SubResource("SphereMesh_vkk0f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.442874, 0)
+shape = SubResource("SphereShape3D_68ce0")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

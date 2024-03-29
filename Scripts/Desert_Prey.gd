@@ -93,23 +93,7 @@ func _physics_process(delta):
 		update_target_position()
 		time_since_last_target_update = 0.0
 
-	if velocity.length_squared() > 0.01:  # Ensure the creature is moving
-		var target_rotation = atan2(velocity.x, velocity.z)
 
-		# Smooth out rotation speed when close to target rotation
-		var rotation_speed_adjusted = rotation_speed
-		if abs(rotation.y - target_rotation) < 0.1:
-			rotation_speed_adjusted *= 0.5
-
-		rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
-		done = 1
-	else:
-		if done == 1:
-			rotation.y = 0
-			rotation.x = 0
-			rotation.y = 0
-			done = 0
-			print(rotation.y)
 			
 		
 	# Calculate direction and velocity
@@ -136,12 +120,10 @@ func update_target_position():
 
 func calculate_movement(delta):
 	
-	var test = randi_range(0,1)
-	if test == 0:
-		direction = nav.get_next_path_position() - global_position
-		direction = direction.normalized()
-		velocity = velocity.lerp(direction * speed, accel * delta)
-		move_and_slide()
+	direction = nav.get_next_path_position() - global_position
+	direction = direction.normalized()
+	velocity = velocity.lerp(direction * speed, accel * delta)
+	move_and_slide()
 
 func _hungry():
 	
@@ -157,14 +139,54 @@ func _hungry():
 
 func _on_timer_timeout():
 	hunger -= 1
+var enemy = null
 
 func _on_sensory_area_entered(area):
-	if area.is_in_group("food"):
+	
+	if area.is_in_group("desert_food"):
+		print("Food spotted")
 		food_target = true
 		food_location = area.global_position
+	if area.is_in_group("camera"):
+		print("in here")
+		enemy = area.get_parent()
+		$StateChart.send_event("enemy_entered")
+		pass
 
 
 func _on_self_body_entered(body):
-	if body.is_in_group("pred"):
+	pass
+
+
+func _on_sensory_area_exited(area):
+	$StateChart.send_event("enemy_exited")
+
+func _on_observing_state_processing(delta):
+	print("Obeseving")
+	look_at(Vector3(enemy.global_position.x, 1 ,enemy.global_position.z), Vector3.UP, true)
+	pass # Replace with function body.
+
+func _on_self_area_entered(area):
+	if area.is_in_group("desert_pred"):
 		print("here")
 		queue_free()
+
+func _on_idle_state_entered():
+	rotation_degrees = Vector3(0,0,0)
+	enemy = null
+	print("left")
+	pass # Replace with function body.
+
+
+func _on_sensory_body_entered(body):
+	if body.is_in_group("camera"):
+		print("in here")
+		enemy = body
+		$StateChart.send_event("enemy_entered")
+	pass # Replace with function body.
+
+
+func _on_sensory_body_exited(body):
+	$StateChart.send_event("enemy_exited")
+	
+	pass # Replace with function body.

@@ -1,6 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://dspwh4tnvkmhw"]
+[gd_scene load_steps=24 format=3 uid="uid://dspwh4tnvkmhw"]
 
 [ext_resource type="Script" path="res://Scripts/Desert_Prey.gd" id="1_h6jmp"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_e2xqq"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="3_epcxg"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_i2ov8"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_273on"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_gswmn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vbn0"]
 
@@ -48,7 +53,7 @@ bg_color = Color(0.831373, 0.435294, 0.745098, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b6rqu"]
 
-[node name="Desert_Prey" type="CharacterBody3D" groups=["prey"]]
+[node name="Desert_Prey" type="CharacterBody3D" groups=["desert_prey"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.803, 0, -0.689)
 collision_layer = 2
 collision_mask = 2
@@ -57,7 +62,7 @@ script = ExtResource("1_h6jmp")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
-[node name="Self" type="Area3D" parent="."]
+[node name="Self" type="Area3D" parent="." groups=["desert_prey"]]
 transform = Transform3D(1.5, 0, 0, 0, 0.803939, -1.26637, 0, 1.26637, 0.803939, 0.504575, 0.810548, 0.888334)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
@@ -65,7 +70,7 @@ transform = Transform3D(1.2, 0, 0, 0, 1.19995, 0.0104928, 0, -0.0104928, 1.19995
 shape = SubResource("CapsuleShape3D_3vbn0")
 
 [node name="Sensory" type="Area3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.834667, 0, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.834667, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0.567197)
@@ -77,7 +82,6 @@ wait_time = 10.0
 
 [node name="Leg2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 1.05, 0, 0, 0, 0.7, 1.066, 0.05, 1.377)
-layers = 4
 mesh = SubResource("CapsuleMesh_ubtrd")
 skeleton = NodePath("")
 
@@ -205,6 +209,54 @@ scroll_active = false
 transform = Transform3D(1.5, 0, 0, 0, 0.970125, -1.14405, 0, 1.14405, 0.970125, 0.685683, 0.951025, 0.770942)
 shape = SubResource("CapsuleShape3D_b6rqu")
 
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_e2xqq")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("3_epcxg")
+
+[node name="AlertState" type="Node" parent="StateChart/Root"]
+script = ExtResource("3_i2ov8")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root/AlertState"]
+script = ExtResource("4_273on")
+
+[node name="To Observing" type="Node" parent="StateChart/Root/AlertState/Idle"]
+script = ExtResource("5_gswmn")
+to = NodePath("../../Observing")
+event = &"enemy_entered"
+
+[node name="Observing" type="Node" parent="StateChart/Root/AlertState"]
+script = ExtResource("4_273on")
+
+[node name="To Idle" type="Node" parent="StateChart/Root/AlertState/Observing"]
+script = ExtResource("5_gswmn")
+to = NodePath("../../Idle")
+event = &"enemy_exited"
+delay_seconds = 1.0
+
+[node name="BerserkMode" type="Node" parent="StateChart/Root"]
+script = ExtResource("3_i2ov8")
+initial_state = NodePath("Normal")
+
+[node name="Normal" type="Node" parent="StateChart/Root/BerserkMode"]
+script = ExtResource("4_273on")
+
+[node name="To Berserk" type="Node" parent="StateChart/Root/BerserkMode/Normal"]
+script = ExtResource("5_gswmn")
+to = NodePath("../../Beserk")
+event = &"enemy_entered"
+
+[node name="Beserk" type="Node" parent="StateChart/Root/BerserkMode"]
+script = ExtResource("4_273on")
+
+[connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
+[connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
+[connection signal="body_entered" from="Sensory" to="." method="_on_sensory_body_entered"]
+[connection signal="body_exited" from="Sensory" to="." method="_on_sensory_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="state_entered" from="StateChart/Root/AlertState/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_processing" from="StateChart/Root/AlertState/Observing" to="." method="_on_observing_state_processing"]

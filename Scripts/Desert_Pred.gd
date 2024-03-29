@@ -92,13 +92,15 @@ func _on_timer_timeout():
 	hunger -= 1
 
 func _on_sensory_body_entered(body):
-	if body.is_in_group("prey"):
+	if body.is_in_group("desert_prey"):
+		print("hunting")
 		food_target = true
 		food_location = body
-
+		
 func _on_self_body_entered(body):
 	pass # Replace with function body.
 
 
 func _on_sensory_area_entered(area):
-	pass # Replace with function body.
+	pass
+
