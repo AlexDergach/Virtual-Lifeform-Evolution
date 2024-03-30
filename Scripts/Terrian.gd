@@ -1,9 +1,8 @@
 extends Node3D
-
-var food_scene = load("res://Scenes/Food/Ice_Food.tscn")
-var desert_prey = load("res://Scenes/Prey/Ice_Prey.tscn")
-var fire_prey = load("res://Scenes/Pred/Desert_Pred.tscn")
-var rabbit = load("res://Scenes/Prey/Rabbit.tscn")
+var scene = "Fire"
+var food_scene = load("res://Scenes/Food/"+ scene + "_Food.tscn")
+var prey_scene = load("res://Scenes/Prey/"+ scene + "_Prey.tscn")
+var pred_scene = load("res://Scenes/Pred/"+ scene + "_Pred.tscn")
 
 
 var food_size = 0.5
@@ -35,7 +34,7 @@ func _spawn_food():
 	food_instance.scale = food_instance_scale
 
 func _spawn_rabbit():
-	rabbit_instance = desert_prey.instantiate()
+	rabbit_instance = prey_scene.instantiate()
 	var rabbit_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
 	#fix the y position to work with tilts
 	rabbit_instance.position.x = randf_range(-map_size.x/2.1,map_size.x/2.1)
@@ -44,20 +43,9 @@ func _spawn_rabbit():
 	add_child(rabbit_instance)
 
 	rabbit_instance.scale = rabbit_instance_scale
-	
-func _spawn_rabbit2():
-	rabbit_instance = rabbit.instantiate()
-	var rabbit_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
-	#fix the y position to work with tilts
-	rabbit_instance.position.x = randf_range(-map_size.x/2.1,map_size.x/2.1)
-	rabbit_instance.position.z = randf_range(-map_size.z/2.1,map_size.z/2.1)
-	rabbit_instance.position.y = map_size.y
-	add_child(rabbit_instance)
-
-	rabbit_instance.scale = rabbit_instance_scale
 
 func _spawn_enemy():
-	enemy_instance = fire_prey.instantiate()
+	enemy_instance = pred_scene.instantiate()
 	var enemy_instance_scale = Vector3(rabbit_size,rabbit_size,rabbit_size)
 	#fix the y position to work with tilts
 	enemy_instance.position.x = randf_range(-map_size.x/2.1,map_size.x/2.1)
@@ -68,7 +56,6 @@ func _spawn_enemy():
 
 	enemy_instance.scale = enemy_instance_scale
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	
 	if spawn_rate == 1:
@@ -80,8 +67,9 @@ func _physics_process(delta):
 		_spawn_rabbit()
 		_spawn_enemy()
 		_spawn_enemy()
-		
-		
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
 		spawn_rate = 0
 		
 	if Input.is_action_just_pressed("Test"):
@@ -89,7 +77,6 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("Exit"):
 		get_tree().quit()
-
 
 func _on_timer_timeout():
 	_spawn_food()

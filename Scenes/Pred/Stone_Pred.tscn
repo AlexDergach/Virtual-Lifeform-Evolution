@@ -1,6 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://c05a8l460jptl"]
+[gd_scene load_steps=20 format=3 uid="uid://c05a8l460jptl"]
 
 [ext_resource type="Script" path="res://Scripts/Stone_Pred.gd" id="1_l8uvf"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_x4gjg"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_iwk80"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_wrkns"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_32ppu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1grjd"]
 
@@ -20,21 +24,35 @@ albedo_color = Color(0.384314, 0.34902, 0.156863, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_tfirl"]
 material = SubResource("StandardMaterial3D_lfkbw")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rhetd"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7v01"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_g1ot3"]
 material = SubResource("StandardMaterial3D_q7v01")
 
-[node name="Stone_Pred" type="CharacterBody3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rhetd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsxu4"]
+bg_color = Color(0, 0, 0, 0.223529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i2mdf"]
+bg_color = Color(0.286275, 0.792157, 0.364706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uv6yk"]
+bg_color = Color(0.831373, 0.435294, 0.745098, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_u4fcp"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Stone_Pred" type="CharacterBody3D" groups=["stone_pred"]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_l8uvf")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
-[node name="Self" type="Area3D" parent="."]
+[node name="Self" type="Area3D" parent="." groups=["stone_pred"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
 transform = Transform3D(1.6, 0, 0, 0, 0.0180681, -1.59989, 0, 1.59989, 0.0180681, 0.685449, 0.159025, 0.881534)
@@ -94,11 +112,6 @@ shape = SubResource("CapsuleShape3D_areb5")
 transform = Transform3D(1.17324, 0, 0, 0, 0.32857, 0, 0, 0, 2.00652, 0.674281, 0.343774, 0.63381)
 mesh = SubResource("BoxMesh_tfirl")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Main"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Main/StaticBody3D"]
-shape = SubResource("BoxShape3D_rhetd")
-
 [node name="Tail" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.281844, 0, 0, 0, 0.127854, 0.533682, 0, -0.0456955, 1.49323, 0.674281, 0.146451, -0.474547)
 mesh = SubResource("BoxMesh_tfirl")
@@ -115,7 +128,116 @@ mesh = SubResource("SphereMesh_g1ot3")
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.900917, 0.21872, 2.6461)
 mesh = SubResource("SphereMesh_g1ot3")
 
-[connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.17324, 0, 0, 0, 0.32857, 0, 0, 0, 2.00652, 0.674281, 0.343774, 0.63381)
+shape = SubResource("BoxShape3D_rhetd")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_x4gjg")
+
+[node name="AlertState" type="Node" parent="StateChart"]
+script = ExtResource("3_iwk80")
+initial_state = NodePath("Wandering")
+
+[node name="Wandering" type="Node" parent="StateChart/AlertState"]
+script = ExtResource("4_wrkns")
+
+[node name="Hunting" type="Node" parent="StateChart/AlertState/Wandering"]
+script = ExtResource("5_32ppu")
+to = NodePath("../../Hunting")
+event = &"prey_entered"
+
+[node name="Hunting" type="Node" parent="StateChart/AlertState"]
+script = ExtResource("4_wrkns")
+
+[node name="To Wandering" type="Node" parent="StateChart/AlertState/Hunting"]
+script = ExtResource("5_32ppu")
+to = NodePath("../../Wandering")
+event = &"prey_exited"
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="Hunger" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -8.0
+offset_right = 64.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_nsxu4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_i2mdf")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -10.0
+offset_right = 62.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
+
+[node name="Repo" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -38.0
+offset_right = 64.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_nsxu4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_uv6yk")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -41.0
+offset_right = 82.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.683092, 0.98691, 1.86434)
+billboard = 1
+texture = SubResource("ViewportTexture_u4fcp")
+
+[connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
-[connection signal="body_entered" from="Sensory" to="." method="_on_sensory_body_entered"]
+[connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="state_entered" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_entered"]
+[connection signal="state_processing" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_processing"]
+[connection signal="state_processing" from="StateChart/AlertState/Hunting" to="." method="_on_hunting_state_processing"]

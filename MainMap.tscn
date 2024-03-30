@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b6p2g2yqj3716"]
+[gd_scene load_steps=16 format=3 uid="uid://b6p2g2yqj3716"]
 
 [ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="1_i065e"]
 [ext_resource type="PackedScene" uid="uid://cl25jtx4c5hkl" path="res://Scenes/Ocean.tscn" id="2_pc6ah"]
@@ -13,19 +13,169 @@ panorama = ExtResource("3_do3nn")
 sky_material = SubResource("PanoramaSkyMaterial_b4w4i")
 
 [sub_resource type="Environment" id="Environment_ugwyh"]
-background_mode = 2
+background_mode = 1
+background_color = Color(0.501961, 0.85098, 1, 1)
 sky = SubResource("Sky_yqp3m")
+ambient_light_color = Color(0.501961, 0.85098, 1, 1)
 ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
+glow_bloom = 0.44
 fog_light_color = Color(0.72549, 0.807843, 0.92549, 1)
 fog_light_energy = 0.68
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.01
 volumetric_fog_albedo = Color(0.827451, 1, 1, 1)
 volumetric_fog_length = 400.0
+
+[sub_resource type="Animation" id="Animation_ed34r"]
+resource_name = "SkyColor"
+length = 12.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:environment:background_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.501961, 0.85098, 1, 1), Color(0, 0.337255, 0.439216, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:environment:ambient_light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.501961, 0.85098, 1, 1), Color(0, 0.337255, 0.439216, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath(".:environment:tonemap_exposure")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_dwhoq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:environment:background_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.501961, 0.85098, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:environment:ambient_light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.501961, 0.85098, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:environment:tonemap_exposure")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xouc"]
+_data = {
+"RESET": SubResource("Animation_dwhoq"),
+"SkyColor": SubResource("Animation_ed34r")
+}
+
+[sub_resource type="Animation" id="Animation_8lup1"]
+resource_name = "SunRotate"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0), Vector3(4.71239, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.1, 9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [2.0, 0.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_pn436"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5708, -1.80991, 0.144862)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r0hsu"]
+_data = {
+"RESET": SubResource("Animation_pn436"),
+"SunRotate": SubResource("Animation_8lup1")
+}
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_bjvcu"]
 cell_size = 0.2
@@ -45,10 +195,21 @@ transform = Transform3D(25, 0, 0, 0, 1, 0, 0, 0, 25, 0, 0, 0)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ugwyh")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WorldEnvironment"]
+libraries = {
+"": SubResource("AnimationLibrary_6xouc")
+}
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.149663, 0.611859, -0.776679, 0.115773, 0.790967, 0.600806, 0.981936, 4.5263e-08, -0.189215, -19.3321, 30.4911, -5.70308)
+transform = Transform3D(-0.0941084, 0.995562, 4.24678e-08, -6.31001e-09, -4.32536e-08, 1, 0.995562, 0.0941084, 1.03525e-08, -19.3321, 30.4911, -5.70308)
 light_energy = 2.0
 shadow_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DirectionalLight3D"]
+autoplay = "SunRotate"
+libraries = {
+"": SubResource("AnimationLibrary_r0hsu")
+}
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_bjvcu")

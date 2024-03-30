@@ -244,9 +244,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.683092, 1.55439, 0.974782)
 billboard = 1
 texture = SubResource("ViewportTexture_lrw50")
 
-[node name="Body" type="Node3D" parent="."]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 5, 0.791884, 0.533754, 0.917367)
-
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]

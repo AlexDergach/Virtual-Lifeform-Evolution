@@ -232,12 +232,6 @@ to = NodePath("../../Wandering")
 event = &"enemy_exited"
 delay_seconds = 1.0
 
-[node name="Node3D" type="Node3D" parent="." groups=["desert_prey"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.926532, 1.98276)
-
-[node name="Node3D2" type="Node3D" parent="." groups=["desert_prey"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.708653, 0.132756, 0)
-
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]

@@ -12,7 +12,7 @@ albedo_color = Color(0.227451, 0.00392157, 0.0745098, 1)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7axhn"]
 material = SubResource("StandardMaterial3D_ki404")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_herhg"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bb21d"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cv1sh"]
 
@@ -43,13 +43,14 @@ skeleton = NodePath("")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
-[node name="Self" type="Area3D" parent="."]
+[node name="Self" type="Area3D" parent="." groups=["fire_prey"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
-transform = Transform3D(1.3846, 0, 0, 0, 1.97019, 0, 0, 0, 1.59594, 0, 0.490682, 0)
-shape = SubResource("CapsuleShape3D_herhg")
+transform = Transform3D(1.6109, 0, 0, 0, 1.52002, 0, 0, 0, 2.01221, 0, 0.545247, 0)
+shape = SubResource("CapsuleShape3D_bb21d")
 
 [node name="Sensory" type="Area3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)

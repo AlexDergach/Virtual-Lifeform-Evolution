@@ -65,13 +65,14 @@ script = ExtResource("1_j4uex")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
-[node name="Self" type="Area3D" parent="."]
+[node name="Self" type="Area3D" parent="." groups=["forest_prey"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
 transform = Transform3D(1.6, 0, 0, 0, 0.187256, -1.589, 0, 1.589, 0.187256, 0.685449, 0.490682, 0.881534)
 shape = SubResource("CapsuleShape3D_xtyg6")
 
 [node name="Sensory" type="Area3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0.631707, 0, 1.03678)

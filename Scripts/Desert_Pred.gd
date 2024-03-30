@@ -124,21 +124,21 @@ func _on_self_area_entered(area):
 	if area.is_in_group("desert_prey"):
 		food_target = false
 		hunger += 1
-		#print("Pred: Food ate")
+		print("Pred: Food ate")
 		prey = null
 
 #If Pred Leaves The Sensory Area
 
 func _on_sensory_area_exited(area):
 	if area.is_in_group("desert_prey"):
-		#print("Prey left")
+		print("Prey left")
 		$StateChart.send_event("prey_exited")
 
 func _on_wandering_state_entered():
 	pass
 
 func _on_wandering_state_processing(delta):
-	var TARGET_UPDATE_INTERVAL = randf_range(1.0, 10.0)
+	var TARGET_UPDATE_INTERVAL = randf_range(4.0, 12.0)
 	time_since_last_target_update += delta
 	
 	if food_target == false:

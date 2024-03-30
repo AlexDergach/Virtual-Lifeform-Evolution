@@ -60,8 +60,7 @@ bg_color = Color(0.286275, 0.792157, 0.364706, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5iv42"]
 bg_color = Color(0.831373, 0.435294, 0.745098, 1)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hf4fs"]
-points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_0uihi"]
 
 [node name="Stone_Prey" type="CharacterBody3D" groups=["stone_prey"]]
 collision_layer = 2
@@ -71,13 +70,14 @@ script = ExtResource("1_1et0s")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
-[node name="Self" type="Area3D" parent="."]
+[node name="Self" type="Area3D" parent="." groups=["stone_prey"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
 transform = Transform3D(2.30485, 0, 0, 0, 1, 0, 0, 0, 2.72126, 0.723462, 0, 0.677015)
 shape = SubResource("BoxShape3D_q33i7")
 
 [node name="Sensory" type="Area3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0.658346, 0, 0.694316)
@@ -279,8 +279,8 @@ event = &"enemy_exited"
 delay_seconds = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2.361, 0, 0, 0, 0.654, 0, 0, 0, 2.5, 0.74615, 0, 0.654171)
-shape = SubResource("ConvexPolygonShape3D_hf4fs")
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0.764005, 0.509704, 0.739683)
+shape = SubResource("BoxShape3D_0uihi")
 
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]

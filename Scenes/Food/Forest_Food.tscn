@@ -12,7 +12,7 @@ material = SubResource("StandardMaterial3D_2yva1")
 albedo_color = Color(0, 0.52549, 0.341176, 1)
 emission_enabled = true
 emission = Color(0, 0.52549, 0.403922, 1)
-emission_energy_multiplier = 9.26
+emission_energy_multiplier = 16.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_r8awv"]
 material = SubResource("StandardMaterial3D_t0buo")

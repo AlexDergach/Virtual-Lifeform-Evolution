@@ -67,13 +67,14 @@ script = ExtResource("1_uhdiw")
 avoidance_enabled = true
 radius = 2.0
 
-[node name="Self" type="Area3D" parent="."]
+[node name="Self" type="Area3D" parent="." groups=["ice_prey"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Self"]
 transform = Transform3D(2.30485, 0, 0, 0, 1, 0, 0, 0, 2.72126, 0.723462, 0, 0.677015)
 shape = SubResource("BoxShape3D_mbrid")
 
 [node name="Sensory" type="Area3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0.658346, 0, 0.694316)

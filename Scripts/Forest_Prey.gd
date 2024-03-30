@@ -176,7 +176,7 @@ func _on_running_state_processing(delta):
 
 
 func _on_wandering_state_processing(delta):
-	var TARGET_UPDATE_INTERVAL = randf_range(1.0, 10.0)
+	var TARGET_UPDATE_INTERVAL = randf_range(5.0, 15.0)
 	time_since_last_target_update += delta
 	
 	if food_target == false:

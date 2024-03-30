@@ -21,12 +21,15 @@ var forest_pred = load("res://Scenes/Pred/Forest_Pred.tscn")
 
 var desert_food = load("res://Scenes/Food/Desert_Food.tscn")
 var ice_food = load("res://Scenes/Food/Ice_Food.tscn")
+var forest_food = load("res://Scenes/Food/Forest_Food.tscn")
+var stone_food = load("res://Scenes/Food/Stone_Food.tscn")
+var fire_food = load("res://Scenes/Food/Fire_Food.tscn")
 
 
 
 var prey_scenes = [fire_prey, desert_prey, forest_prey, stone_prey,ice_prey]
 var pred_scenes = [fire_pred, desert_pred, forest_pred, stone_pred]
-var food_scenes = [desert_food,ice_food]
+var food_scenes = [fire_food, desert_food, forest_food, stone_food, ice_food]
 
 var food_size = 0.5
 var prey_size = 0.5
@@ -80,7 +83,7 @@ func generate_biomes():
 		# Clustering factor based on biome type
 		var clustering_factor = 1.5
 		if biome_id == 12 or biome_id == 18:  # Ice_Cube or Stone_Cube
-			clustering_factor = 0.5  # Adjust the clustering factor for these biomes to make them smaller than the rest
+			clustering_factor = 0.75 # Adjust the clustering factor for these biomes to make them smaller than the rest
 		
 		# Generate initial clusters and have at least one snow biome
 		if biome_id == 12 and !snow_island_spawned:
@@ -427,7 +430,6 @@ func spawn():
 	
 	while spawn_count < 80:
 		for i in range(0,5):
-			print(i)
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)
 			
@@ -435,6 +437,8 @@ func spawn():
 				var position = Vector3(x*2, spawn_y , z*2)
 				
 				if position not in spawned_positions:
+					if i == 3:
+						print("Stone Spawn")
 					if type_of_creature == 1:
 						_spawn_prey(position, i)
 						type_of_creature = 0
@@ -451,6 +455,8 @@ func spawn():
 				var position = Vector3(x*2, spawn_y*2 , z*2)
 				
 				if position not in spawned_positions:
+					if i == 3:
+						print("Stone Spawn")
 					if type_of_creature == 1:
 						_spawn_prey(position, i)
 						type_of_creature = 0
@@ -466,7 +472,11 @@ func spawn():
 				var position = Vector3(x*2, spawn_y*3 , z*2)
 				
 				if position not in spawned_positions:
+					if i == 3:
+						print("Stone Spawn")
+					
 					if type_of_creature == 1:
+						
 						_spawn_prey(position, i)
 						type_of_creature = 0
 						spawn_count += 1
@@ -483,10 +493,10 @@ func spawn_food():
 	var spawned_positions = []
 	var spawn_y = 2.2
 	
-	var biomes = [[1,2],[10,11,12]]
+	var biomes = [[6,7],[1,2],[20,21],[18],[10,11,12]]
 	
 	while spawn_count < 120:
-		for i in range(0,1):
+		for i in range(0,5):
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)
 			
