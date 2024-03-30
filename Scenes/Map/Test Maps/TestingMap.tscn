@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://2mathsfwagr5"]
 
-[ext_resource type="Script" path="res://Scripts/Terrian.gd" id="1_emad3"]
-[ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="2_ip1rc"]
+[ext_resource type="Script" path="res://Scripts/Terrian.gd" id="1_ggp6u"]
+[ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="2_idoms"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_lqi4r"]
 vertices = PackedVector3Array(-22.25, 0.45, -29.5, -29.5, 0.45, -29.5, -29.5, 0.45, -22.25, -29.5, 0.45, 22, -29.5, 0.45, 29.5, -22.25, 0.45, 29.5, 29.5, 0.45, -22.25, 29.5, 0.45, -29.5, 22, 0.45, -29.5, 22, 0.45, 29.5, 29.5, 0.45, 29.5, 29.5, 0.45, 22, -29.5, 0.45, 14.75, -29.5, 0.45, 22, -22.25, 0.45, 29.5, -14.75, 0.45, 29.5, 29.5, 0.45, -22.25, 22, 0.45, -29.5, 14.75, 0.45, -29.5, 29.5, 0.45, -14.75, -14.75, 0.45, -29.5, -22.25, 0.45, -29.5, -29.5, 0.45, -22.25, -29.5, 0.45, -14.75, 14.75, 0.45, 29.5, 22, 0.45, 29.5, 29.5, 0.45, 22, 7.25, 0.45, 29.5, 29.5, 0.45, 14.75, 29.5, 0.45, 7.25, 0, 0.45, 29.5, 14.75, 0.45, 29.5, 29.5, 0.45, 22, 29.5, 0.45, 14.75, 7.25, 0.45, 29.5, 0, 0.45, -29.5, -7.5, 0.45, -29.5, -29.5, 0.45, -7.5, -29.5, 0.45, 0, 29.5, 0.45, 0, 0, 0.45, -29.5, -29.5, 0.45, 0, -7.5, 0.45, 29.5, 0, 0.45, 29.5, 29.5, 0.45, 7.25, -29.5, 0.45, 14.75, -14.75, 0.45, 29.5, -7.5, 0.45, 29.5, -29.5, 0.45, 7.25, 29.5, 0.45, -7.5, 29.5, 0.45, -14.75, 14.75, 0.45, -29.5, 7.25, 0.45, -29.5, -7.5, 0.45, -29.5, -14.75, 0.45, -29.5, -29.5, 0.45, -14.75, -29.5, 0.45, -7.5, -29.5, 0.45, 0, -29.5, 0.45, 7.25, -7.5, 0.45, 29.5, 29.5, 0.45, -7.5, 7.25, 0.45, -29.5, 0, 0.45, -29.5, 29.5, 0.45, 0)
@@ -17,7 +17,7 @@ background_mode = 2
 sky = SubResource("Sky_2nexr")
 
 [node name="Terrian" type="Node3D"]
-script = ExtResource("1_emad3")
+script = ExtResource("1_ggp6u")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_lqi4r")
@@ -40,6 +40,6 @@ environment = SubResource("Environment_mqsmc")
 process_callback = 0
 wait_time = 4.0
 
-[node name="Camera" parent="." instance=ExtResource("2_ip1rc")]
+[node name="Camera" parent="." instance=ExtResource("2_idoms")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

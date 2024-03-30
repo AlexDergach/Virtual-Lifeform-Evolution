@@ -1,8 +1,5 @@
 extends Area3D
 
-#@onready var rabbit = preload("res://Rabbit.tscn")
-var rabbit_instance 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -10,17 +7,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-func _on_body_entered(body):
-	#bring variable of hunt for that instance of rabit??
 	
-	if body.is_in_group("desert_prey"):
-		print("food body entered")
-		queue_free()
-
-
 func _on_area_entered(area):
 	if area.is_in_group("desert_prey"):
-		print("food area entered")
-		
 		queue_free()

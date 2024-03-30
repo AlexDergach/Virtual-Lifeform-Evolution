@@ -414,7 +414,8 @@ func spawn_character():
 		var center_world_position = self.to_global(center_local_position)
 		# Set the character's global position to the calculated position
 		character_body.global_transform.origin = center_world_position
-		
+
+
 func spawn():
 	var spawn_count = 0
 	var spawned_positions = []
@@ -479,13 +480,12 @@ func spawn():
 func spawn_food():
 	var spawn_count = 0
 	var spawned_positions = []
-	var spawn_y = 2.4
+	var spawn_y = 2.2
 	
 	var biomes = [[1,2]]
 	
 	while spawn_count < 120:
 		for i in range(0,1):
-			print(i)
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)
 			

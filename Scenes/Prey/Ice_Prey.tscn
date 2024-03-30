@@ -1,6 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://bm5ha3wic8n6q"]
+[gd_scene load_steps=25 format=3 uid="uid://bm5ha3wic8n6q"]
 
 [ext_resource type="Script" path="res://Scripts/Ice_Prey.gd" id="1_uhdiw"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_3on4x"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_y61kj"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_sejww"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_rj1fp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mbrid"]
 
@@ -40,6 +44,21 @@ albedo_color = Color(0.34902, 0.52549, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_smykm"]
 material = SubResource("StandardMaterial3D_520jk")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1vgbp"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0qt6"]
+bg_color = Color(0, 0, 0, 0.223529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhlvd"]
+bg_color = Color(0.286275, 0.792157, 0.364706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_433hk"]
+bg_color = Color(0.831373, 0.435294, 0.745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xyih"]
+bg_color = Color(0.227451, 0.643137, 0.870588, 1)
 
 [node name="Ice_Pre" type="CharacterBody3D"]
 script = ExtResource("1_uhdiw")
@@ -126,6 +145,145 @@ mesh = SubResource("SphereMesh_smykm")
 [node name="Eye2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 1.42898, 0, 1.92595)
 mesh = SubResource("SphereMesh_smykm")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.738117, 1.35349, 0.811255)
+billboard = 1
+texture = SubResource("ViewportTexture_1vgbp")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="Hunger" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -8.0
+offset_right = 64.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_n0qt6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xhlvd")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -10.0
+offset_right = 62.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
+
+[node name="Repo" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -38.0
+offset_right = 64.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_n0qt6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_433hk")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -41.0
+offset_right = 82.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
+
+[node name="Life" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -68.0
+offset_right = 64.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_n0qt6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7xyih")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -70.0
+offset_right = 107.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_3on4x")
+
+[node name="AlertState" type="Node" parent="StateChart"]
+script = ExtResource("3_y61kj")
+initial_state = NodePath("Wandering")
+
+[node name="Wandering" type="Node" parent="StateChart/AlertState"]
+script = ExtResource("4_sejww")
+
+[node name="To Running" type="Node" parent="StateChart/AlertState/Wandering"]
+script = ExtResource("5_rj1fp")
+to = NodePath("../../Running")
+event = &"enemy_entered"
+
+[node name="Running" type="Node" parent="StateChart/AlertState"]
+script = ExtResource("4_sejww")
+
+[node name="To Wandering" type="Node" parent="StateChart/AlertState/Running"]
+script = ExtResource("5_rj1fp")
+to = NodePath("../../Wandering")
+event = &"enemy_exited"
+delay_seconds = 1.0
+
+[node name="Timer2" type="Timer" parent="."]
 
 [connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
