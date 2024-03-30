@@ -1,10 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://bm5ha3wic8n6q"]
+[gd_scene load_steps=24 format=3 uid="uid://bm5ha3wic8n6q"]
 
 [ext_resource type="Script" path="res://Scripts/Ice_Prey.gd" id="1_uhdiw"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_3on4x"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_y61kj"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_sejww"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_rj1fp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mbrid"]
 
@@ -269,22 +268,11 @@ initial_state = NodePath("Wandering")
 [node name="Wandering" type="Node" parent="StateChart/AlertState"]
 script = ExtResource("4_sejww")
 
-[node name="To Running" type="Node" parent="StateChart/AlertState/Wandering"]
-script = ExtResource("5_rj1fp")
-to = NodePath("../../Running")
-event = &"enemy_entered"
-
-[node name="Running" type="Node" parent="StateChart/AlertState"]
-script = ExtResource("4_sejww")
-
-[node name="To Wandering" type="Node" parent="StateChart/AlertState/Running"]
-script = ExtResource("5_rj1fp")
-to = NodePath("../../Wandering")
-event = &"enemy_exited"
-delay_seconds = 1.0
-
 [node name="Timer2" type="Timer" parent="."]
+process_callback = 0
+wait_time = 30.0
 
 [connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

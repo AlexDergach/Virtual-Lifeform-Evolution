@@ -49,8 +49,12 @@ func _process(delta):
 	
 	progress_bar.max_value = 3
 	progress_bar.min_value = -3
+	
 	progress_bar2.max_value = 1
 	progress_bar2.min_value = 0
+	
+	progress_bar3.max_value = 10
+	progress_bar3.min_value = 0
 	
 	
 	if progress_bar.value > -4:
@@ -64,6 +68,10 @@ func _process(delta):
 		progress_bar2.value = reproduction
 		progress_bar_text2.text = " "
 		
+	if progress_bar3.value > 0:
+		progress_bar3.value -= delta
+	
+	
 	if hunger > 0.0:
 		reproduction = 1
 	else: 
@@ -113,69 +121,23 @@ func _hungry():
 func _on_timer_timeout():
 	hunger -= 1
 	
-var enemy = null
 
 func _on_sensory_area_entered(area):
 	
-	if area.is_in_group("forest_food") && _hungry():
+	if area.is_in_group("Ice_food") && _hungry():
 		#print("Prey : Food spotted")
 		food_target = true
 		target_pos = area.global_position
 		nav.target_position = target_pos
-		
-	if area.is_in_group("forest_pred"):
-		enemy = area
-		$StateChart.send_event("enemy_entered")
-		time_since_last_target_update = randf_range(1.0, 10.0)  # Start running immediately
 	
 func _on_self_area_entered(area):
-	if area.is_in_group("forest_pred"):
-		#print("Dead")
-		queue_free()
-	#If food enters self area, it gets eaten
-	if area.is_in_group("forest_food"):
+	if area.is_in_group("Ice_food"):
 		food_target = false
 		hunger += 1
 		#print("Prey: Food ate")
 
-#If Pred Leaves The Sensory Area
-func _on_sensory_area_exited(area):
-	if area.is_in_group("forest_pred"):
-		$StateChart.send_event("enemy_exited")
-
-
 func _on_wandering_state_entered():
-	var num_escape_directions = 3
-	# Clear previous escape directions
-	escape_directions.clear()
-	# Calculate multiple escape directions
-	for i in range(num_escape_directions):
-		var random_dir = Vector3(randf_range(-1.0, 1.0), 0.1, randf_range(-1.0, 1.0)).normalized()
-		escape_directions.append(random_dir)
-	enemy = null
-
-func _on_running_state_processing(delta):
-	# Check if it's time to update escape direction
-	if time_since_last_target_update >= randf_range(1.0, 10.0):
-		#print("Running")
-		# Calculate the direction away from the enemy
-		var direction_to_enemy = global_position - enemy.global_position
-		direction_to_enemy.y = 0  # Ignore vertical component
-		
-		# Normalize the direction
-		direction_to_enemy = direction_to_enemy.normalized()
-		
-		# Calculate the new target position by adding the normalized direction away from the predator
-		# to the prey's current position
-		var new_target_position = global_position + direction_to_enemy * 10  # Adjust the multiplier as needed
-		
-		# Set the navigation target to the new target position
-		nav.target_position = new_target_position
-		
-		# Reset the timer
-		time_since_last_target_update = 0.0
-
-
+	pass
 
 func _on_wandering_state_processing(delta):
 	var TARGET_UPDATE_INTERVAL = randf_range(1.0, 10.0)
@@ -188,3 +150,7 @@ func _on_wandering_state_processing(delta):
 			target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
 			nav.target_position = target_pos
 			time_since_last_target_update = 0.0
+
+
+func _on_timer_2_timeout():
+	queue_free()
