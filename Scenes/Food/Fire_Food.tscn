@@ -1,3 +1,39 @@
-[gd_scene format=3 uid="uid://b2icwnma2c4md"]
+[gd_scene load_steps=7 format=3 uid="uid://b2icwnma2c4md"]
 
-[node name="Fire_Food" type="Node3D"]
+[ext_resource type="Script" path="res://Scenes/Food/Fire_Food.gd" id="1_vuhef"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkgs8"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8vbw0"]
+material = SubResource("StandardMaterial3D_pkgs8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eq6m5"]
+emission_enabled = true
+emission = Color(0.941176, 0.533333, 0.447059, 1)
+emission_energy_multiplier = 5.95
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kwluv"]
+material = SubResource("StandardMaterial3D_eq6m5")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_eoxn1"]
+
+[node name="Fire_Food" type="Area3D" groups=["fire_food"]]
+script = ExtResource("1_vuhef")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_8vbw0")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.686402, 0.410917, 0, -0.410917, 0.686402, 0, 0, 0, 0.8, 0.26435, 1.04988, 0)
+mesh = SubResource("CapsuleMesh_8vbw0")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.282734, 0.282951, 0, -0.282951, 0.282734, 0, 0, 0, 0.4, 0.751649, 1.78933, -0.0161953)
+mesh = SubResource("CapsuleMesh_kwluv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.310068, 0.661298, 0)
+shape = SubResource("SphereShape3D_eoxn1")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

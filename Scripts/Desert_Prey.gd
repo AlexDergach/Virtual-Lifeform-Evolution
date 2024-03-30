@@ -77,7 +77,7 @@ func _physics_process(delta):
 	var target_rotation = atan2(target_direction.x, target_direction.z)
 	
 	# Adjust rotation speed based on proximity to target rotation
-	var rotation_speed_adjusted = rotation_speed
+	var rotation_speed_adjusted = rotation_speed * 0.5
 	if abs(rotation.y - target_rotation) < 0.1:
 		rotation_speed_adjusted *= 0.5
 	
@@ -176,7 +176,7 @@ func _on_running_state_processing(delta):
 
 
 func _on_wandering_state_processing(delta):
-	var TARGET_UPDATE_INTERVAL = randf_range(1.0, 10.0)
+	var TARGET_UPDATE_INTERVAL = randf_range(5.0, 15.0)
 	time_since_last_target_update += delta
 	
 	if food_target == false:

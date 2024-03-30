@@ -18,6 +18,9 @@ material = SubResource("StandardMaterial3D_ki404")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r2gmg"]
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_n71fb"]
+viewport_path = NodePath("SubViewport")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3f4cv"]
 bg_color = Color(0, 0, 0, 0.223529)
 
@@ -27,10 +30,7 @@ bg_color = Color(0.286275, 0.792157, 0.364706, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lij5l"]
 bg_color = Color(0.831373, 0.435294, 0.745098, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_n71fb"]
-viewport_path = NodePath("SubViewport")
-
-[node name="Fire_Prey" type="CharacterBody3D"]
+[node name="Fire_Prey" type="CharacterBody3D" groups=["fire_prey"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_hv5ux")
@@ -103,6 +103,15 @@ shape = SubResource("CapsuleShape3D_r2gmg")
 transform = Transform3D(0.4, 0, 0, 0, 0.419491, -0.285989, 0, 0.428984, 0.279661, 0, 0.853214, 0.242421)
 mesh = SubResource("CapsuleMesh_7axhn")
 skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_r2gmg")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.71778, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_n71fb")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -177,15 +186,6 @@ scale = Vector2(0.8, 0.8)
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
 scroll_active = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("CapsuleShape3D_r2gmg")
-
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.71778, 0)
-billboard = 1
-texture = SubResource("ViewportTexture_n71fb")
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_i81rg")

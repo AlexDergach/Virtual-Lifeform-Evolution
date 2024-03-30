@@ -63,7 +63,7 @@ bg_color = Color(0.831373, 0.435294, 0.745098, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hf4fs"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
-[node name="Stone_Prey" type="CharacterBody3D"]
+[node name="Stone_Prey" type="CharacterBody3D" groups=["stone_prey"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_1et0s")

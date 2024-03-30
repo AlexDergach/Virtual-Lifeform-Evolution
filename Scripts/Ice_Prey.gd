@@ -43,6 +43,7 @@ var time_since_last_target_update = 0.0
 func _ready():
 	
 	$Timer.start()
+	$Timer2.start()
 
 
 func _process(delta):
@@ -53,7 +54,7 @@ func _process(delta):
 	progress_bar2.max_value = 1
 	progress_bar2.min_value = 0
 	
-	progress_bar3.max_value = 10
+	progress_bar3.max_value = 26
 	progress_bar3.min_value = 0
 	
 	
@@ -69,29 +70,15 @@ func _process(delta):
 		progress_bar_text2.text = " "
 		
 	if progress_bar3.value > 0:
+		progress_bar_text3.text = "Life Cycle"
 		progress_bar3.value -= delta
-	
+		
 	if hunger > 0.0:
 		reproduction = 1
 	else: 
 		reproduction = 0
 
 func _physics_process(delta):
-	
-	# Calculate the direction to the target
-	var target_direction = nav.target_position - global_position
-	target_direction.y = 0  # Ignore vertical component for 2D rotation
-	
-	# Calculate the angle between the forward vector and the target direction
-	var target_rotation = atan2(target_direction.x, target_direction.z)
-	
-	# Adjust rotation speed based on proximity to target rotation
-	var rotation_speed_adjusted = rotation_speed
-	if abs(rotation.y - target_rotation) < 0.1:
-		rotation_speed_adjusted *= 0.5
-	
-	# Smoothly rotate towards the target rotation
-	rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
 		
 	time = delta
 	
@@ -123,23 +110,23 @@ func _on_timer_timeout():
 
 func _on_sensory_area_entered(area):
 	
-	if area.is_in_group("Ice_food") && _hungry():
-		#print("Prey : Food spotted")
+	if area.is_in_group("ice_food") && _hungry():
+		print("Prey : Food spotted")
 		food_target = true
 		target_pos = area.global_position
 		nav.target_position = target_pos
 	
 func _on_self_area_entered(area):
-	if area.is_in_group("Ice_food"):
+	if area.is_in_group("ice_food"):
 		food_target = false
 		hunger += 1
-		#print("Prey: Food ate")
+		print("Prey: Food ate")
 
 func _on_wandering_state_entered():
 	pass
 
 func _on_wandering_state_processing(delta):
-	var TARGET_UPDATE_INTERVAL = randf_range(1.0, 10.0)
+	var TARGET_UPDATE_INTERVAL = randf_range(5.0, 15.0)  # Adjust the range as needed for longer intervals
 	time_since_last_target_update += delta
 	
 	if food_target == false:
@@ -150,6 +137,16 @@ func _on_wandering_state_processing(delta):
 			nav.target_position = target_pos
 			time_since_last_target_update = 0.0
 
+	# Adjust rotation speed to make it turn more slowly
+	var target_direction = nav.target_position - global_position
+	target_direction.y = 0
+	var target_rotation = atan2(target_direction.x, target_direction.z)
+	var rotation_speed_adjusted = rotation_speed * 0.5  # Reduce rotation speed for smoother turning
+	if abs(rotation.y - target_rotation) < 0.1:
+		rotation_speed_adjusted *= 0.5
+	rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
+
 
 func _on_timer_2_timeout():
+	print("Dead")
 	queue_free()

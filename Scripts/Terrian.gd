@@ -1,7 +1,7 @@
 extends Node3D
 
-var food_scene = load("res://Scenes/Food/Desert_Food.tscn")
-var desert_prey = load("res://Scenes/Prey/Desert_Prey.tscn")
+var food_scene = load("res://Scenes/Food/Ice_Food.tscn")
+var desert_prey = load("res://Scenes/Prey/Ice_Prey.tscn")
 var fire_prey = load("res://Scenes/Pred/Desert_Pred.tscn")
 var rabbit = load("res://Scenes/Prey/Rabbit.tscn")
 
@@ -72,6 +72,10 @@ func _spawn_enemy():
 func _physics_process(delta):
 	
 	if spawn_rate == 1:
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
 		_spawn_rabbit()
 		_spawn_rabbit()
 		_spawn_enemy()

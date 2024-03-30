@@ -1,3 +1,52 @@
-[gd_scene format=3 uid="uid://b83ffaiysfkwh"]
+[gd_scene load_steps=7 format=3 uid="uid://b83ffaiysfkwh"]
 
-[node name="Stone_Food" type="Node3D"]
+[ext_resource type="Script" path="res://Scenes/Food/Stone_Food.gd" id="1_7hysj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0oqtp"]
+albedo_color = Color(0.952941, 0.596078, 0.219608, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xe5hn"]
+material = SubResource("StandardMaterial3D_0oqtp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xfj0"]
+albedo_color = Color(0.588235, 0.478431, 0.356863, 1)
+emission_enabled = true
+emission = Color(0.443137, 0.407843, 0.352941, 1)
+emission_energy_multiplier = 13.85
+
+[sub_resource type="SphereMesh" id="SphereMesh_w1ym5"]
+material = SubResource("StandardMaterial3D_0xfj0")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_p43iu"]
+
+[node name="Stone_Food" type="Area3D" groups=["stone_food"]]
+script = ExtResource("1_7hysj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_xe5hn")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.570493, 0)
+mesh = SubResource("SphereMesh_w1ym5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0445176, 0.572138)
+mesh = SubResource("SphereMesh_w1ym5")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.604086, -0.0014441, 0)
+mesh = SubResource("SphereMesh_w1ym5")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.546098, -0.0423727, 0)
+mesh = SubResource("SphereMesh_w1ym5")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0475621, -0.548699)
+mesh = SubResource("SphereMesh_w1ym5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_p43iu")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

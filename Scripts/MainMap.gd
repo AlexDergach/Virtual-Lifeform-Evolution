@@ -20,12 +20,13 @@ var stone_pred = load("res://Scenes/Pred/Stone_Pred.tscn")
 var forest_pred = load("res://Scenes/Pred/Forest_Pred.tscn")
 
 var desert_food = load("res://Scenes/Food/Desert_Food.tscn")
+var ice_food = load("res://Scenes/Food/Ice_Food.tscn")
 
 
 
 var prey_scenes = [fire_prey, desert_prey, forest_prey, stone_prey,ice_prey]
 var pred_scenes = [fire_pred, desert_pred, forest_pred, stone_pred]
-var food_scenes = [desert_food]
+var food_scenes = [desert_food,ice_food]
 
 var food_size = 0.5
 var prey_size = 0.5
@@ -482,7 +483,7 @@ func spawn_food():
 	var spawned_positions = []
 	var spawn_y = 2.2
 	
-	var biomes = [[1,2]]
+	var biomes = [[1,2],[10,11,12]]
 	
 	while spawn_count < 120:
 		for i in range(0,1):

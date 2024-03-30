@@ -1,3 +1,41 @@
-[gd_scene format=3 uid="uid://drwsx7nbc06wb"]
+[gd_scene load_steps=7 format=3 uid="uid://drwsx7nbc06wb"]
 
-[node name="Forest_Food" type="Node3D"]
+[ext_resource type="Script" path="res://Scenes/Food/Forest_Food.gd" id="1_p6h8u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2yva1"]
+albedo_color = Color(0.0901961, 0.207843, 0.223529, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v4pyw"]
+material = SubResource("StandardMaterial3D_2yva1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t0buo"]
+albedo_color = Color(0, 0.52549, 0.341176, 1)
+emission_enabled = true
+emission = Color(0, 0.52549, 0.403922, 1)
+emission_energy_multiplier = 9.26
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r8awv"]
+material = SubResource("StandardMaterial3D_t0buo")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_njy84"]
+
+[node name="Forest_Food" type="Area3D" groups=["forest_food"]]
+script = ExtResource("1_p6h8u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.00073, 0, 0, 0, 0.26987, 0, 0, 0, 1.00073, 0, 0, 0)
+mesh = SubResource("CylinderMesh_v4pyw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.216, 0, 0, 0, 0.8, 0, 0.401199, 0)
+mesh = SubResource("CylinderMesh_v4pyw")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.302195, 0, 0, 0, 0.309804, 0, 0, 0, 0.301445, 0.0039115, 0.870563, 0.0124362)
+mesh = SubResource("CylinderMesh_r8awv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.21322, 0, 0, 0, 0.706998, 0, 0, 0, 1.23706, 0, 0.484718, 0)
+shape = SubResource("CylinderShape3D_njy84")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

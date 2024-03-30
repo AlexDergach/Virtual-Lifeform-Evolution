@@ -77,7 +77,7 @@ func _physics_process(delta):
 	var target_rotation = atan2(target_direction.x, target_direction.z)
 	
 	# Adjust rotation speed based on proximity to target rotation
-	var rotation_speed_adjusted = rotation_speed
+	var rotation_speed_adjusted = rotation_speed* 0.5
 	if abs(rotation.y - target_rotation) < 0.1:
 		rotation_speed_adjusted *= 0.5
 	

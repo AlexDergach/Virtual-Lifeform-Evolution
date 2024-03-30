@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://bm5ha3wic8n6q"]
+[gd_scene load_steps=23 format=3 uid="uid://bm5ha3wic8n6q"]
 
 [ext_resource type="Script" path="res://Scripts/Ice_Prey.gd" id="1_uhdiw"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_3on4x"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_y61kj"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_sejww"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mbrid"]
@@ -59,13 +58,14 @@ bg_color = Color(0.227451, 0.643137, 0.870588, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ds0ia"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
-[node name="Ice_Pre" type="CharacterBody3D"]
+[node name="Ice_Pre" type="CharacterBody3D" groups=["ice_prey"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_uhdiw")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
+radius = 2.0
 
 [node name="Self" type="Area3D" parent="."]
 
@@ -258,22 +258,20 @@ scroll_active = false
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_3on4x")
 
-[node name="AlertState" type="Node" parent="StateChart"]
-script = ExtResource("3_y61kj")
-initial_state = NodePath("Wandering")
-
-[node name="Wandering" type="Node" parent="StateChart/AlertState"]
+[node name="Wandering" type="Node" parent="StateChart"]
 script = ExtResource("4_sejww")
 
 [node name="Timer2" type="Timer" parent="."]
 process_callback = 0
-wait_time = 30.0
+wait_time = 22.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(2.361, 0, 0, 0, 0.654, 0, 0, 0, 2.5, 0.74615, 0, 0.654171)
 shape = SubResource("ConvexPolygonShape3D_ds0ia")
 
-[connection signal="body_entered" from="Self" to="." method="_on_self_body_entered"]
+[connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="state_entered" from="StateChart/Wandering" to="." method="_on_wandering_state_entered"]
+[connection signal="state_processing" from="StateChart/Wandering" to="." method="_on_wandering_state_processing"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
