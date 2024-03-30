@@ -115,7 +115,7 @@ var enemy = null
 
 func _on_sensory_area_entered(area):
 	
-	if area.is_in_group("forest_food") && _hungry():
+	if area.is_in_group("stone_food") && _hungry():
 		#print("Prey : Food spotted")
 		food_target = true
 		target_pos = area.global_position
@@ -127,18 +127,18 @@ func _on_sensory_area_entered(area):
 		time_since_last_target_update = randf_range(1.0, 10.0)  # Start running immediately
 	
 func _on_self_area_entered(area):
-	if area.is_in_group("forest_pred"):
+	if area.is_in_group("stone_pred"):
 		#print("Dead")
 		queue_free()
 	#If food enters self area, it gets eaten
-	if area.is_in_group("forest_food"):
+	if area.is_in_group("stone_food"):
 		food_target = false
 		hunger += 1
 		#print("Prey: Food ate")
 
 #If Pred Leaves The Sensory Area
 func _on_sensory_area_exited(area):
-	if area.is_in_group("forest_pred"):
+	if area.is_in_group("stone_pred"):
 		$StateChart.send_event("enemy_exited")
 
 

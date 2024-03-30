@@ -33,9 +33,6 @@ roughness = 0.0
 [sub_resource type="BoxMesh" id="BoxMesh_85f8p"]
 material = SubResource("StandardMaterial3D_o1bb1")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hf4fs"]
-points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
-
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nxrsf"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
@@ -63,7 +60,12 @@ bg_color = Color(0.286275, 0.792157, 0.364706, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5iv42"]
 bg_color = Color(0.831373, 0.435294, 0.745098, 1)
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hf4fs"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
 [node name="Stone_Prey" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_1et0s")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -126,11 +128,6 @@ shape = SubResource("CapsuleShape3D_xvc3n")
 [node name="Body1" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.361, 0, 0, 0, 0.654, 0, 0, 0, 2.5, 0.74615, 0, 0.654171)
 mesh = SubResource("BoxMesh_85f8p")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Body1"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Body1/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_hf4fs")
 
 [node name="Body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.417, 0, 0, 0, 0.392, 0, 0, 0, 1.5, 0.74615, 0.53838, 0.682075)
@@ -280,6 +277,10 @@ script = ExtResource("5_dq1p1")
 to = NodePath("../../Wandering")
 event = &"enemy_exited"
 delay_seconds = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.361, 0, 0, 0, 0.654, 0, 0, 0, 2.5, 0.74615, 0, 0.654171)
+shape = SubResource("ConvexPolygonShape3D_hf4fs")
 
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]

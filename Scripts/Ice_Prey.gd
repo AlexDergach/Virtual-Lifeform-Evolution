@@ -71,7 +71,6 @@ func _process(delta):
 	if progress_bar3.value > 0:
 		progress_bar3.value -= delta
 	
-	
 	if hunger > 0.0:
 		reproduction = 1
 	else: 
