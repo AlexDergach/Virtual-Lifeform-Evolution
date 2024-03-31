@@ -45,7 +45,7 @@ var time_since_last_target_update = 0.0
 var is_child = false
 var child_timer = 0.0
 var child_duration = 10.0 
-var child_speed_factor = 0.75
+var child_factor = 0.75
 var child_scale_factor = 0.25
 
 var is_female = false  # Default to false
@@ -59,11 +59,14 @@ func _ready():
 
 	if is_child:
 		# If this instance is a child, start the timer for transitioning parameters
+		print("Child timer started")
 		$Child_Timer.start()
 		# Scale down the size
 		#size *= child_scale_factor
 		self.scale = Vector3(size,size,size)
 		inital_speed = speed
+		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
+		
 		# Do hunger
 	else:
 		# If it's not a child (i.e., an adult), initialize random size, speed, and hunger capacity
@@ -87,16 +90,26 @@ func _ready():
 	
 	if is_female:
 		print("Female")
-		var desired_color = Color(1.0, 0.75, 0.8) # Red color
+		var desired_color = Color(1.0, 0.75, 0.8)
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Female"
+		
+		var material = load("res://Assets/Desert_Prey.tres").duplicate()  # Load the material and duplicate it
+		material.albedo_color = Color(1.0, 0.7, 0.5)  # Set the new color
+	
+		$Main.set_surface_override_material(0,material) 
+		$Leg2.set_surface_override_material(0,material) 
+		$Leg3.set_surface_override_material(0,material) 
+		$Leg4.set_surface_override_material(0,material) 
+		$Leg5.set_surface_override_material(0,material) 
 		
 	else:
 		print("Male")
 		
-		var desired_color = Color(0.5, 0.5, 1.0) # Red color
+		var desired_color = Color(0.5, 0.5, 1.0)
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Male"
+		
 
 
 func _process(delta):
@@ -187,11 +200,12 @@ func _on_sensory_area_entered(area):
 		$StateChart.send_event("enemy_entered")
 		time_since_last_target_update = randf_range(1.0, 10.0)  # Start running immediately
 		
-	if is_female:		
-		if area.is_in_group("desert_prey") and !has_mated and !area.get_parent().is_female:
+	if is_female and !is_child:
+		if area.is_in_group("desert_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child:
 			
 			if mating_partner_1 == null:
 				print("Partner 1 spotted")
+				$Looking.start()
 				mating_partner_1 = area
 				# Save the stats of the first encountered mate
 				first_mate_size = mating_partner_1.get_parent().size
@@ -274,7 +288,14 @@ func _on_wandering_state_processing(delta):
 	var TARGET_UPDATE_INTERVAL = randf_range(4.0, 10.0)
 	time_since_last_target_update += delta
 	
-	if partners != 2:
+	if partners == 2:
+		if mate_chosen == 1:
+			mating_partner = mating_partner_1
+			nav.target_position = mating_partner_1.global_position
+		else: 
+			mating_partner = mating_partner_2
+			nav.target_position = mating_partner_2.global_position
+	else: 
 		if food_target == false:
 			# Continue wandering
 			if time_since_last_target_update >= TARGET_UPDATE_INTERVAL:
@@ -287,15 +308,7 @@ func _on_wandering_state_processing(delta):
 			# Check if the creature has reached its target position
 			if global_position.distance_to(nav.target_position) < 1.0: 
 				time_since_last_target_update = 20.0  # Reset the timer to find a new target position
-	else: 
-			if mate_chosen == 1:
-				print("Going to one")
-				mating_partner = mating_partner_1
-				nav.target_position = mating_partner_1.global_position
-			else: 
-				print("Going to two")
-				mating_partner = mating_partner_2
-				nav.target_position = mating_partner_2.global_position
+
 	
 
 func _on_repo_state_entered():
@@ -303,36 +316,77 @@ func _on_repo_state_entered():
 	if mating_partner != null:
 		print("In Repo state")
 		# Mate with the partner
-		has_mated = true
+		
+		
 		var avg_size = (size + mating_partner.get_parent().size) / 2.0
 		var avg_speed = (inital_speed + mating_partner.get_parent().inital_speed) / 2.0
 		var avg_accel = (accel + mating_partner.get_parent().accel) / 2.0
-		create_child(avg_size,avg_speed,avg_accel)
-		# Reset mating_partner for future reproduction
+		var avg_hunger = (hunger + mating_partner.get_parent().hunger) / 2.0
+		var avg_meta = (metabolism + mating_partner.get_parent().metabolism) / 2.0
+		
+		var twins = randi_range(1, 2) == 1 
+		
+		if twins :
+	
+			create_child(avg_size,avg_speed,avg_accel,avg_hunger,avg_meta)
+			create_child(avg_size,avg_speed,avg_accel,avg_hunger,avg_meta)
+			$Mating.start()
+			print("Made twins")
+			
+		else:
+			
+			create_child(avg_size,avg_speed,avg_accel,avg_hunger,avg_meta)
+			$Mating.start()
+			print("Made solo")
+		has_mated = true
 		mating_partner = null
+		partners = 0
+		# Reset mating_partner for future reproduction
 		$StateChart.send_event("repo_done")
 
 
-func create_child(size,speed,accel):
+func create_child(size,speed,accel,hunger,meta):
 	print("Creatign Child")
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Prey/Desert_Prey.tscn").instantiate()
 	# Initialize child variables
+	
+	
 	child.size = size * child_scale_factor
-	child.speed = speed * child_scale_factor
-	child.accel = accel * child_scale_factor
+	child.speed = speed * child_factor
+	child.accel = accel * child_factor
+	child.hunger = hunger * child_factor
+	child.metabolism = meta * child_factor
 	#set speed
 	child.is_child = true  # Mark the child as a child
 	# Position the child nearby the parent
+	get_parent().add_child(child)
+	
 	child.global_position = global_position + Vector3(randi_range(-1, 1), 0, randi_range(-1, 1))
 	# Add the child to the scene or appropriate container
-	get_parent().add_child(child)
 
 func _on_child_timer_timeout():
+	print("baby done")
 	is_child = false
 	size /= child_scale_factor
-	speed /= child_speed_factor
-
+	self.scale = Vector3(size,size,size)
+	
+	speed /= child_factor
+	accel /= child_factor
+	hunger /= child_factor
+	metabolism /= child_factor
 
 func _on_repo_state_processing(delta):
 	pass # Replace with function body.
+
+func _on_mating_timeout():
+	has_mated = false
+	mating_partner_1 = null
+	mating_partner_2 = null
+	partners = 0
+	mate_chosen = 1
+
+
+func _on_looking_timeout():
+	partners = 2
+	mate_chosen = 1
