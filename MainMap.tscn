@@ -201,7 +201,7 @@ libraries = {
 }
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.0941122, 0.995562, 3.517e-06, -5.22567e-07, -3.58207e-06, 1, 0.995562, 0.0941122, 8.57365e-07, -19.3321, 30.4911, -5.70308)
+transform = Transform3D(-0.0941123, 0.995562, 3.517e-06, -5.22567e-07, -3.58208e-06, 1, 0.995562, 0.0941123, 8.57365e-07, -19.3321, 30.4911, -5.70308)
 light_energy = 2.0
 shadow_enabled = true
 
