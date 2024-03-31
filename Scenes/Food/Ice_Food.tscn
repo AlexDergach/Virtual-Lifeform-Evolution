@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cniy82ipd8o5h"]
 
-[ext_resource type="Script" path="res://Scenes/Food/Ice_Food.gd" id="1_syen5"]
+[ext_resource type="Script" path="res://Scripts/Ice_Food.gd" id="1_utmqn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wk5o3"]
 albedo_color = Color(0.52549, 0.580392, 1, 1)
@@ -12,7 +12,7 @@ material = SubResource("StandardMaterial3D_wk5o3")
 
 [node name="Ice_Food" type="Area3D" groups=["ice_food"]]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
-script = ExtResource("1_syen5")
+script = ExtResource("1_utmqn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PrismMesh_5rnld")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b83ffaiysfkwh"]
 
-[ext_resource type="Script" path="res://Scenes/Food/Stone_Food.gd" id="1_7hysj"]
+[ext_resource type="Script" path="res://Scripts/Stone_Food.gd" id="1_8q1yd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0oqtp"]
 albedo_color = Color(0.952941, 0.596078, 0.219608, 1)
@@ -20,7 +20,7 @@ material = SubResource("StandardMaterial3D_0xfj0")
 [sub_resource type="SphereShape3D" id="SphereShape3D_p43iu"]
 
 [node name="Stone_Food" type="Area3D" groups=["stone_food"]]
-script = ExtResource("1_7hysj")
+script = ExtResource("1_8q1yd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_xe5hn")

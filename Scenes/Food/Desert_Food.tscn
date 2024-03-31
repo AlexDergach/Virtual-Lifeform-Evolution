@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://66gy8no12nqw"]
 
-[ext_resource type="Script" path="res://Scenes/Food/Desert_Food.gd" id="1_jx5ki"]
+[ext_resource type="Script" path="res://Scripts/Desert_Food.gd" id="1_npenp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pxbqm"]
 albedo_color = Color(0.345098, 0.568627, 0.129412, 1)
@@ -17,7 +17,7 @@ material = SubResource("StandardMaterial3D_sddb8")
 [sub_resource type="SphereShape3D" id="SphereShape3D_68ce0"]
 
 [node name="Desert_Food" type="Area3D" groups=["desert_food"]]
-script = ExtResource("1_jx5ki")
+script = ExtResource("1_npenp")
 
 [node name="Fern" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0935259, -0.353965, 0, 0.0353965, 0.935259, 0, 0, 0, 0.1, -0.336266, 0.401651, 0)

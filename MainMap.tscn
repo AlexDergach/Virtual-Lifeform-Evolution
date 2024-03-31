@@ -30,6 +30,45 @@ volumetric_fog_density = 0.01
 volumetric_fog_albedo = Color(0.827451, 1, 1, 1)
 volumetric_fog_length = 400.0
 
+[sub_resource type="Animation" id="Animation_dwhoq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:environment:background_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.501961, 0.85098, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:environment:ambient_light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.501961, 0.85098, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:environment:tonemap_exposure")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
 [sub_resource type="Animation" id="Animation_ed34r"]
 resource_name = "SkyColor"
 length = 12.0
@@ -70,49 +109,37 @@ tracks/2/keys = {
 "values": [1.0]
 }
 
-[sub_resource type="Animation" id="Animation_dwhoq"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xouc"]
+_data = {
+"RESET": SubResource("Animation_dwhoq"),
+"SkyColor": SubResource("Animation_ed34r")
+}
+
+[sub_resource type="Animation" id="Animation_pn436"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:environment:background_color")
+tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.501961, 0.85098, 1, 1)]
+"values": [Vector3(-1.5708, -1.80991, 0.144862)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:environment:ambient_light_color")
+tracks/1/path = NodePath(".:light_energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.501961, 0.85098, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:environment:tonemap_exposure")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xouc"]
-_data = {
-"RESET": SubResource("Animation_dwhoq"),
-"SkyColor": SubResource("Animation_ed34r")
+"values": [2.0]
 }
 
 [sub_resource type="Animation" id="Animation_8lup1"]
@@ -142,33 +169,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [2.0, 0.0, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_pn436"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.5708, -1.80991, 0.144862)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:light_energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r0hsu"]
@@ -201,7 +201,7 @@ libraries = {
 }
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.0941084, 0.995562, 4.24678e-08, -6.31001e-09, -4.32536e-08, 1, 0.995562, 0.0941084, 1.03525e-08, -19.3321, 30.4911, -5.70308)
+transform = Transform3D(-0.0941122, 0.995562, 3.517e-06, -5.22567e-07, -3.58207e-06, 1, 0.995562, 0.0941122, 8.57365e-07, -19.3321, 30.4911, -5.70308)
 light_energy = 2.0
 shadow_enabled = true
 

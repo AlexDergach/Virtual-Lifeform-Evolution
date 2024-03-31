@@ -223,6 +223,11 @@ script = ExtResource("5_gswmn")
 to = NodePath("../../Running")
 event = &"enemy_entered"
 
+[node name="To Repo" type="Node" parent="StateChart/AlertState/Wandering"]
+script = ExtResource("5_gswmn")
+to = NodePath("../../Repo")
+event = &"repo"
+
 [node name="Running" type="Node" parent="StateChart/AlertState"]
 script = ExtResource("4_273on")
 
@@ -232,6 +237,21 @@ to = NodePath("../../Wandering")
 event = &"enemy_exited"
 delay_seconds = 1.0
 
+[node name="Repo" type="Node" parent="StateChart/AlertState"]
+script = ExtResource("4_273on")
+
+[node name="Transition" type="Node" parent="StateChart/AlertState/Repo"]
+script = ExtResource("5_gswmn")
+to = NodePath("../../Running")
+event = &"enemy_entered"
+
+[node name="Transition2" type="Node" parent="StateChart/AlertState/Repo"]
+script = ExtResource("5_gswmn")
+to = NodePath("../../Wandering")
+event = &"repo_done"
+
+[node name="Child_Timer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
@@ -239,3 +259,6 @@ delay_seconds = 1.0
 [connection signal="state_entered" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_entered"]
 [connection signal="state_processing" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_processing"]
 [connection signal="state_processing" from="StateChart/AlertState/Running" to="." method="_on_running_state_processing"]
+[connection signal="state_entered" from="StateChart/AlertState/Repo" to="." method="_on_repo_state_entered"]
+[connection signal="state_processing" from="StateChart/AlertState/Repo" to="." method="_on_repo_state_processing"]
+[connection signal="timeout" from="Child_Timer" to="." method="_on_child_timer_timeout"]
