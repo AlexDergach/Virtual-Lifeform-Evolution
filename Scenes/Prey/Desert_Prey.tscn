@@ -280,7 +280,7 @@ event = &"repo_done"
 
 [node name="Child_Timer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
 
 [node name="Mating" type="Timer" parent="."]

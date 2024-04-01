@@ -46,17 +46,14 @@ func _physics_process(delta):
 		_spawn_rabbit()
 		_spawn_rabbit()
 		_spawn_rabbit()
-		_spawn_rabbit()
+		
 		spawn_rate = 0
 		
 	if Input.is_action_just_pressed("SpeedUp"):
 		_spawn_food()
 		# Increase speed of all prey instances
-		for rabbit in rabbit_instances:
-			rabbit.speed *= 2.0
 	if Input.is_action_just_pressed("SpeedDown"):
-		for rabbit in rabbit_instances:
-			rabbit.speed /= 2.0
+		pass
 	if Input.is_action_just_pressed("Exit"):
 		get_tree().quit()
 

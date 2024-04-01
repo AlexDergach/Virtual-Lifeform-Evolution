@@ -36,6 +36,7 @@ var direction = Vector3()
 var accel
 var speed
 var inital_speed
+var inital_hunger
 
 var hunger_label: Label3D
 var reproduction_label: Label3D
@@ -50,6 +51,8 @@ var child_scale_factor = 0.25
 
 var is_female = false  # Default to false
 
+var speed_counter = 0
+var hunger_half
 
 func _ready():
 	
@@ -59,13 +62,17 @@ func _ready():
 
 	if is_child:
 		# If this instance is a child, start the timer for transitioning parameters
-		print("Child timer started")
+		#print("Child timer started")
 		$Child_Timer.start()
 		# Scale down the size
 		#size *= child_scale_factor
 		self.scale = Vector3(size,size,size)
 		inital_speed = speed
+		inital_hunger = hunger
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
+		
+		print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", 
+		inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
 		
 		# Do hunger
 	else:
@@ -76,20 +83,25 @@ func _ready():
 		speed = randi_range(1.0, 3.0)  # Adjust as needed
 		inital_speed = speed
 		hunger = randi_range(6.0, 12.0)  # Adjust as needed
+		inital_hunger = hunger
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
-		
-		print(" Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", 
-		hunger, " Meta: ", metabolism, " Female: ", is_female)
-
-		
+		var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
+		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
+		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
+	
+	
+	hunger_half = hunger/2
+	
+	
+	progress_bar.max_value = hunger
 	progress_bar.min_value = 0
 	progress_bar2.max_value = 1
 	progress_bar2.min_value = 0
 	progress_bar3.value = progress_bar3.max_value
 	
 	if is_female:
-		print("Female")
+		#print("Female")
 		var desired_color = Color(1.0, 0.75, 0.8)
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Female"
@@ -104,7 +116,7 @@ func _ready():
 		$Leg5.set_surface_override_material(0,material) 
 		
 	else:
-		print("Male")
+		#print("Male")
 		
 		var desired_color = Color(0.5, 0.5, 1.0)
 		progress_bar3.modulate = desired_color
@@ -114,7 +126,46 @@ func _ready():
 
 func _process(delta):
 	
-	progress_bar.max_value = hunger
+	
+	if Input.is_action_just_pressed("SpeedUp"):
+		if speed_counter == 0:
+			speed_counter += 1
+			speed = inital_speed
+			speed *= 2
+			print(speed)
+		elif speed_counter == 1:
+			speed_counter += 1
+			speed = inital_speed
+			speed *= 3
+			print(speed)
+			
+		elif speed_counter == 2:
+			speed_counter += 1
+			speed = inital_speed
+			speed *= 4
+			print(speed)
+			
+			
+	if Input.is_action_just_pressed("SpeedDown"):
+		if speed_counter == 1:
+			speed_counter -= 1
+			speed = inital_speed
+			
+			
+		elif speed_counter == 2:
+			speed_counter -= 1
+			speed = inital_speed
+			speed *= 2
+			print(speed)
+			
+			
+		elif speed_counter == 3:
+			speed_counter -= 1
+			speed = inital_speed
+			speed *= 3
+			print(speed)
+			
+			
 			
 	if hunger == 0:
 		queue_free()
@@ -123,7 +174,7 @@ func _process(delta):
 		progress_bar.value = hunger
 		progress_bar_text.text = "Food : " + str(hunger)
 		
-	if hunger > 0.0:
+	if hunger > hunger_half:
 		reproduction = 1
 	else: 
 		reproduction = 0
@@ -169,7 +220,7 @@ func calculate_movement(delta):
 
 func _hungry():
 
-	if hunger >= 2:
+	if hunger >= hunger_half:
 		return false
 	else:
 		return true
@@ -200,25 +251,25 @@ func _on_sensory_area_entered(area):
 		$StateChart.send_event("enemy_entered")
 		time_since_last_target_update = randf_range(1.0, 10.0)  # Start running immediately
 		
-	if is_female and !is_child:
-		if area.is_in_group("desert_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child:
+	if is_female and !is_child and reproduction == 1:
+		if area.is_in_group("desert_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:
 			
 			if mating_partner_1 == null:
-				print("Partner 1 spotted")
+				#print("Partner 1 spotted")
 				$Looking.start()
 				mating_partner_1 = area
 				# Save the stats of the first encountered mate
 				first_mate_size = mating_partner_1.get_parent().size
 				first_mate_hunger = mating_partner_1.get_parent().hunger
-				print("Average Score 1: ", first_mate_size + first_mate_hunger)
+				#print("Average Score 1: ", first_mate_size + first_mate_hunger)
 				partners += 1
 			elif mating_partner_2 == null and area != mating_partner_1:
-				print("Partner 2 spotted")
+				#print("Partner 2 spotted")
 				mating_partner_2 = area
 				# Compare stats with the second mate
 				var second_mate_size = area.get_parent().size
 				var second_mate_hunger = area.get_parent().hunger
-				print("Average Score 2: ", second_mate_size + second_mate_hunger)
+				#print("Average Score 2: ", second_mate_size + second_mate_hunger)
 				
 				if second_mate_size + second_mate_hunger > first_mate_size + first_mate_hunger:
 					# Second mate is better, mate with it
@@ -242,7 +293,7 @@ func _on_self_area_entered(area):
 		hunger += 1
 		#print("Prey: Food ate")
 	if area.is_in_group("desert_prey") and partners == 2 and area == mating_partner:
-		print("Mate: ", mate_chosen, " Touched Sending Repo State")
+		#print("Mate: ", mate_chosen, " Touched Sending Repo State")
 		$StateChart.send_event("repo")
 	
 
@@ -291,10 +342,27 @@ func _on_wandering_state_processing(delta):
 	if partners == 2:
 		if mate_chosen == 1:
 			mating_partner = mating_partner_1
-			nav.target_position = mating_partner_1.global_position
+			if is_instance_valid(mating_partner):
+				nav.target_position = mating_partner.global_position
+			else:
+				has_mated = true
+				mating_partner = null
+				partners = 0
+				$StateChart.send_event("repo_done")
+				
+				#print("Has Died")
 		else: 
 			mating_partner = mating_partner_2
-			nav.target_position = mating_partner_2.global_position
+			if is_instance_valid(mating_partner):
+			
+				nav.target_position = mating_partner.global_position
+			else:
+				has_mated = true
+				mating_partner = null
+				partners = 0
+				$StateChart.send_event("repo_done")
+				
+				#print("Has Died")
 	else: 
 		if food_target == false:
 			# Continue wandering
@@ -314,15 +382,34 @@ func _on_wandering_state_processing(delta):
 func _on_repo_state_entered():
 	# Reproduction state entered
 	if mating_partner != null:
-		print("In Repo state")
+		#print("In Repo state")
 		# Mate with the partner
 		
 		
 		var avg_size = (size + mating_partner.get_parent().size) / 2.0
 		var avg_speed = (inital_speed + mating_partner.get_parent().inital_speed) / 2.0
 		var avg_accel = (accel + mating_partner.get_parent().accel) / 2.0
-		var avg_hunger = (hunger + mating_partner.get_parent().hunger) / 2.0
+		var avg_hunger = (inital_hunger + mating_partner.get_parent().inital_hunger) / 2.0
 		var avg_meta = (metabolism + mating_partner.get_parent().metabolism) / 2.0
+	
+		var par1 = (size + accel + inital_speed + inital_hunger + metabolism) / 5
+		var par2 = (mating_partner.get_parent().size + mating_partner.get_parent().inital_speed 
+		+ mating_partner.get_parent().accel + mating_partner.get_parent().inital_hunger
+		 + mating_partner.get_parent().metabolism ) / 5
+	
+	
+	
+		print("Parent Average 1 ", par1)
+		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
+		inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
+		
+		print("Parent Average 2 ", par2)
+		print(" Size: ", mating_partner.get_parent().size , " Accel: ", mating_partner.get_parent().accel,
+		" Speed: ",mating_partner.get_parent().inital_speed, " Hunger: ", mating_partner.get_parent().inital_hunger, 
+		" Meta: ", mating_partner.get_parent().metabolism, " Female: ", mating_partner.get_parent().is_female)
+		
+		print("Parent Averages: Size ", avg_size, " speed: ",avg_speed," accel: ",avg_accel, 
+		" hunger : ",avg_hunger," meta: " ,avg_meta)
 		
 		var twins = randi_range(1, 2) == 1 
 		
@@ -331,13 +418,15 @@ func _on_repo_state_entered():
 			create_child(avg_size,avg_speed,avg_accel,avg_hunger,avg_meta)
 			create_child(avg_size,avg_speed,avg_accel,avg_hunger,avg_meta)
 			$Mating.start()
-			print("Made twins")
+			#print("Made twins")
+			
 			
 		else:
 			
 			create_child(avg_size,avg_speed,avg_accel,avg_hunger,avg_meta)
 			$Mating.start()
-			print("Made solo")
+			#print("Made solo")
+			
 		has_mated = true
 		mating_partner = null
 		partners = 0
@@ -346,7 +435,7 @@ func _on_repo_state_entered():
 
 
 func create_child(size,speed,accel,hunger,meta):
-	print("Creatign Child")
+	#print("Creatign Child")
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Prey/Desert_Prey.tscn").instantiate()
 	# Initialize child variables
@@ -364,17 +453,23 @@ func create_child(size,speed,accel,hunger,meta):
 	
 	child.global_position = global_position + Vector3(randi_range(-1, 1), 0, randi_range(-1, 1))
 	# Add the child to the scene or appropriate container
+	
 
 func _on_child_timer_timeout():
-	print("baby done")
+	#print("baby done")
 	is_child = false
 	size /= child_scale_factor
 	self.scale = Vector3(size,size,size)
 	
-	speed /= child_factor
+	inital_speed /= child_factor
 	accel /= child_factor
-	hunger /= child_factor
+	inital_hunger /= child_factor
 	metabolism /= child_factor
+	
+	print("Grown Stats: ")
+	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
+	print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
+		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 
 func _on_repo_state_processing(delta):
 	pass # Replace with function body.
@@ -388,5 +483,12 @@ func _on_mating_timeout():
 
 
 func _on_looking_timeout():
+	#print("Looking timer ran out")
 	partners = 2
 	mate_chosen = 1
+	#mating_partner = mating_partner_1
+	#print(is_instance_valid(mating_partner))
+	#print(is_instance_valid(mating_partner.global_position))
+	#print(mating_partner)
+	
+
