@@ -43,8 +43,9 @@ func _spawn_enemy():
 func _physics_process(delta):
 	
 	if spawn_rate == 1:
-		_spawn_rabbit()
-		_spawn_rabbit()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
 		_spawn_rabbit()
 		
 		spawn_rate = 0

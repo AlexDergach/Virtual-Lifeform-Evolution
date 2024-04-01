@@ -81,6 +81,10 @@ SpeedDown={
 ]
 }
 
+[memory]
+
+limits/message_queue/max_size_mb=64
+
 [navigation]
 
 3d/default_cell_size=0.2
