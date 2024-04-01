@@ -238,6 +238,7 @@ var first_mate_hunger
 var partners = 0
 var mate_chosen = 1
 
+
 func _on_sensory_area_entered(area):
 	
 	if area.is_in_group("desert_food") && _hungry():
@@ -386,11 +387,11 @@ func _on_repo_state_entered():
 		# Mate with the partner
 		
 		
-		var avg_size = (size + mating_partner.get_parent().size) / 2.0
-		var avg_speed = (inital_speed + mating_partner.get_parent().inital_speed) / 2.0
-		var avg_accel = (accel + mating_partner.get_parent().accel) / 2.0
-		var avg_hunger = (inital_hunger + mating_partner.get_parent().inital_hunger) / 2.0
-		var avg_meta = (metabolism + mating_partner.get_parent().metabolism) / 2.0
+		var max_size = max(size, mating_partner.get_parent().size)
+		var max_speed = max(inital_speed, mating_partner.get_parent().inital_speed)
+		var max_accel = max(accel, mating_partner.get_parent().accel)
+		var max_hunger = max(inital_hunger, mating_partner.get_parent().inital_hunger)
+		var max_meta = max(metabolism, mating_partner.get_parent().metabolism)
 	
 		var par1 = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 		var par2 = (mating_partner.get_parent().size + mating_partner.get_parent().inital_speed 
@@ -408,22 +409,19 @@ func _on_repo_state_entered():
 		" Speed: ",mating_partner.get_parent().inital_speed, " Hunger: ", mating_partner.get_parent().inital_hunger, 
 		" Meta: ", mating_partner.get_parent().metabolism, " Female: ", mating_partner.get_parent().is_female)
 		
-		print("Parent Averages: Size ", avg_size, " speed: ",avg_speed," accel: ",avg_accel, 
-		" hunger : ",avg_hunger," meta: " ,avg_meta)
-		
 		var twins = randi_range(1, 2) == 1 
 		
 		if twins :
 	
-			create_child(avg_size,avg_speed,avg_accel,avg_hunger,avg_meta)
-			create_child(avg_size,avg_speed,avg_accel,avg_hunger,avg_meta)
+			create_child(max_size, max_speed, max_accel, max_hunger, max_meta)
+			create_child(max_size, max_speed, max_accel, max_hunger, max_meta)
 			$Mating.start()
 			#print("Made twins")
 			
 			
 		else:
 			
-			create_child(avg_size,avg_speed,avg_accel,avg_hunger,avg_meta)
+			create_child(max_size, max_speed, max_accel, max_hunger, max_meta)
 			$Mating.start()
 			#print("Made solo")
 			
@@ -491,4 +489,3 @@ func _on_looking_timeout():
 	#print(is_instance_valid(mating_partner.global_position))
 	#print(mating_partner)
 	
-
