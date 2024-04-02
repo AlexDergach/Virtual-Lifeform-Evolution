@@ -35,10 +35,12 @@ func _ready():
 	$Timer.start()
 
 func _process(delta):
-	ui_instance.desert_label.text = "Total Population: " + str(creature_manager.get_desert_creature()) + "
+	ui_instance.desert_label.text = "Desert Population: " + str(creature_manager.get_desert_creature()) + "
 								Predators: " + str(creature_manager.get_desert_pred()) + "
 								Prey: " + str(creature_manager.get_desert_prey()) + "
-								Generation: "
+								Generation: " + str(creature_manager.get_desert_gen())
+								
+	ui_instance.TotalPopLabel.text = "Total Population: " + str(creature_manager.get_total_creatures()) 
 								
 	pass
 
@@ -71,7 +73,13 @@ func _physics_process(delta):
 		
 		_spawn_rabbit()
 		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
 		
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
 		_spawn_enemy()
 		_spawn_enemy()
 		

@@ -17,6 +17,8 @@ extends CharacterBody3D
 
 @onready var self_area = $Self
 
+var generation = 0
+
 
 var TARGET_UPDATE_INTERVAL = randf_range(4.0, 10.0)
 
@@ -118,6 +120,8 @@ func _ready():
 		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 		
 		$Age.start()
+		
+		creature_manager.add_desert_gen(generation)
 	
 	
 	hunger_half = inital_hunger/2
@@ -445,15 +449,21 @@ func create_child(size,inital_speed,accel,hunger,meta,mother_area, speed_counter
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Pred/Desert_Pred.tscn").instantiate()
 	
+	var child_generation = generation + 1
+	
 	child.speed_counter = speed_counter
 	child.mother = mother_area
 	child.size = size * child_scale_factor
 	child.speed = speed
-	child.inital_speed = inital_speed
+	child.inital_speed = inital_speed * child_factor
 	child.accel = accel * child_factor
 	child.hunger = hunger * child_factor
 	child.metabolism = meta * child_factor
 	child.is_child = true  # Mark the child as a child
+	child.generation = child_generation
+	
+	creature_manager.add_desert_gen(child_generation)
+	
 	
 	get_parent().add_child(child)
 	

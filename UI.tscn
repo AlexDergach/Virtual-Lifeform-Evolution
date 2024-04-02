@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://yjsnj1atdqps"]
+[gd_scene load_steps=12 format=3 uid="uid://yjsnj1atdqps"]
 
 [ext_resource type="Script" path="res://UI.gd" id="1_15fdv"]
 [ext_resource type="Texture2D" uid="uid://cdeic2l5bopdd" path="res://Assets/UI/desert.png" id="2_uh867"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://bq4bbcys2jdm7" path="res://Assets/UI/red.png" id="4_b0teg"]
 [ext_resource type="Texture2D" uid="uid://ctdlrl4tpbtsk" path="res://Assets/UI/stone.png" id="5_bamn0"]
 [ext_resource type="FontFile" uid="uid://ck3fdadbi5bw6" path="res://Assets/Fonts/Roboto-Black.ttf" id="7_isrpw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_offp7"]
+line_spacing = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4sjp"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -55,6 +58,7 @@ offset_left = 113.0
 offset_top = 3.0
 offset_right = 272.0
 offset_bottom = 78.0
+label_settings = SubResource("LabelSettings_offp7")
 
 [node name="Forest" type="TextureRect" parent="PopPanel"]
 layout_mode = 0
@@ -149,8 +153,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -135.0
-offset_bottom = 298.0
+offset_left = -134.0
+offset_top = 3.0
+offset_right = -6.0
+offset_bottom = 279.0
 grow_horizontal = 0
 
 [node name="Panel" type="Panel" parent="Controls"]
@@ -246,9 +252,16 @@ text = " V"
 label_settings = SubResource("LabelSettings_ml1mu")
 
 [node name="Label6" type="Label" parent="Controls"]
-offset_left = 7.0
-offset_top = 237.0
-offset_right = 126.0
-offset_bottom = 276.0
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -63.5
+offset_top = 233.0
+offset_right = 63.5
+offset_bottom = 233.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "UI Toggle"
 label_settings = SubResource("LabelSettings_aghfs")

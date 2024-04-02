@@ -25,6 +25,9 @@ func get_total_creatures():
 
 
 var total_desert_creatures = []
+var highest_desert_gen
+var starting_gen
+var previous_gen
 var total_desert_prey = []
 var total_desert_pred = []
 
@@ -42,6 +45,18 @@ func remove_desert_creature(creature):
 # Get the total number of creatures
 func get_desert_creature():
 	return len(total_desert_creatures)
+	
+func add_desert_gen(gen):
+	if gen == 0:
+		starting_gen = gen
+		previous_gen = starting_gen
+		highest_desert_gen = gen
+	else:
+		if previous_gen < gen:
+			highest_desert_gen = gen
+
+func get_desert_gen():
+	return highest_desert_gen
 
 #============ Desert Prey ========================
 
@@ -75,6 +90,8 @@ func get_desert_pred():
 
 
 var total_ice_creatures = []
+var highest_ice_gen
+
 var total_ice_prey = []
 
 
@@ -92,7 +109,20 @@ func remove_ice_creature(creature):
 # Get the total number of creatures
 func get_ice_creature():
 	return len(total_ice_creatures)
+	
+func add_ice_gen(gen):
+	var starting_gen
+	var previous_gen
+	if gen == 0:
+		starting_gen = gen
+		previous_gen = starting_gen
+		highest_ice_gen = gen
+	else:
+		if previous_gen < gen:
+			highest_ice_gen = gen
 
+func get_ice_gen():
+	return highest_ice_gen
 #============ Ice Prey ========================
 
 # Add a creature instance to the list
@@ -110,6 +140,7 @@ func get_ice_prey():
 
 
 var total_forest_creatures = []
+var highest_forest_gen
 var total_forest_prey = []
 var total_forest_pred = []
 
@@ -127,6 +158,20 @@ func remove_forest_creature(creature):
 # Get the total number of creatures
 func get_forest_creature():
 	return len(total_forest_creatures)
+
+func add_forest_gen(gen):
+	var starting_gen
+	var previous_gen
+	if gen == 0:
+		starting_gen = gen
+		previous_gen = starting_gen
+		highest_forest_gen = gen
+	else:
+		if previous_gen < gen:
+			highest_forest_gen = gen
+			
+func get_forest_gen():
+	return highest_forest_gen
 
 #============ Forest Prey ========================
 
@@ -161,6 +206,7 @@ func get_forest_pred():
 
 
 var total_fire_creatures = []
+var highest_fire_gen
 var total_fire_prey = []
 var total_fire_pred = []
 
@@ -178,6 +224,21 @@ func remove_fire_creature(creature):
 # Get the total number of creatures
 func get_fire_creature():
 	return len(total_fire_creatures)
+
+func add_fire_gen(gen):
+	var starting_gen
+	var previous_gen
+
+	if gen == 0:
+		starting_gen = gen
+		previous_gen = starting_gen
+		highest_fire_gen = gen
+	else:
+		if previous_gen < gen:
+			highest_fire_gen = gen
+
+func get_fire_gen():
+	return highest_fire_gen
 
 #============ Fire Prey ========================
 
@@ -212,6 +273,7 @@ func get_fire_pred():
 
 
 var total_stone_creatures = []
+var highest_stone_gen
 var total_stone_prey = []
 var total_stone_pred = []
 
@@ -231,6 +293,21 @@ func remove_stone_creature(creature):
 func get_stone_creature():
 	return len(total_stone_creatures)
 
+func add_stone_gen(gen):
+	
+	var starting_gen
+	var previous_gen
+	
+	if gen == 0:
+		starting_gen = gen
+		previous_gen = starting_gen
+		highest_stone_gen = gen
+	else:
+		if previous_gen < gen:
+			highest_stone_gen = gen
+
+func get_stone_gen():
+	return highest_stone_gen
 #============ Stone Prey ========================
 
 # Add a creature instance to the list

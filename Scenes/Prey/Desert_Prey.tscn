@@ -295,7 +295,7 @@ one_shot = true
 
 [node name="Age" type="Timer" parent="."]
 process_callback = 0
-wait_time = 12.0
+wait_time = 40.0
 one_shot = true
 
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
