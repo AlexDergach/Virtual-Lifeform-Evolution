@@ -1,8 +1,8 @@
 [gd_scene load_steps=25 format=3 uid="uid://b15pcpemyiqta"]
 
 [ext_resource type="Script" path="res://Scripts/Desert_Pred.gd" id="1_41tn2"]
+[ext_resource type="Material" uid="uid://26l7ugb14u3a" path="res://Assets/CreatureShaders/Desert_Pred.tres" id="2_jm2di"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_k30x1"]
-[ext_resource type="Material" uid="uid://26l7ugb14u3a" path="res://Assets/Desert_Pred.tres" id="2_stqxn"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_2kl43"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_y0mu8"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_07wl8"]
@@ -12,7 +12,7 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_rewih"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_i2y1h"]
-material = ExtResource("2_stqxn")
+material = ExtResource("2_jm2di")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gilf5"]
 
@@ -25,7 +25,7 @@ material = SubResource("StandardMaterial3D_jeatr")
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6kyah"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_or03b"]
-material = ExtResource("2_stqxn")
+material = ExtResource("2_jm2di")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ql67n"]
 albedo_color = Color(0.984314, 1, 0.403922, 1)
@@ -34,7 +34,7 @@ albedo_color = Color(0.984314, 1, 0.403922, 1)
 material = SubResource("StandardMaterial3D_ql67n")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5y513"]
-material = ExtResource("2_stqxn")
+material = ExtResource("2_jm2di")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2sncw"]
 
@@ -303,6 +303,11 @@ process_callback = 0
 wait_time = 8.0
 one_shot = true
 
+[node name="Age" type="Timer" parent="."]
+process_callback = 0
+wait_time = 12.0
+one_shot = true
+
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
@@ -314,3 +319,4 @@ one_shot = true
 [connection signal="timeout" from="Child_Timer" to="." method="_on_child_timer_timeout"]
 [connection signal="timeout" from="Mating" to="." method="_on_mating_timeout"]
 [connection signal="timeout" from="Looking" to="." method="_on_looking_timeout"]
+[connection signal="timeout" from="Age" to="." method="_on_age_timeout"]

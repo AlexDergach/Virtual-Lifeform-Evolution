@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=3 uid="uid://dspwh4tnvkmhw"]
 
 [ext_resource type="Script" path="res://Scripts/Desert_Prey.gd" id="1_h6jmp"]
-[ext_resource type="Material" uid="uid://3ivd8kd250i7" path="res://Assets/Desert_Prey.tres" id="2_71w7u"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_e2xqq"]
+[ext_resource type="Material" uid="uid://3ivd8kd250i7" path="res://Assets/CreatureShaders/Desert_Prey.tres" id="2_xnuoy"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_i2ov8"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_273on"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_gswmn"]
@@ -12,17 +12,17 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_p75ai"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ubtrd"]
-material = ExtResource("2_71w7u")
+material = ExtResource("2_xnuoy")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nq7ae"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_h4km0"]
-material = ExtResource("2_71w7u")
+material = ExtResource("2_xnuoy")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bccjd"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8yxpn"]
-material = ExtResource("2_71w7u")
+material = ExtResource("2_xnuoy")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wx2uy"]
 albedo_color = Color(0.129412, 0.129412, 0.129412, 1)
@@ -293,6 +293,11 @@ process_callback = 0
 wait_time = 8.0
 one_shot = true
 
+[node name="Age" type="Timer" parent="."]
+process_callback = 0
+wait_time = 12.0
+one_shot = true
+
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
@@ -305,3 +310,4 @@ one_shot = true
 [connection signal="timeout" from="Child_Timer" to="." method="_on_child_timer_timeout"]
 [connection signal="timeout" from="Mating" to="." method="_on_mating_timeout"]
 [connection signal="timeout" from="Looking" to="." method="_on_looking_timeout"]
+[connection signal="timeout" from="Age" to="." method="_on_age_timeout"]

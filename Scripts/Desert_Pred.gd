@@ -5,6 +5,8 @@ extends CharacterBody3D
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 
+@onready var creature_manager
+
 @onready var progress_bar = $SubViewport/Hunger
 @onready var progress_bar2 = $SubViewport/Repo
 @onready var progress_bar3 = $SubViewport/Gender
@@ -69,6 +71,17 @@ func _ready():
 	
 	$Timer.start()
 	
+	creature_manager = Engine.get_singleton("CreatureManager")
+	
+	# Check if the singleton instance exists before calling its methods
+	if creature_manager != null:
+		# Call methods on the singleton instance
+		creature_manager.add_creature(self)
+		creature_manager.add_desert_pred(self)
+		#print(creature_manager.get_total_creatures())
+	else:
+		print("CreatureManager singleton instance is not initialized.")
+	
 	time_since_last_target_update = TARGET_UPDATE_INTERVAL
 
 	if is_child:
@@ -102,6 +115,8 @@ func _ready():
 		var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
 		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
+		
+		$Age.start()
 	
 	
 	hunger_half = inital_hunger/2
@@ -119,7 +134,7 @@ func _ready():
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Female"
 		
-		var material = load("res://Assets/Desert_Pred.tres").duplicate()  # Load the material and duplicate it
+		var material = load("res://Assets/CreatureShaders/Desert_Pred.tres").duplicate()  # Load the material and duplicate it
 		material.albedo_color = Color(0.984, 1.0, 0.404)  # Set the new color
 	
 		$Main.set_surface_override_material(0,material) 
@@ -174,6 +189,8 @@ func _process(delta):
 			
 	if hunger == 0:
 		queue_free()
+		creature_manager.remove_creature(self)
+		creature_manager.remove_desert_pred(self)
 	
 	if progress_bar.value > 0:
 		progress_bar.value = hunger
@@ -457,6 +474,7 @@ func _on_child_timer_timeout():
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	print("Grown Baby Average: ", a)	
+	$Age.start()
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 
 func _on_looking_timeout():
@@ -483,3 +501,8 @@ func is_point_inside_polygon(point: Vector3, polygon: Array) -> bool:
 # Helper function to determine if a point is on the left side of a line
 func is_left(v1: Vector3, v2: Vector3, point: Vector3) -> float:
 	return (v2.x - v1.x) * (point.z - v1.z) - (point.x - v1.x) * (v2.z - v1.z)
+
+func _on_age_timeout():
+	queue_free()
+	creature_manager.remove_creature(self)
+	creature_manager.remove_desert_pred(self)

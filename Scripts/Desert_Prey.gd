@@ -75,6 +75,7 @@ func _ready():
 	if creature_manager != null:
 		# Call methods on the singleton instance
 		creature_manager.add_creature(self)
+		creature_manager.add_desert_prey(self)
 		#print(creature_manager.get_total_creatures())
 	else:
 		print("CreatureManager singleton instance is not initialized.")
@@ -102,6 +103,7 @@ func _ready():
 		
 		# Do hunger
 	else:
+		
 		# If it's not a child (i.e., an adult), initialize random size, speed, and hunger capacity
 		size = randf_range(0.4, 0.8)
 		self.scale = Vector3(size,size,size)
@@ -115,6 +117,8 @@ func _ready():
 		var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
 		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
+		
+		$Age.start()
 	
 	
 	hunger_half = hunger/2
@@ -132,7 +136,7 @@ func _ready():
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Female"
 		
-		var material = load("res://Assets/Desert_Prey.tres").duplicate()  # Load the material and duplicate it
+		var material = load("res://Assets/CreatureShaders/Desert_Prey.tres").duplicate()  # Load the material and duplicate it
 		material.albedo_color = Color(1.0, 0.7, 0.5)  # Set the new color
 	
 		$Main.set_surface_override_material(0,material) 
@@ -181,6 +185,8 @@ func _process(delta):
 			
 	if hunger == 0:
 		queue_free()
+		creature_manager.remove_creature(self)
+		creature_manager.remove_desert_prey(self)
 	
 	if progress_bar.value > 0:
 		progress_bar.value = hunger
@@ -299,6 +305,7 @@ func _on_self_area_entered(area):
 		#print("Dead")
 		queue_free()
 		creature_manager.remove_creature(self)
+		creature_manager.remove_desert_prey(self)
 		
 	#If food enters self area, it gets eaten
 	if area.is_in_group("desert_food"):
@@ -309,7 +316,6 @@ func _on_self_area_entered(area):
 		#print("Mate: ", mate_chosen, " Touched Sending Repo State")
 		$StateChart.send_event("repo")
 	
-
 #If Pred Leaves The Sensory Area
 func _on_sensory_area_exited(area):
 	if area.is_in_group("desert_pred"):
@@ -489,6 +495,7 @@ func _on_child_timer_timeout():
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	print("Grown Baby Average: ", a)	
+	$Age.start()
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 
 func _on_repo_state_processing(delta):
@@ -519,3 +526,9 @@ func is_point_inside_polygon(point: Vector3, polygon: Array) -> bool:
 # Helper function to determine if a point is on the left side of a line
 func is_left(v1: Vector3, v2: Vector3, point: Vector3) -> float:
 	return (v2.x - v1.x) * (point.z - v1.z) - (point.x - v1.x) * (v2.z - v1.z)
+
+func _on_age_timeout():
+	
+	queue_free()
+	creature_manager.remove_creature(self)
+	creature_manager.remove_desert_prey(self)

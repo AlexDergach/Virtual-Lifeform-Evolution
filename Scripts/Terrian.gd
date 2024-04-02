@@ -35,9 +35,9 @@ func _ready():
 	$Timer.start()
 
 func _process(delta):
-	ui_instance.label.text = "Total Population:" + str(creature_manager.get_total_creatures()) + "\n
-								Predators: \n
-								Prey: \n
+	ui_instance.desert_label.text = "Total Population: " + str(creature_manager.get_desert_creature()) + "\n
+								Predators: " + str(creature_manager.get_desert_pred()) + "\n
+								Prey: " + str(creature_manager.get_desert_prey()) + "\n
 								Generation: "
 								
 	pass

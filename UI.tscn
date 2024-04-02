@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://yjsnj1atdqps"]
+[gd_scene load_steps=7 format=3 uid="uid://yjsnj1atdqps"]
 
-[ext_resource type="Texture2D" uid="uid://cdeic2l5bopdd" path="res://Assets/Models/desert.png" id="1_2iws6"]
 [ext_resource type="Script" path="res://UI.gd" id="1_15fdv"]
+[ext_resource type="Texture2D" uid="uid://cdeic2l5bopdd" path="res://Assets/UI/desert.png" id="2_uh867"]
+[ext_resource type="Texture2D" uid="uid://dls73u4rwnscu" path="res://Assets/UI/ice.png" id="3_kn41c"]
+[ext_resource type="Texture2D" uid="uid://dpibooslenoww" path="res://Assets/UI/forest.png" id="3_pg2la"]
+[ext_resource type="Texture2D" uid="uid://bq4bbcys2jdm7" path="res://Assets/UI/red.png" id="4_b0teg"]
+[ext_resource type="Texture2D" uid="uid://ctdlrl4tpbtsk" path="res://Assets/UI/stone.png" id="5_bamn0"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -15,30 +19,91 @@ script = ExtResource("1_15fdv")
 
 [node name="GameInfoBox" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 377.0
-offset_bottom = 234.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 270.0
+offset_bottom = 414.0
 
-[node name="TextureRect" type="TextureRect" parent="GameInfoBox"]
+[node name="Desert" type="TextureRect" parent="GameInfoBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -222.0
-offset_top = -100.0
-offset_right = -73.0
-offset_bottom = -20.0
+offset_left = -162.0
+offset_top = -211.0
+offset_right = -10.0
+offset_bottom = -122.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_2iws6")
-expand_mode = 2
+texture = ExtResource("2_uh867")
+expand_mode = 1
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="GameInfoBox/Desert"]
 layout_mode = 0
-offset_left = 87.0
-offset_top = 16.0
-offset_right = 328.0
-offset_bottom = 120.0
+offset_left = 113.0
+offset_top = 3.0
+offset_right = 272.0
+offset_bottom = 78.0
+
+[node name="Forest" type="TextureRect" parent="GameInfoBox"]
+layout_mode = 0
+offset_left = -38.0
+offset_top = 149.0
+offset_right = 129.0
+offset_bottom = 239.0
+texture = ExtResource("3_pg2la")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="GameInfoBox/Forest"]
+offset_left = 119.0
+offset_top = 9.0
+offset_right = 278.0
+offset_bottom = 84.0
+
+[node name="Fire" type="TextureRect" parent="GameInfoBox"]
+layout_mode = 0
+offset_left = -32.0
+offset_top = 232.0
+offset_right = 121.0
+offset_bottom = 318.0
+texture = ExtResource("4_b0teg")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="GameInfoBox/Fire"]
+offset_left = 119.0
+offset_top = 9.0
+offset_right = 278.0
+offset_bottom = 84.0
+
+[node name="Stone" type="TextureRect" parent="GameInfoBox"]
+layout_mode = 0
+offset_left = -33.0
+offset_top = 309.0
+offset_right = 125.0
+offset_bottom = 401.0
+texture = ExtResource("5_bamn0")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="GameInfoBox/Stone"]
+offset_left = 119.0
+offset_top = 9.0
+offset_right = 278.0
+offset_bottom = 84.0
+
+[node name="Ice" type="TextureRect" parent="GameInfoBox"]
+layout_mode = 0
+offset_left = -32.0
+offset_top = 72.0
+offset_right = 121.0
+offset_bottom = 158.0
+texture = ExtResource("3_kn41c")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="GameInfoBox/Ice"]
+layout_mode = 0
+offset_left = 119.0
+offset_top = 9.0
+offset_right = 278.0
+offset_bottom = 84.0
