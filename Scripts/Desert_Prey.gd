@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+#@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
 @onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D")
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
@@ -22,6 +23,8 @@ var should_take_break
 var escape_directions = []
 
 var time:float = 0.0
+
+var polygon_vertices
 
 var metabolism
 var size
@@ -89,7 +92,7 @@ func _ready():
 		# Do hunger
 	else:
 		# If it's not a child (i.e., an adult), initialize random size, speed, and hunger capacity
-		size = randf_range(1.0, 2.0)
+		size = randf_range(0.4, 0.8)
 		self.scale = Vector3(size,size,size)
 		accel = randi_range(3.0, 5.0)
 		speed = randi_range(1.0, 3.0)  # Adjust as needed
@@ -243,7 +246,7 @@ func _on_sensory_area_entered(area):
 		target_pos = area.global_position
 		nav.target_position = target_pos
 		
-	if area.is_in_group("desert_pred"):
+	if area.is_in_group("desert_pred") and !is_child:
 		enemy = area
 		$StateChart.send_event("enemy_entered")
 		time_since_last_target_update = randf_range(1.0, 10.0)  # Start running immediately
@@ -281,7 +284,7 @@ func _on_sensory_area_entered(area):
 				print("Mating with : ", mate_chosen)
 
 func _on_self_area_entered(area):
-	if area.is_in_group("desert_pred"):
+	if area.is_in_group("desert_pred") and area.get_parent()._hungry():
 		#print("Dead")
 		queue_free()
 	#If food enters self area, it gets eaten
@@ -301,12 +304,17 @@ func _on_sensory_area_exited(area):
 
 func _on_wandering_state_entered():
 	var num_escape_directions = 3
-	# Clear previous escape directions
 	escape_directions.clear()
-	# Calculate multiple escape directions
-	for i in range(num_escape_directions):
-		var random_dir = Vector3(randf_range(-1.0, 1.0), 0.1, randf_range(-1.0, 1.0)).normalized()
-		escape_directions.append(random_dir)
+	
+	# Calculate escape directions: front, left, and right
+	escape_directions.append(global_transform.basis.z.normalized()) # Front
+	escape_directions.append(global_transform.basis.x.normalized()) # Left
+	escape_directions.append(-global_transform.basis.x.normalized()) # Right
+	
+	# Randomize the escape directions slightly
+	for i in range(escape_directions.size()):
+		escape_directions[i] = escape_directions[i].rotated(Vector3.UP, randf_range(-PI / 4, PI / 4))
+	
 	enemy = null
 
 func _on_running_state_processing(delta):
@@ -329,8 +337,6 @@ func _on_running_state_processing(delta):
 		
 		# Reset the timer
 		time_since_last_target_update = 0.0
-
-
 
 func _on_wandering_state_processing(delta):
 	
@@ -375,7 +381,7 @@ func _on_wandering_state_processing(delta):
 							# Check if the target position is within the navigation mesh polygons
 							for i in range(nav_mesh.get_polygon_count()):
 								var polygon_indices = nav_mesh.get_polygon(i)
-								var polygon_vertices = []
+								polygon_vertices = []
 								
 								# Convert vertex indices to vertex positions
 								for j in range(polygon_indices.size()):

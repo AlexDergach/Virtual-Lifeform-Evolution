@@ -48,13 +48,7 @@ func _physics_process(delta):
 		
 		_spawn_rabbit()
 		_spawn_rabbit()
-		_spawn_rabbit()
-		_spawn_rabbit()
-		_spawn_rabbit()
 		
-		_spawn_enemy()
-		_spawn_enemy()
-		_spawn_enemy()
 		_spawn_enemy()
 		_spawn_enemy()
 		

@@ -1,6 +1,6 @@
 extends GridMap
 
-var grid_size = Vector2(150, 150)  # Size of the grid map
+var grid_size = Vector2(80, 80)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
 var character_body = null

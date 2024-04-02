@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+#@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
 @onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D")
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
@@ -89,7 +90,7 @@ func _ready():
 		# Do hunger
 	else:
 		# If it's not a child (i.e., an adult), initialize random size, speed, and hunger capacity
-		size = randf_range(1.0, 2.0)
+		size = randf_range(0.4, 0.8)
 		self.scale = Vector3(size,size,size)
 		accel = randi_range(3.0, 5.0)
 		speed = randi_range(1.0, 3.0)  # Adjust as needed
@@ -103,7 +104,7 @@ func _ready():
 		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 	
 	
-	hunger_half = hunger/2
+	hunger_half = inital_hunger/2
 	
 	
 	progress_bar.max_value = hunger
@@ -284,11 +285,13 @@ func _on_sensory_area_entered(area):
 
 func _on_self_area_entered(area):
 	#If food enters self area, it gets eaten
-	if area.is_in_group("desert_prey") && _hungry():
+	if area.is_in_group("desert_prey") and _hungry():
 		food_target = false
 		hunger += 1
 		print("Pred: Food ate")
 		prey = null
+		$StateChart.send_event("prey_exited")
+		
 	if area.is_in_group("desert_pred") and partners == 2 and area == mating_partner:
 		#print("Mate: ", mate_chosen, " Touched Sending Repo State")
 		$StateChart.send_event("repo")
@@ -373,8 +376,12 @@ func _on_wandering_state_processing(delta):
 					time_since_last_target_update = 20.0  # Reset the timer to find a new target position
 
 func _on_hunting_state_processing(delta):
-	target_pos = prey.global_position
-	nav.target_position = target_pos
+	if prey.global_position != null:
+		target_pos = prey.global_position
+		nav.target_position = target_pos
+	else:
+		print("No hunt")
+		$StateChart.send_event("prey_exited")
 	
 func _on_repo_state_entered():
 	# Reproduction state entered
