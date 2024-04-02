@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://yjsnj1atdqps"]
+[gd_scene load_steps=11 format=3 uid="uid://yjsnj1atdqps"]
 
 [ext_resource type="Script" path="res://UI.gd" id="1_15fdv"]
 [ext_resource type="Texture2D" uid="uid://cdeic2l5bopdd" path="res://Assets/UI/desert.png" id="2_uh867"]
@@ -6,6 +6,23 @@
 [ext_resource type="Texture2D" uid="uid://dpibooslenoww" path="res://Assets/UI/forest.png" id="3_pg2la"]
 [ext_resource type="Texture2D" uid="uid://bq4bbcys2jdm7" path="res://Assets/UI/red.png" id="4_b0teg"]
 [ext_resource type="Texture2D" uid="uid://ctdlrl4tpbtsk" path="res://Assets/UI/stone.png" id="5_bamn0"]
+[ext_resource type="FontFile" uid="uid://ck3fdadbi5bw6" path="res://Assets/Fonts/Roboto-Black.ttf" id="7_isrpw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4sjp"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ml1mu"]
+font = ExtResource("7_isrpw")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_aghfs"]
+font = ExtResource("7_isrpw")
+font_size = 30
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -17,93 +34,221 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_15fdv")
 
-[node name="GameInfoBox" type="Panel" parent="."]
+[node name="PopPanel" type="Panel" parent="."]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 4.0
-offset_right = 270.0
+offset_right = 260.0
 offset_bottom = 522.0
 
-[node name="Desert" type="TextureRect" parent="GameInfoBox"]
+[node name="Desert" type="TextureRect" parent="PopPanel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -159.0
-offset_top = -265.0
-offset_right = -7.0
-offset_bottom = -176.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -30.0
+offset_right = 121.0
+offset_bottom = 83.0
 texture = ExtResource("2_uh867")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="GameInfoBox/Desert"]
+[node name="Label" type="Label" parent="PopPanel/Desert"]
 layout_mode = 0
 offset_left = 113.0
 offset_top = 3.0
 offset_right = 272.0
 offset_bottom = 78.0
 
-[node name="Forest" type="TextureRect" parent="GameInfoBox"]
+[node name="Forest" type="TextureRect" parent="PopPanel"]
 layout_mode = 0
-offset_left = -39.0
-offset_top = 201.0
-offset_right = 128.0
-offset_bottom = 291.0
+offset_left = -35.0
+offset_top = 174.0
+offset_right = 123.0
+offset_bottom = 261.0
 texture = ExtResource("3_pg2la")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="GameInfoBox/Forest"]
+[node name="Label" type="Label" parent="PopPanel/Forest"]
 offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 84.0
 
-[node name="Fire" type="TextureRect" parent="GameInfoBox"]
+[node name="Fire" type="TextureRect" parent="PopPanel"]
 layout_mode = 0
-offset_left = -33.0
-offset_top = 318.0
-offset_right = 120.0
-offset_bottom = 404.0
+offset_left = -35.0
+offset_top = 260.0
+offset_right = 125.0
+offset_bottom = 350.0
 texture = ExtResource("4_b0teg")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="GameInfoBox/Fire"]
+[node name="Label" type="Label" parent="PopPanel/Fire"]
 offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 84.0
 
-[node name="Stone" type="TextureRect" parent="GameInfoBox"]
+[node name="Stone" type="TextureRect" parent="PopPanel"]
 layout_mode = 0
 offset_left = -34.0
-offset_top = 418.0
+offset_top = 357.0
 offset_right = 124.0
-offset_bottom = 510.0
+offset_bottom = 449.0
 texture = ExtResource("5_bamn0")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="GameInfoBox/Stone"]
+[node name="Label" type="Label" parent="PopPanel/Stone"]
 offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 84.0
 
-[node name="Ice" type="TextureRect" parent="GameInfoBox"]
+[node name="Ice" type="TextureRect" parent="PopPanel"]
 layout_mode = 0
-offset_left = -29.0
-offset_top = 99.0
-offset_right = 124.0
-offset_bottom = 185.0
+offset_left = -32.0
+offset_top = 82.0
+offset_right = 121.0
+offset_bottom = 168.0
 texture = ExtResource("3_kn41c")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="GameInfoBox/Ice"]
+[node name="Label" type="Label" parent="PopPanel/Ice"]
 layout_mode = 0
 offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 84.0
+
+[node name="TotalPop" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -273.5
+offset_top = -40.0
+offset_right = 273.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="TotalPop"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.5
+offset_top = -13.0
+offset_right = 116.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Controls" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -135.0
+offset_bottom = 298.0
+grow_horizontal = 0
+
+[node name="Panel" type="Panel" parent="Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.0
+offset_top = 6.0
+offset_right = 17.0
+offset_bottom = 46.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c4sjp")
+
+[node name="Label" type="Label" parent="Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.5
+offset_top = 4.0
+offset_right = 17.5
+offset_bottom = 59.0
+grow_horizontal = 2
+text = " Q"
+label_settings = SubResource("LabelSettings_ml1mu")
+
+[node name="Label2" type="Label" parent="Controls"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 55.0
+offset_right = 125.0
+offset_bottom = 94.0
+text = "Speed +"
+label_settings = SubResource("LabelSettings_aghfs")
+
+[node name="Panel2" type="Panel" parent="Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.0
+offset_top = 95.0
+offset_right = 18.0
+offset_bottom = 135.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c4sjp")
+
+[node name="Label3" type="Label" parent="Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.5
+offset_top = 93.0
+offset_right = 18.5
+offset_bottom = 148.0
+grow_horizontal = 2
+text = " E"
+label_settings = SubResource("LabelSettings_ml1mu")
+
+[node name="Label4" type="Label" parent="Controls"]
+offset_left = 7.0
+offset_top = 144.0
+offset_right = 126.0
+offset_bottom = 183.0
+text = "Speed -"
+label_settings = SubResource("LabelSettings_aghfs")
+
+[node name="Panel3" type="Panel" parent="Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.0
+offset_top = 188.0
+offset_right = 18.0
+offset_bottom = 228.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c4sjp")
+
+[node name="Label5" type="Label" parent="Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.5
+offset_top = 186.0
+offset_right = 18.5
+offset_bottom = 241.0
+grow_horizontal = 2
+text = " V"
+label_settings = SubResource("LabelSettings_ml1mu")
+
+[node name="Label6" type="Label" parent="Controls"]
+offset_left = 7.0
+offset_top = 237.0
+offset_right = 126.0
+offset_bottom = 276.0
+text = "UI Toggle"
+label_settings = SubResource("LabelSettings_aghfs")

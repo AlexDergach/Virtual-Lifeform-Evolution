@@ -1,17 +1,33 @@
 extends Control
 
-@onready var desert_label = $"GameInfoBox/Desert/Label"
-@onready var forest_label = $"GameInfoBox/Forest/Label"
-@onready var fire_label = $"GameInfoBox/Fire/Label"
-@onready var stone_label = $"GameInfoBox/Stone/Label"
-@onready var ice_label = $"GameInfoBox/Ice/Label"
+@onready var desert_label = $"PopPanel/Desert/Label"
+@onready var forest_label = $"PopPanel/Forest/Label"
+@onready var fire_label = $"PopPanel/Fire/Label"
+@onready var stone_label = $"PopPanel/Stone/Label"
+@onready var ice_label = $"PopPanel/Ice/Label"
 
-# Called when the node enters the scene tree for the first time.
+@onready var TotalPopLabel = $"TotalPop/Label"
+
+@onready var PopPanel = $PopPanel
+@onready var TotalPop = $TotalPop
+@onready var Controls = $Controls
+
+var toggel = 1
+
 func _ready():
-	#Control.MOUSE_FILTER_IGNORE
+	
+	#Control.MOUSE_FILTER_IGNORE - Is passed in Insepector
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if toggel == 1:
+		if Input.is_action_just_pressed("Vis"):
+			PopPanel.visible = false
+			TotalPop.visible = false
+			Controls.visible = false
+			toggel = 0
+	else:
+		if Input.is_action_just_pressed("Vis"):
+			PopPanel.visible = true
+			TotalPop.visible = true
+			Controls.visible = true
