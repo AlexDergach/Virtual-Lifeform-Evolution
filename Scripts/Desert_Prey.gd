@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+@onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D")
+
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 @onready var progress_bar = $SubViewport/Hunger
 @onready var progress_bar2 = $SubViewport/Repo
@@ -61,6 +63,7 @@ var mother = null
 
 
 func _ready():
+	
 	
 	$Timer.start()
 
@@ -206,7 +209,7 @@ func _physics_process(delta):
 	calculate_movement(delta)
 
 func calculate_movement(delta):
-	
+
 	direction = nav.get_next_path_position() - global_position
 	direction = direction.normalized()
 	velocity = velocity.lerp(direction * speed, accel * delta)
@@ -362,8 +365,37 @@ func _on_wandering_state_processing(delta):
 					
 					var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
 					target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
-					nav.target_position = target_pos
-					time_since_last_target_update = 0.0
+					
+					if navigation_region:
+						var nav_mesh = navigation_region.get_navigation_mesh()  # Get the navigation mesh
+						if nav_mesh:
+							var is_inside = false
+							var target_position = target_pos
+							
+							# Check if the target position is within the navigation mesh polygons
+							for i in range(nav_mesh.get_polygon_count()):
+								var polygon_indices = nav_mesh.get_polygon(i)
+								var polygon_vertices = []
+								
+								# Convert vertex indices to vertex positions
+								for j in range(polygon_indices.size()):
+									var vertex_index = polygon_indices[j]
+									var vertex_position = nav_mesh.get_vertices()[vertex_index]
+									polygon_vertices.append(vertex_position)
+								
+								# Check if the target position is inside the polygon
+								is_inside = is_point_inside_polygon(target_position, polygon_vertices)
+								if is_inside:
+									nav.target_position = target_pos
+									time_since_last_target_update = 0.0
+									
+									break
+							if !is_inside:
+								#print("Target position is not within the navigation mesh.")
+								time_since_last_target_update = 0.0
+						else:
+							pass
+							#print("Navigation mesh is not available.")
 					
 				# Check if the creature has reached its target position
 				if global_position.distance_to(nav.target_position) < 1.0: 
@@ -454,4 +486,17 @@ func _on_looking_timeout():
 	partners = 2
 	mate_chosen = 1
 
-	
+# Function to check if a point is inside a polygon
+func is_point_inside_polygon(point: Vector3, polygon: Array) -> bool:
+	var wn = 0
+	for i in range(polygon.size() - 1):
+		var v1 = polygon[i]
+		var v2 = polygon[i + 1]
+		if v1.z <= point.z and point.z < v2.z or v2.z <= point.z and point.z < v1.z:
+			if point.x < (v2.x - v1.x) * (point.z - v1.z) / (v2.z - v1.z) + v1.x:
+				wn += 1
+	return wn % 2 != 0
+
+# Helper function to determine if a point is on the left side of a line
+func is_left(v1: Vector3, v2: Vector3, point: Vector3) -> float:
+	return (v2.x - v1.x) * (point.z - v1.z) - (point.x - v1.x) * (v2.z - v1.z)

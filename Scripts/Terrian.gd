@@ -1,5 +1,7 @@
 extends Node3D
 
+
+
 var scene = "Desert"
 var food_scene = load("res://Scenes/Food/"+ scene + "_Food.tscn")
 var prey_scene = load("res://Scenes/Prey/"+ scene + "_Prey.tscn")
@@ -19,8 +21,8 @@ func _ready():
 
 func _spawn_food():
 	food_instance = food_scene.instantiate()
-	food_instance.position.x = randf_range(-map_size.x/2.1,map_size.x/2.1)
-	food_instance.position.z = randf_range(-map_size.z/2.1,map_size.z/2.1)
+	food_instance.position.x = randf_range(-map_size.x,map_size.x)
+	food_instance.position.z = randf_range(-map_size.z,map_size.z)
 	food_instance.position.y = map_size.y + food_size/2
 	add_child(food_instance)
 
@@ -43,15 +45,25 @@ func _spawn_enemy():
 func _physics_process(delta):
 	
 	if spawn_rate == 1:
-		_spawn_enemy()
-		_spawn_enemy()
-		_spawn_enemy()
+		
 		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		
 		
 		spawn_rate = 0
 		
 	if Input.is_action_just_pressed("SpeedUp"):
-		_spawn_food()
+		
+		pass
 		# Increase speed of all prey instances
 	if Input.is_action_just_pressed("SpeedDown"):
 		pass
@@ -60,4 +72,6 @@ func _physics_process(delta):
 
 func _on_timer_timeout():
 	_spawn_food()
+	_spawn_food()
+	pass
 
