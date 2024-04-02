@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://yjsnj1atdqps"]
+[gd_scene load_steps=13 format=3 uid="uid://yjsnj1atdqps"]
 
 [ext_resource type="Script" path="res://UI.gd" id="1_15fdv"]
 [ext_resource type="Texture2D" uid="uid://cdeic2l5bopdd" path="res://Assets/UI/desert.png" id="2_uh867"]
@@ -10,6 +10,9 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_offp7"]
 line_spacing = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ae4sr"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4sjp"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -121,6 +124,35 @@ offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 84.0
 
+[node name="Panel" type="Panel" parent="PopPanel"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 83.0
+offset_right = 243.0
+offset_bottom = 84.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
+
+[node name="Panel2" type="Panel" parent="PopPanel"]
+offset_left = 11.0
+offset_top = 168.0
+offset_right = 243.0
+offset_bottom = 169.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
+
+[node name="Panel3" type="Panel" parent="PopPanel"]
+offset_left = 11.0
+offset_top = 261.0
+offset_right = 243.0
+offset_bottom = 262.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
+
+[node name="Panel4" type="Panel" parent="PopPanel"]
+offset_left = 11.0
+offset_top = 350.0
+offset_right = 243.0
+offset_bottom = 351.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
+
 [node name="TotalPop" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -156,7 +188,7 @@ anchor_right = 1.0
 offset_left = -134.0
 offset_top = 3.0
 offset_right = -6.0
-offset_bottom = 279.0
+offset_bottom = 390.0
 grow_horizontal = 0
 
 [node name="Panel" type="Panel" parent="Controls"]
@@ -192,6 +224,7 @@ offset_right = 125.0
 offset_bottom = 94.0
 text = "Speed +"
 label_settings = SubResource("LabelSettings_aghfs")
+horizontal_alignment = 1
 
 [node name="Panel2" type="Panel" parent="Controls"]
 layout_mode = 1
@@ -225,6 +258,7 @@ offset_right = 126.0
 offset_bottom = 183.0
 text = "Speed -"
 label_settings = SubResource("LabelSettings_aghfs")
+horizontal_alignment = 1
 
 [node name="Panel3" type="Panel" parent="Controls"]
 layout_mode = 1
@@ -265,3 +299,46 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "UI Toggle"
 label_settings = SubResource("LabelSettings_aghfs")
+horizontal_alignment = 1
+
+[node name="Panel4" type="Panel" parent="Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -33.0
+offset_top = 283.0
+offset_right = 37.0
+offset_bottom = 323.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c4sjp")
+
+[node name="Label7" type="Label" parent="Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.5
+offset_top = 281.0
+offset_right = 18.5
+offset_bottom = 336.0
+grow_horizontal = 2
+text = " Esc"
+label_settings = SubResource("LabelSettings_ml1mu")
+
+[node name="Label8" type="Label" parent="Controls"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = 137.5
+offset_right = 57.0
+offset_bottom = 176.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+label_settings = SubResource("LabelSettings_aghfs")
+horizontal_alignment = 1
