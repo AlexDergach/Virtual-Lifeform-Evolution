@@ -4,16 +4,18 @@ extends CharacterBody3D
 @onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D")
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
+
 @onready var progress_bar = $SubViewport/Hunger
 @onready var progress_bar2 = $SubViewport/Repo
 @onready var progress_bar3 = $SubViewport/Gender
+
+@onready var creature_manager
 
 @onready var progress_bar_text = $SubViewport/RichTextLabel
 @onready var progress_bar_text2 = $SubViewport/RichTextLabel2
 @onready var progress_bar_text3 = $SubViewport/RichTextLabel3
 
 @onready var self_area = $Self
-
 
 var TARGET_UPDATE_INTERVAL = randf_range(4.0, 10.0)
 
@@ -67,9 +69,18 @@ var mother = null
 
 func _ready():
 	
+	creature_manager = Engine.get_singleton("CreatureManager")
 	
+	# Check if the singleton instance exists before calling its methods
+	if creature_manager != null:
+		# Call methods on the singleton instance
+		creature_manager.add_creature(self)
+		#print(creature_manager.get_total_creatures())
+	else:
+		print("CreatureManager singleton instance is not initialized.")
+		
 	$Timer.start()
-
+	
 	time_since_last_target_update = TARGET_UPDATE_INTERVAL
 
 	if is_child:
@@ -287,6 +298,8 @@ func _on_self_area_entered(area):
 	if area.is_in_group("desert_pred") and area.get_parent()._hungry():
 		#print("Dead")
 		queue_free()
+		creature_manager.remove_creature(self)
+		
 	#If food enters self area, it gets eaten
 	if area.is_in_group("desert_food"):
 		food_target = false

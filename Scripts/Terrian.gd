@@ -1,6 +1,10 @@
 extends Node3D
 
+@onready var creature_manager
 
+
+
+var ui_scene = load("res://UI.tscn")
 
 var scene = "Desert"
 var food_scene = load("res://Scenes/Food/"+ scene + "_Food.tscn")
@@ -12,12 +16,31 @@ var spawn_rate = 1
 var rabbit_instance
 var enemy_instance
 var food_instance
+
 var rabbit_instances = []
+
+var ui_instance
 
 @onready var map_size = get_node("NavigationRegion3D/CSGBox3D").get_scale()
 func _ready():
+	
+	creature_manager = Engine.get_singleton("CreatureManager")
+
+	
+	
+	ui_instance = ui_scene.instantiate()
+	add_child(ui_instance)
+	
 	randomize()
 	$Timer.start()
+
+func _process(delta):
+	ui_instance.label.text = "Total Population:" + str(creature_manager.get_total_creatures()) + "\n
+								Predators: \n
+								Prey: \n
+								Generation: "
+								
+	pass
 
 func _spawn_food():
 	food_instance = food_scene.instantiate()
