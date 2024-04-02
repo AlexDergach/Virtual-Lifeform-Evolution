@@ -12,5 +12,3 @@ func _on_quit_pressed():
 func _on_play_pressed():
 	get_tree().change_scene_to_file("res://UI/Loading.tscn")
 
-func _on_options_pressed():
-	get_tree().change_scene_to_file("res://UI/Options.tscn")

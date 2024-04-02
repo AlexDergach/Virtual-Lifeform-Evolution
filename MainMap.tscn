@@ -15,6 +15,7 @@ sky_material = SubResource("PanoramaSkyMaterial_b4w4i")
 [sub_resource type="Environment" id="Environment_ugwyh"]
 background_mode = 1
 background_color = Color(0.501961, 0.85098, 1, 1)
+background_energy_multiplier = 1.25
 sky = SubResource("Sky_yqp3m")
 ambient_light_color = Color(0.501961, 0.85098, 1, 1)
 ssr_enabled = true
@@ -71,7 +72,8 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_ed34r"]
 resource_name = "SkyColor"
-length = 12.0
+length = 36.0
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -79,10 +81,10 @@ tracks/0/path = NodePath(".:environment:background_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 6),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 11.2, 23.5, 27.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(0.501961, 0.85098, 1, 1), Color(0, 0.337255, 0.439216, 1)]
+"values": [Color(0.501961, 0.85098, 1, 1), Color(0.521569, 0.211765, 0, 1), Color(0.117647, 0, 0.678431, 1), Color(0.603922, 0.152941, 0.113725, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -91,10 +93,10 @@ tracks/1/path = NodePath(".:environment:ambient_light_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 6),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 11.3, 23.5, 27.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(0.501961, 0.85098, 1, 1), Color(0, 0.337255, 0.439216, 1)]
+"values": [Color(0.501961, 0.85098, 1, 1), Color(0.513726, 0.215686, 0.00784314, 1), Color(0, 0, 0.866667, 1), Color(0.603922, 0.152941, 0.113725, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -117,6 +119,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_pn436"]
 length = 0.001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -127,7 +130,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-1.5708, -1.80991, 0.144862)]
+"values": [Vector3(-1.5708, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -144,7 +147,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_8lup1"]
 resource_name = "SunRotate"
-length = 12.0
+length = 36.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -153,10 +156,10 @@ tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 12),
+"times": PackedFloat32Array(0, 15.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-1.5708, 0, 0), Vector3(4.71239, 0, 0)]
+"values": [Vector3(-0.523599, 0, 0), Vector3(-0.523599, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -165,10 +168,10 @@ tracks/1/path = NodePath(".:light_energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 3.1, 9),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 15.7, 19.3, 25.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [2.0, 0.0, 0.0]
+"values": [2.0, 2.0, 0.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r0hsu"]
@@ -196,12 +199,13 @@ transform = Transform3D(25, 0, 0, 0, 1, 0, 0, 0, 25, 0, 0, 0)
 environment = SubResource("Environment_ugwyh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="WorldEnvironment"]
+autoplay = "SkyColor"
 libraries = {
 "": SubResource("AnimationLibrary_6xouc")
 }
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.0941123, 0.995562, 3.517e-06, -5.22567e-07, -3.58208e-06, 1, 0.995562, 0.0941123, 8.57365e-07, -19.3321, 30.4911, -5.70308)
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, 1, 0, -1, -3.61999e-06, -19.3321, 30.4911, -5.70308)
 light_energy = 2.0
 shadow_enabled = true
 
