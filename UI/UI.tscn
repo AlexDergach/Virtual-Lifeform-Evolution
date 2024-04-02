@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://yjsnj1atdqps"]
 
-[ext_resource type="Script" path="res://UI.gd" id="1_15fdv"]
+[ext_resource type="Script" path="res://Scripts/UI.gd" id="1_dxfff"]
 [ext_resource type="Texture2D" uid="uid://cdeic2l5bopdd" path="res://Assets/UI/desert.png" id="2_uh867"]
 [ext_resource type="Texture2D" uid="uid://dls73u4rwnscu" path="res://Assets/UI/ice.png" id="3_kn41c"]
 [ext_resource type="Texture2D" uid="uid://dpibooslenoww" path="res://Assets/UI/forest.png" id="3_pg2la"]
@@ -38,7 +38,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_15fdv")
+script = ExtResource("1_dxfff")
 
 [node name="PopPanel" type="Panel" parent="."]
 layout_mode = 0
@@ -73,6 +73,7 @@ texture = ExtResource("3_pg2la")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="PopPanel/Forest"]
+layout_mode = 0
 offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
@@ -88,6 +89,7 @@ texture = ExtResource("4_b0teg")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="PopPanel/Fire"]
+layout_mode = 0
 offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
@@ -103,6 +105,7 @@ texture = ExtResource("5_bamn0")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="PopPanel/Stone"]
+layout_mode = 0
 offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
@@ -133,6 +136,7 @@ offset_bottom = 84.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
 
 [node name="Panel2" type="Panel" parent="PopPanel"]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 168.0
 offset_right = 243.0
@@ -140,6 +144,7 @@ offset_bottom = 169.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
 
 [node name="Panel3" type="Panel" parent="PopPanel"]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 261.0
 offset_right = 243.0
@@ -147,6 +152,7 @@ offset_bottom = 262.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
 
 [node name="Panel4" type="Panel" parent="PopPanel"]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 350.0
 offset_right = 243.0
@@ -252,6 +258,7 @@ text = " E"
 label_settings = SubResource("LabelSettings_ml1mu")
 
 [node name="Label4" type="Label" parent="Controls"]
+layout_mode = 0
 offset_left = 7.0
 offset_top = 144.0
 offset_right = 126.0

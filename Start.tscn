@@ -1,9 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://qk6151jf8axs"]
+[gd_scene load_steps=12 format=3 uid="uid://qk6151jf8axs"]
 
-[ext_resource type="Script" path="res://Start.gd" id="1_aq180"]
-[ext_resource type="Texture2D" uid="uid://5s01cn2wa6md" path="res://BackgroundStart.png" id="2_bvon6"]
+[ext_resource type="Script" path="res://Scripts/Start.gd" id="1_c12uk"]
+[ext_resource type="Texture2D" uid="uid://5s01cn2wa6md" path="res://UI/BackgroundStart.png" id="2_luojg"]
 [ext_resource type="FontFile" uid="uid://ck3fdadbi5bw6" path="res://Assets/Fonts/Roboto-Black.ttf" id="3_kvahq"]
-[ext_resource type="Texture2D" uid="uid://5k42yji6q7oc" path="res://IconStartUI.png" id="4_tevl7"]
+[ext_resource type="Texture2D" uid="uid://5k42yji6q7oc" path="res://UI/IconStartUI.png" id="4_hnfai"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14tqg"]
+bg_color = Color(0.333333, 0.8, 0.431373, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_vp3se"]
+color = Color(1, 1, 1, 1)
+thickness = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx5mx"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dobgs"]
 bg_color = Color(0.376471, 0.686275, 0.360784, 1)
@@ -24,10 +39,12 @@ shadow_offset = Vector2(2, 2)
 font = ExtResource("3_kvahq")
 font_size = 46
 
-[sub_resource type="Theme" id="Theme_pfo4e"]
-Button/colors/font_hover_color = Color(0.521569, 0.294118, 0.12549, 1)
-Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-Button/colors/font_outline_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntxyo"]
+bg_color = Color(0.109804, 0.207843, 0.027451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2vpvg"]
+bg_color = Color(0.333333, 0.8, 0.431373, 1)
+border_color = Color(0, 0.0431373, 0, 1)
 
 [node name="Start" type="Control"]
 layout_mode = 3
@@ -38,15 +55,47 @@ offset_left = -1.0
 offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_aq180")
+script = ExtResource("1_c12uk")
+
+[node name="Panel6" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 628.0
+offset_top = 261.0
+offset_right = 668.0
+offset_bottom = 301.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_14tqg")
+
+[node name="Panel5" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 625.0
+offset_top = 159.0
+offset_right = 665.0
+offset_bottom = 199.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_14tqg")
+
+[node name="Panel4" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 590.0
+offset_top = 111.0
+offset_right = 1073.0
+offset_bottom = 425.0
+theme_override_styles/panel = SubResource("StyleBoxLine_vp3se")
+
+[node name="Panel3" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fx5mx")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+process_priority = -1
+z_index = -1
 layout_mode = 0
 offset_left = -25.0
 offset_top = -15.0
 offset_right = 1179.0
 offset_bottom = 664.0
-texture = ExtResource("2_bvon6")
+texture = ExtResource("2_luojg")
 expand_mode = 1
 
 [node name="Panel" type="Panel" parent="."]
@@ -73,61 +122,96 @@ grow_vertical = 2
 text = "Virtual Life Simulator"
 label_settings = SubResource("LabelSettings_h02rm")
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 189.0
-offset_top = 192.0
-offset_right = 459.0
-offset_bottom = -384.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_pfo4e")
-theme_override_colors/font_pressed_color = Color(0, 0.776471, 0.133333, 1)
-theme_override_font_sizes/font_size = 45
-toggle_mode = true
-action_mode = 0
-text = "Start"
+[node name="TextureRect2" type="TextureRect" parent="."]
+process_priority = -1
+z_index = -1
+layout_mode = 0
+offset_left = -362.0
+offset_top = -108.0
+offset_right = 1062.0
+offset_bottom = 700.0
+texture = ExtResource("4_hnfai")
+expand_mode = 1
 
-[node name="Button2" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 189.0
-offset_top = 288.0
-offset_right = 459.0
-offset_bottom = -288.0
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 138.0
+offset_right = 1081.0
+offset_bottom = 231.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ntxyo")
+
+[node name="Play" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
+process_priority = 1
+process_physics_priority = 1
+z_index = 1
+layout_mode = 2
+offset_left = 698.0
+offset_top = 143.0
+offset_right = 1076.0
+offset_bottom = 214.0
 grow_horizontal = 2
 grow_vertical = 2
+shortcut_context = NodePath("..")
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
+text = " Start Simulation "
+
+[node name="Panel7" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 628.0
+offset_top = 368.0
+offset_right = 668.0
+offset_bottom = 408.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_14tqg")
+
+[node name="Panel8" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 253.0
+offset_right = 1081.0
+offset_bottom = 346.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ntxyo")
+
+[node name="Options" type="Button" parent="."]
+process_priority = 1
+process_physics_priority = 1
+z_index = 1
+layout_mode = 0
+offset_left = 698.0
+offset_top = 258.0
+offset_right = 1076.0
+offset_bottom = 329.0
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
 text = "Options"
 
-[node name="Button3" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 189.0
-offset_top = 384.0
-offset_right = 459.0
-offset_bottom = -192.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 45
-text = "Quit
-"
-
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="Panel9" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -343.0
-offset_top = -112.0
-offset_right = 1081.0
-offset_bottom = 696.0
-texture = ExtResource("4_tevl7")
-expand_mode = 1
+offset_left = 689.0
+offset_top = 367.0
+offset_right = 1082.0
+offset_bottom = 460.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ntxyo")
+
+[node name="Quit" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
+process_priority = 1
+process_physics_priority = 1
+z_index = 1
+layout_mode = 0
+offset_left = 699.0
+offset_top = 372.0
+offset_right = 1077.0
+offset_bottom = 443.0
+shortcut_context = NodePath("..")
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
+text = "Quit"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

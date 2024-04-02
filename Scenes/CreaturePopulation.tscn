@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b15pofbis3y2b"]
 
-[ext_resource type="Script" path="res://Scenes/CreaturePopulation.gd" id="1_s5aem"]
+[ext_resource type="Script" path="res://Scripts/CreaturePopulation.gd" id="1_0c331"]
 
 [node name="CreaturePopulation" type="Node"]
-script = ExtResource("1_s5aem")
+script = ExtResource("1_0c331")
