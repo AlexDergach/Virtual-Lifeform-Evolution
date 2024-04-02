@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var creature_manager
-
+var ui_instance
 
 
 var ui_scene = load("res://UI.tscn")
@@ -19,7 +19,7 @@ var food_instance
 
 var rabbit_instances = []
 
-var ui_instance
+
 
 @onready var map_size = get_node("NavigationRegion3D/CSGBox3D").get_scale()
 func _ready():

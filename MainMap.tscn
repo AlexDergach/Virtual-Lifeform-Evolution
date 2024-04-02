@@ -225,7 +225,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Timer" type="Timer" parent="NavigationRegion3D/GridMap"]
 process_callback = 0
-wait_time = 10.0
+wait_time = 20.0
 
 [connection signal="bake_finished" from="NavigationRegion3D" to="NavigationRegion3D/GridMap" method="_on_navigation_region_3d_bake_finished"]
 [connection signal="timeout" from="NavigationRegion3D/GridMap/Timer" to="NavigationRegion3D/GridMap" method="_on_timer_timeout"]

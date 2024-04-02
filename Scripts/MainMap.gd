@@ -1,10 +1,13 @@
 extends GridMap
 
+@onready var creature_manager
+var ui_instance
+
 var grid_size = Vector2(80, 80)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
 var character_body = null
-var snow_island_spawned = false  # Track if a snow island has been spawned
+var snow_island_spawned = false  # Track if a Ice island has been spawned
 var playpos
 var test = 0
 
@@ -13,6 +16,8 @@ var fire_prey = load("res://Scenes/Prey/Fire_Prey.tscn")
 var forest_prey = load("res://Scenes/Prey/Forest_Prey.tscn")
 var ice_prey = load("res://Scenes/Prey/Ice_Prey.tscn")
 var stone_prey = load("res://Scenes/Prey/Stone_Prey.tscn")
+
+var ui_scene = load("res://UI.tscn")
 
 var desert_pred = load("res://Scenes/Pred/Desert_Pred.tscn")
 var fire_pred = load("res://Scenes/Pred/Fire_Pred.tscn")
@@ -24,7 +29,6 @@ var ice_food = load("res://Scenes/Food/Ice_Food.tscn")
 var forest_food = load("res://Scenes/Food/Forest_Food.tscn")
 var stone_food = load("res://Scenes/Food/Stone_Food.tscn")
 var fire_food = load("res://Scenes/Food/Fire_Food.tscn")
-
 
 
 var prey_scenes = [fire_prey, desert_prey, forest_prey, stone_prey,ice_prey]
@@ -42,14 +46,24 @@ func _ready():
 	
 	$Timer.start()
 	
+	
 	generate_biomes()
 	spawn_character()
+	
+
 	
 	if nav_region:
 		nav_region.bake_navigation_mesh()
 	else:
 		print("NavigationRegion3D node not found")
 		
+	creature_manager = Engine.get_singleton("CreatureManager")
+
+	
+	ui_instance = ui_scene.instantiate()
+	add_child(ui_instance)
+	
+	
 	set_process(true)
 	
 func _process(delta):
@@ -57,6 +71,16 @@ func _process(delta):
 	#var static_mem = OS.get_static_memory_usage()
 	#var dynamic_mem = OS.get_static_memory_peak_usage()
 	#print("Static Memory Usage: ", static_mem, " Dynamic Memory Usage: ", dynamic_mem)
+	
+	
+	ui_instance.desert_label.text = "Desert Population: " + str(creature_manager.get_desert_creature()) + "
+								Predators: " + str(creature_manager.get_desert_pred()) + "
+								Prey: " + str(creature_manager.get_desert_prey()) + "
+								Generation: " + str(creature_manager.get_desert_gen())
+								
+	ui_instance.TotalPopLabel.text = "Total Population: " + str(creature_manager.get_total_creatures()) 
+	
+	
 	pass
 	
 func _physics_process(delta):
