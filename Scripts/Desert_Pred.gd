@@ -77,6 +77,7 @@ func _ready():
 	if creature_manager != null:
 		# Call methods on the singleton instance
 		creature_manager.add_creature(self)
+		creature_manager.add_desert_creature(self)
 		creature_manager.add_desert_pred(self)
 		#print(creature_manager.get_total_creatures())
 	else:
@@ -190,6 +191,7 @@ func _process(delta):
 	if hunger == 0:
 		queue_free()
 		creature_manager.remove_creature(self)
+		creature_manager.remove_desert_creature(self)
 		creature_manager.remove_desert_pred(self)
 	
 	if progress_bar.value > 0:
@@ -505,4 +507,5 @@ func is_left(v1: Vector3, v2: Vector3, point: Vector3) -> float:
 func _on_age_timeout():
 	queue_free()
 	creature_manager.remove_creature(self)
+	creature_manager.remove_desert_creature(self)
 	creature_manager.remove_desert_pred(self)
