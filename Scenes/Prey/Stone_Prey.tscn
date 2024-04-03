@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b6d87lymhvojn"]
+[gd_scene load_steps=28 format=3 uid="uid://b6d87lymhvojn"]
 
 [ext_resource type="Script" path="res://Scripts/Stone_Prey.gd" id="1_1et0s"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_2owgh"]
@@ -59,6 +59,11 @@ bg_color = Color(0.286275, 0.792157, 0.364706, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5iv42"]
 bg_color = Color(0.831373, 0.435294, 0.745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o414"]
+bg_color = Color(0, 0, 0, 0.223529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0c1on"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0uihi"]
 
@@ -254,6 +259,40 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
 scroll_active = false
 
+[node name="Gender" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -68.0
+offset_right = 64.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_3o414")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0c1on")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -71.0
+offset_right = 117.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
+
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_2owgh")
 
@@ -269,6 +308,11 @@ script = ExtResource("5_dq1p1")
 to = NodePath("../../Running")
 event = &"enemy_entered"
 
+[node name="To Repo" type="Node" parent="StateChart/AlertState/Wandering"]
+script = ExtResource("5_dq1p1")
+to = NodePath("../../Repo")
+event = &"repo"
+
 [node name="Running" type="Node" parent="StateChart/AlertState"]
 script = ExtResource("4_h822o")
 
@@ -278,9 +322,42 @@ to = NodePath("../../Wandering")
 event = &"enemy_exited"
 delay_seconds = 1.0
 
+[node name="Repo" type="Node" parent="StateChart/AlertState"]
+script = ExtResource("4_h822o")
+
+[node name="To Running" type="Node" parent="StateChart/AlertState/Repo"]
+script = ExtResource("5_dq1p1")
+to = NodePath("../../Running")
+event = &"enemy_entered"
+
+[node name="To Wandering" type="Node" parent="StateChart/AlertState/Repo"]
+script = ExtResource("5_dq1p1")
+to = NodePath("../../Wandering")
+event = &"repo_done"
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0.764005, 0.509704, 0.739683)
 shape = SubResource("BoxShape3D_0uihi")
+
+[node name="Child_Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+
+[node name="Mating" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+
+[node name="Age" type="Timer" parent="."]
+process_callback = 0
+wait_time = 40.0
+one_shot = true
+
+[node name="Looking" type="Timer" parent="."]
+process_callback = 0
+wait_time = 8.0
+one_shot = true
 
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
