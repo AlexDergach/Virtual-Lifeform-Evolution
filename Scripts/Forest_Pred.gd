@@ -138,7 +138,8 @@ func _ready():
 		
 		var material = load("res://Assets/CreatureShaders/Forest_Pred.tres").duplicate()  # Load the material and duplicate it
 		material.emission_enabled = true
-		material.emission_energy = 16.0  # Set the emission energy to 2.0 (adjust as needed)
+		material.emission_energy = 8.0
+		material.emission = Color(0.51, 0.72, 0.45)
 	
 		$Main.set_surface_override_material(0,material) 
 		
