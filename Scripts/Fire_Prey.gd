@@ -94,7 +94,6 @@ func _ready():
 		# Scale down the size
 		# size *= child_scale_factor
 		self.scale = Vector3(size,size,size)
-		inital_speed = speed
 		inital_hunger = hunger
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		
@@ -494,9 +493,11 @@ func create_child(size,speed,accel,hunger,meta,mother_area):
 	
 	var child_generation = generation + 1
 	
+	child.speed_counter = speed_counter
 	child.mother = mother_area
 	child.size = size * child_scale_factor
-	child.speed = speed * child_factor
+	child.speed = speed
+	child.inital_speed = inital_speed * child_factor
 	child.accel = accel * child_factor
 	child.hunger = hunger * child_factor
 	child.metabolism = meta * child_factor

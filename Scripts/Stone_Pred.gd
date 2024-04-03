@@ -137,7 +137,7 @@ func _ready():
 		progress_bar_text3.text = "Female"
 		
 		var material = load("res://Assets/CreatureShaders/Stone_Pred.tres").duplicate()  # Load the material and duplicate it
-		material.albedo_color = Color(130, 121, 72)
+		material.albedo_color = Color(0.51, 0.5, 0.05)
 	
 		$Main.set_surface_override_material(0,material) 
 		$Tail.set_surface_override_material(0,material) 

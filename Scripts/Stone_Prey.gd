@@ -94,7 +94,6 @@ func _ready():
 		# Scale down the size
 		# size *= child_scale_factor
 		self.scale = Vector3(size,size,size)
-		inital_speed = speed
 		inital_hunger = hunger
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		
@@ -140,7 +139,7 @@ func _ready():
 		progress_bar_text3.text = "Female"
 		
 		var material = load("res://Assets/CreatureShaders/Stone_Prey.tres").duplicate()  # Load the material and duplicate it
-		material.albedo_color = Color(128, 128, 128)  # Set the new color
+		material.albedo_color = Color(0.19, 0.19, 0.19)  # Set the new color
 	
 		$Body.set_surface_override_material(0,material) 
 		$Body1.set_surface_override_material(0,material) 
@@ -488,9 +487,11 @@ func create_child(size,speed,accel,hunger,meta,mother_area):
 	
 	var child_generation = generation + 1
 	
+	child.speed_counter = speed_counter
 	child.mother = mother_area
 	child.size = size * child_scale_factor
-	child.speed = speed * child_factor
+	child.speed = speed
+	child.inital_speed = inital_speed * child_factor
 	child.accel = accel * child_factor
 	child.hunger = hunger * child_factor
 	child.metabolism = meta * child_factor
@@ -533,6 +534,7 @@ func _on_child_timer_timeout():
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	print("Grown Baby Average: ", a)	
+	
 	$Age.start()
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a
 

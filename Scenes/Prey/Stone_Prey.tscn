@@ -348,7 +348,7 @@ one_shot = true
 
 [node name="Age" type="Timer" parent="."]
 process_callback = 0
-wait_time = 40.0
+wait_time = 60.0
 one_shot = true
 
 [node name="Looking" type="Timer" parent="."]
