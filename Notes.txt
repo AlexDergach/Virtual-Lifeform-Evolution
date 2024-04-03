@@ -31,3 +31,5 @@
 4. Add better night emsiosn and orange gradents for sun down with a longer aninmation tree
 5. Check out asset collsion with creatures
 
+1. Put down food scale
+

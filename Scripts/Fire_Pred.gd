@@ -149,6 +149,9 @@ func _ready():
 		$Tail3.set_surface_override_material(0,material) 
 		
 	else:
+		var material = load("res://Assets/CreatureShaders/Fire_Pred.tres").duplicate()  # Load the material and duplicate it
+		material.albedo_color = Color(0, 0, 0)  # Set the new color
+		$Head.set_surface_override_material(0,material)
 		
 		#print("Male")
 		

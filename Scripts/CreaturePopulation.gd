@@ -91,7 +91,8 @@ func get_desert_pred():
 
 var total_ice_creatures = []
 var highest_ice_gen
-
+var starting_ice_gen
+var previous_ice_gen
 var total_ice_prey = []
 
 
@@ -111,14 +112,13 @@ func get_ice_creature():
 	return len(total_ice_creatures)
 	
 func add_ice_gen(gen):
-	var starting_gen
-	var previous_gen
+
 	if gen == 0:
-		starting_gen = gen
-		previous_gen = starting_gen
+		starting_ice_gen = gen
+		previous_ice_gen = starting_ice_gen
 		highest_ice_gen = gen
 	else:
-		if previous_gen < gen:
+		if previous_ice_gen < gen:
 			highest_ice_gen = gen
 
 func get_ice_gen():
@@ -141,6 +141,8 @@ func get_ice_prey():
 
 var total_forest_creatures = []
 var highest_forest_gen
+var starting_forest_gen
+var previous_forest_gen
 var total_forest_prey = []
 var total_forest_pred = []
 
@@ -160,14 +162,13 @@ func get_forest_creature():
 	return len(total_forest_creatures)
 
 func add_forest_gen(gen):
-	var starting_gen
-	var previous_gen
+
 	if gen == 0:
-		starting_gen = gen
-		previous_gen = starting_gen
+		starting_forest_gen = gen
+		previous_forest_gen = starting_forest_gen
 		highest_forest_gen = gen
 	else:
-		if previous_gen < gen:
+		if previous_forest_gen < gen:
 			highest_forest_gen = gen
 			
 func get_forest_gen():
@@ -207,6 +208,8 @@ func get_forest_pred():
 
 var total_fire_creatures = []
 var highest_fire_gen
+var starting_fire_gen
+var previous_fire_gen
 var total_fire_prey = []
 var total_fire_pred = []
 
@@ -226,15 +229,14 @@ func get_fire_creature():
 	return len(total_fire_creatures)
 
 func add_fire_gen(gen):
-	var starting_gen
-	var previous_gen
+
 
 	if gen == 0:
-		starting_gen = gen
-		previous_gen = starting_gen
+		starting_fire_gen = gen
+		previous_fire_gen = starting_fire_gen
 		highest_fire_gen = gen
 	else:
-		if previous_gen < gen:
+		if previous_fire_gen < gen:
 			highest_fire_gen = gen
 
 func get_fire_gen():
@@ -274,6 +276,8 @@ func get_fire_pred():
 
 var total_stone_creatures = []
 var highest_stone_gen
+var starting_stone_gen
+var previous_stone_gen
 var total_stone_prey = []
 var total_stone_pred = []
 
@@ -295,15 +299,13 @@ func get_stone_creature():
 
 func add_stone_gen(gen):
 	
-	var starting_gen
-	var previous_gen
-	
+
 	if gen == 0:
-		starting_gen = gen
-		previous_gen = starting_gen
+		starting_stone_gen = gen
+		previous_stone_gen = starting_stone_gen
 		highest_stone_gen = gen
 	else:
-		if previous_gen < gen:
+		if previous_stone_gen < gen:
 			highest_stone_gen = gen
 
 func get_stone_gen():

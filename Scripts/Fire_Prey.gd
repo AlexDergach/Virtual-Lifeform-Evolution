@@ -145,6 +145,7 @@ func _ready():
 		$Body.set_surface_override_material(0,material) 
 		$Arm.set_surface_override_material(0,material) 
 		$Arm/Arm.set_surface_override_material(0,material) 
+		$Arm2.set_surface_override_material(0,material) 
 		$Arm2/Arm.set_surface_override_material(0,material) 
 		$Arm3.set_surface_override_material(0,material) 
 		$Arm3/Arm.set_surface_override_material(0,material) 

@@ -4,7 +4,7 @@ extends Node3D
 var ui_instance
 
 
-var ui_scene = load("res://UI.tscn")
+var ui_scene = load("res://UI/UI.tscn")
 
 var scene = "Fire"
 var food_scene = load("res://Scenes/Food/"+ scene + "_Food.tscn")
@@ -39,6 +39,11 @@ func _process(delta):
 								Predators: " + str(creature_manager.get_desert_pred()) + "
 								Prey: " + str(creature_manager.get_desert_prey()) + "
 								Generation: " + str(creature_manager.get_desert_gen())
+	
+	ui_instance.fire_label.text = "Desert Population: " + str(creature_manager.get_fire_creature()) + "
+							Predators: " + str(creature_manager.get_fire_pred()) + "
+							Prey: " + str(creature_manager.get_fire_prey()) + "
+							Generation: " + str(creature_manager.get_fire_gen())
 								
 	ui_instance.TotalPopLabel.text = "Total Population: " + str(creature_manager.get_total_creatures()) 
 								

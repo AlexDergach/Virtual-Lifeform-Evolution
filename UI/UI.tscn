@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://yjsnj1atdqps"]
+[gd_scene load_steps=17 format=3 uid="uid://yjsnj1atdqps"]
 
 [ext_resource type="Script" path="res://Scripts/UI.gd" id="1_nl5k8"]
 [ext_resource type="Texture2D" uid="uid://cdeic2l5bopdd" path="res://Assets/UI/desert.png" id="2_4p380"]
@@ -9,7 +9,19 @@
 [ext_resource type="FontFile" uid="uid://ck3fdadbi5bw6" path="res://Assets/Fonts/Roboto-Black.ttf" id="7_utotl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_offp7"]
-line_spacing = 1.0
+line_spacing = 0.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_pv7ew"]
+line_spacing = 0.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_ojta1"]
+line_spacing = 0.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_qo0lx"]
+line_spacing = 0.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_jb46p"]
+line_spacing = 0.5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ae4sr"]
 bg_color = Color(1, 1, 1, 1)
@@ -50,8 +62,9 @@ offset_bottom = 522.0
 [node name="Desert" type="TextureRect" parent="PopPanel"]
 layout_mode = 1
 offset_left = -30.0
+offset_top = 3.0
 offset_right = 121.0
-offset_bottom = 83.0
+offset_bottom = 86.0
 texture = ExtResource("2_4p380")
 expand_mode = 1
 
@@ -66,9 +79,9 @@ label_settings = SubResource("LabelSettings_offp7")
 [node name="Forest" type="TextureRect" parent="PopPanel"]
 layout_mode = 0
 offset_left = -35.0
-offset_top = 174.0
+offset_top = 193.0
 offset_right = 123.0
-offset_bottom = 261.0
+offset_bottom = 280.0
 texture = ExtResource("3_0iwsu")
 expand_mode = 1
 
@@ -78,13 +91,14 @@ offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 84.0
+label_settings = SubResource("LabelSettings_pv7ew")
 
 [node name="Fire" type="TextureRect" parent="PopPanel"]
 layout_mode = 0
 offset_left = -35.0
-offset_top = 260.0
+offset_top = 296.0
 offset_right = 125.0
-offset_bottom = 350.0
+offset_bottom = 386.0
 texture = ExtResource("4_1j83k")
 expand_mode = 1
 
@@ -94,13 +108,14 @@ offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 84.0
+label_settings = SubResource("LabelSettings_ojta1")
 
 [node name="Stone" type="TextureRect" parent="PopPanel"]
 layout_mode = 0
 offset_left = -34.0
-offset_top = 357.0
+offset_top = 404.0
 offset_right = 124.0
-offset_bottom = 449.0
+offset_bottom = 496.0
 texture = ExtResource("5_8fbey")
 expand_mode = 1
 
@@ -110,13 +125,14 @@ offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 84.0
+label_settings = SubResource("LabelSettings_qo0lx")
 
 [node name="Ice" type="TextureRect" parent="PopPanel"]
 layout_mode = 0
 offset_left = -32.0
-offset_top = 82.0
+offset_top = 103.0
 offset_right = 121.0
-offset_bottom = 168.0
+offset_bottom = 189.0
 texture = ExtResource("6_ok8hd")
 expand_mode = 1
 
@@ -126,37 +142,38 @@ offset_left = 119.0
 offset_top = 9.0
 offset_right = 278.0
 offset_bottom = 84.0
+label_settings = SubResource("LabelSettings_jb46p")
 
 [node name="Panel" type="Panel" parent="PopPanel"]
 layout_mode = 0
 offset_left = 11.0
-offset_top = 83.0
+offset_top = 94.0
 offset_right = 243.0
-offset_bottom = 84.0
+offset_bottom = 95.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
 
 [node name="Panel2" type="Panel" parent="PopPanel"]
 layout_mode = 0
 offset_left = 11.0
-offset_top = 168.0
+offset_top = 198.0
 offset_right = 243.0
-offset_bottom = 169.0
+offset_bottom = 199.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
 
 [node name="Panel3" type="Panel" parent="PopPanel"]
 layout_mode = 0
 offset_left = 11.0
-offset_top = 261.0
+offset_top = 296.0
 offset_right = 243.0
-offset_bottom = 262.0
+offset_bottom = 297.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
 
 [node name="Panel4" type="Panel" parent="PopPanel"]
 layout_mode = 0
 offset_left = 11.0
-offset_top = 350.0
+offset_top = 398.0
 offset_right = 243.0
-offset_bottom = 351.0
+offset_bottom = 399.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
 
 [node name="TotalPop" type="Panel" parent="."]
