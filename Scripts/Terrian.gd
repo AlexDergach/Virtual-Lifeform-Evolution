@@ -6,7 +6,7 @@ var ui_instance
 
 var ui_scene = load("res://UI/UI.tscn")
 
-var scene = "Forest"
+var scene = "Stone"
 var food_scene = load("res://Scenes/Food/"+ scene + "_Food.tscn")
 var prey_scene = load("res://Scenes/Prey/"+ scene + "_Prey.tscn")
 var pred_scene = load("res://Scenes/Pred/"+ scene + "_Pred.tscn")

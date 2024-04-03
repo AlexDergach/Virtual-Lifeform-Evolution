@@ -77,8 +77,8 @@ func _ready():
 	if creature_manager != null:
 		# Call methods on the singleton instance
 		creature_manager.add_creature(self)
-		creature_manager.add_fire_creature(self)
-		creature_manager.add_fire_prey(self)
+		creature_manager.add_stone_creature(self)
+		creature_manager.add_stone_prey(self)
 		#print(creature_manager.get_total_creatures())
 	else:
 		print("CreatureManager singleton instance is not initialized.")
@@ -120,7 +120,7 @@ func _ready():
 		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
 		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 		
-		creature_manager.add_fire_gen(generation)
+		creature_manager.add_stone_gen(generation)
 		
 		$Age.start()
 	
@@ -139,16 +139,11 @@ func _ready():
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Female"
 		
-		var material = load("res://Assets/CreatureShaders/Fire_Prey.tres").duplicate()  # Load the material and duplicate it
-		material.albedo_color = Color(1.0, 0.2, 0.3)  # Set the new color
+		var material = load("res://Assets/CreatureShaders/Stone_Prey.tres").duplicate()  # Load the material and duplicate it
+		material.albedo_color = Color(128, 128, 128)  # Set the new color
 	
 		$Body.set_surface_override_material(0,material) 
-		$Arm.set_surface_override_material(0,material) 
-		$Arm/Arm.set_surface_override_material(0,material) 
-		$Arm2.set_surface_override_material(0,material) 
-		$Arm2/Arm.set_surface_override_material(0,material) 
-		$Arm3.set_surface_override_material(0,material) 
-		$Arm3/Arm.set_surface_override_material(0,material) 
+		$Body1.set_surface_override_material(0,material) 
 		
 	else:
 		#print("Male")
@@ -156,7 +151,6 @@ func _ready():
 		var desired_color = Color(0.5, 0.5, 1.0)
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Male"
-
 
 func _process(delta):
 	
@@ -190,8 +184,8 @@ func _process(delta):
 	if hunger == 0:
 		queue_free()
 		creature_manager.remove_creature(self)
-		creature_manager.remove_fire_creature(self)
-		creature_manager.remove_fire_prey(self)
+		creature_manager.remove_stone_creature(self)
+		creature_manager.remove_stone_prey(self)
 	
 	if progress_bar.value > 0:
 		progress_bar.value = hunger
@@ -262,20 +256,20 @@ var mate_chosen = 1
 
 func _on_sensory_area_entered(area):
 	
-	if area.is_in_group("fire_food") && _hungry():
+	if area.is_in_group("stone_food") && _hungry():
 		
 		#print("Prey : Food spotted")
 		food_target = true
 		target_pos = area.global_position
 		nav.target_position = target_pos
 		
-	if area.is_in_group("fire_pred") and !is_child:
+	if area.is_in_group("stone_pred") and !is_child:
 		enemy = area
 		$StateChart.send_event("enemy_entered")
 		time_since_last_target_update = randf_range(1.0, 10.0)  # Start running immediately
 		
 	if is_female and !is_child and reproduction == 1:
-		if area.is_in_group("fire_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:
+		if area.is_in_group("stone_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:
 			
 			if mating_partner_1 == null:
 				
@@ -315,28 +309,28 @@ func _on_sensory_area_entered(area):
 				#print("Mating with : ", mate_chosen)
 
 func _on_self_area_entered(area):
-	if area.is_in_group("fire_pred") and area.get_parent()._hungry():
+	if area.is_in_group("stone_pred") and area.get_parent()._hungry():
 		
 		#print("Dead")
 		queue_free()
 		creature_manager.remove_creature(self)
-		creature_manager.remove_fire_creature(self)
+		creature_manager.remove_stone_creature(self)
 		
-		creature_manager.remove_fire_prey(self)
+		creature_manager.remove_stone_prey(self)
 		
 	#If food enters self area, it gets eaten
-	if area.is_in_group("fire_food"):
+	if area.is_in_group("stone_food"):
 		food_target = false
 		hunger += 1
 		#print("Prey: Food ate")
 		
-	if area.is_in_group("fire_prey") and partners == 2 and area == mating_partner:
+	if area.is_in_group("stone_prey") and partners == 2 and area == mating_partner:
 		#print("Mate: ", mate_chosen, " Touched Sending Repo State")
 		$StateChart.send_event("repo")
 	
 #If Pred Leaves The Sensory Area
 func _on_sensory_area_exited(area):
-	if area.is_in_group("fire_pred"):
+	if area.is_in_group("stone_pred"):
 		$StateChart.send_event("enemy_exited")
 
 func _on_wandering_state_entered():
@@ -490,7 +484,7 @@ func _on_repo_state_entered():
 func create_child(size,speed,accel,hunger,meta,mother_area):
 	
 	# Create a new instance of the same creature as a child
-	var child = load("res://Scenes/Prey/Desert_Prey.tscn").instantiate()
+	var child = load("res://Scenes/Prey/Stone_Prey.tscn").instantiate()
 	
 	var child_generation = generation + 1
 	
@@ -503,7 +497,7 @@ func create_child(size,speed,accel,hunger,meta,mother_area):
 	child.is_child = true  # Mark the child as a child
 	child.generation = child_generation
 	
-	creature_manager.add_fire_gen(child_generation)
+	creature_manager.add_stone_gen(child_generation)
 	
 	
 	get_parent().add_child(child)
@@ -527,7 +521,6 @@ func is_left(v1: Vector3, v2: Vector3, point: Vector3) -> float:
 	return (v2.x - v1.x) * (point.z - v1.z) - (point.x - v1.x) * (v2.z - v1.z)
 
 func _on_child_timer_timeout():
-		
 	#print("baby done")
 	is_child = false
 	size /= child_scale_factor
@@ -557,5 +550,5 @@ func _on_looking_timeout():
 func _on_age_timeout():
 	queue_free()
 	creature_manager.remove_creature(self)
-	creature_manager.remove_fire_creature(self)
-	creature_manager.remove_fire_prey(self)
+	creature_manager.remove_stone_creature(self)
+	creature_manager.remove_stone_prey(self)

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Stone_Prey.gd" id="1_1et0s"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_2owgh"]
+[ext_resource type="Material" uid="uid://b3vo00tul7fxg" path="res://Assets/CreatureShaders/Stone_Prey.tres" id="2_bslgu"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_l126l"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_h822o"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_dq1p1"]
@@ -26,12 +27,8 @@ material = SubResource("StandardMaterial3D_o3tic")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xvc3n"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o1bb1"]
-albedo_color = Color(0.972549, 0.862745, 0.666667, 1)
-roughness = 0.0
-
 [sub_resource type="BoxMesh" id="BoxMesh_85f8p"]
-material = SubResource("StandardMaterial3D_o1bb1")
+material = ExtResource("2_bslgu")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nxrsf"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
@@ -366,3 +363,8 @@ one_shot = true
 [connection signal="state_entered" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_entered"]
 [connection signal="state_processing" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_processing"]
 [connection signal="state_processing" from="StateChart/AlertState/Running" to="." method="_on_running_state_processing"]
+[connection signal="state_entered" from="StateChart/AlertState/Repo" to="." method="_on_repo_state_entered"]
+[connection signal="timeout" from="Child_Timer" to="." method="_on_child_timer_timeout"]
+[connection signal="timeout" from="Mating" to="." method="_on_mating_timeout"]
+[connection signal="timeout" from="Age" to="." method="_on_age_timeout"]
+[connection signal="timeout" from="Looking" to="." method="_on_looking_timeout"]
