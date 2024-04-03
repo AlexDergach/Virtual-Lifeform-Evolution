@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
-@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
+#@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
+@onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D") # <- For Testing Map
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 
@@ -524,7 +525,6 @@ func is_point_inside_polygon(point: Vector3, polygon: Array) -> bool:
 func is_left(v1: Vector3, v2: Vector3, point: Vector3) -> float:
 	return (v2.x - v1.x) * (point.z - v1.z) - (point.x - v1.x) * (v2.z - v1.z)
 
-
 func _on_child_timer_timeout():
 		
 	#print("baby done")
@@ -549,11 +549,9 @@ func _on_mating_timeout():
 	partners = 0
 	mate_chosen = 1
 
-
 func _on_looking_timeout():
 	partners = 2
 	mate_chosen = 1
-
 
 func _on_age_timeout():
 	queue_free()

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Fire_Pred.gd" id="1_ru8r4"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_4eahf"]
+[ext_resource type="Material" uid="uid://c55e7q2qw6qm5" path="res://Assets/CreatureShaders/Fire_Pred.tres" id="2_18oy2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_wu85i"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_s3sy5"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_k0e0q"]
@@ -10,27 +11,18 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3whqx"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_us7rg"]
-albedo_color = Color(0.470588, 0, 0.152941, 1)
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gp0tt"]
-material = SubResource("StandardMaterial3D_us7rg")
+material = ExtResource("2_18oy2")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a3ibf"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8dmnb"]
-albedo_color = Color(0.470588, 0, 0.152941, 1)
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3gpjk"]
-material = SubResource("StandardMaterial3D_8dmnb")
+material = ExtResource("2_18oy2")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sjm4l"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l53v0"]
-albedo_color = Color(0.470588, 0, 0.152941, 1)
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_634xt"]
-material = SubResource("StandardMaterial3D_l53v0")
+material = ExtResource("2_18oy2")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7ghv"]
 albedo_color = Color(0.427451, 0.427451, 0.427451, 1)
@@ -46,6 +38,11 @@ bg_color = Color(0.286275, 0.792157, 0.364706, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf105"]
 bg_color = Color(0.831373, 0.435294, 0.745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccr3k"]
+bg_color = Color(0, 0, 0, 0.223529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kd8e5"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_fpdle"]
 viewport_path = NodePath("SubViewport")
@@ -78,14 +75,14 @@ shape = SubResource("SphereShape3D_3whqx")
 process_callback = 0
 wait_time = 10.0
 
-[node name="Leg3" type="MeshInstance3D" parent="."]
+[node name="Arm" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.380558, 0.179036, 0.0304837, -0.123188, 0.553084, 0.0941713, 0, -0.148473, 0.38756, 0.146891, 0.727283, 1.15769)
 mesh = SubResource("CapsuleMesh_gp0tt")
 skeleton = NodePath("../Leg4")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Leg3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Arm"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Leg3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Arm/StaticBody3D"]
 transform = Transform3D(1, 3.26831e-08, 7.38151e-09, -1.49012e-08, 1, 0, -7.45058e-09, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_a3ibf")
 
@@ -106,23 +103,23 @@ mesh = SubResource("CapsuleMesh_634xt")
 transform = Transform3D(0.63556, 0, 0, 0, -0.151044, -0.703969, 0, 0.394594, -0.269467, 0.672612, 1.6575, 1.77858)
 mesh = SubResource("CapsuleMesh_qu5fh")
 
-[node name="Leg5" type="MeshInstance3D" parent="."]
+[node name="Leg2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.854456, 0, 0, 0, 0.7, 1.13488, -0.118753, 0)
 mesh = SubResource("CapsuleMesh_3gpjk")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Leg5"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Leg2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Leg5/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Leg2/StaticBody3D"]
 shape = SubResource("CapsuleShape3D_sjm4l")
 
-[node name="Leg6" type="MeshInstance3D" parent="."]
+[node name="Arm2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.340211, -0.305745, -0.0520579, 0.210373, 0.494445, 0.084187, 0, -0.148473, 0.38756, 1.2702, 0.760378, 1.16111)
 mesh = SubResource("CapsuleMesh_gp0tt")
 skeleton = NodePath("../Leg4")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Leg6"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Arm2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Leg6/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Arm2/StaticBody3D"]
 shape = SubResource("CapsuleShape3D_a3ibf")
 
 [node name="Tail" type="MeshInstance3D" parent="."]
@@ -155,6 +152,11 @@ script = ExtResource("5_k0e0q")
 to = NodePath("../../Hunting")
 event = &"prey_entered"
 
+[node name="To Repo" type="Node" parent="StateChart/AlertState/Wandering"]
+script = ExtResource("5_k0e0q")
+to = NodePath("../../Repo")
+event = &"repo"
+
 [node name="Hunting" type="Node" parent="StateChart/AlertState"]
 script = ExtResource("4_s3sy5")
 
@@ -162,6 +164,14 @@ script = ExtResource("4_s3sy5")
 script = ExtResource("5_k0e0q")
 to = NodePath("../../Wandering")
 event = &"prey_exited"
+
+[node name="Repo" type="Node" parent="StateChart/AlertState"]
+script = ExtResource("4_s3sy5")
+
+[node name="To Wandering" type="Node" parent="StateChart/AlertState/Repo"]
+script = ExtResource("5_k0e0q")
+to = NodePath("../../Wandering")
+event = &"repo_done"
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -237,6 +247,40 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
 scroll_active = false
 
+[node name="Gender" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -68.0
+offset_right = 64.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ccr3k")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kd8e5")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -71.0
+offset_right = 117.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
+
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.683092, 2.27228, 0.974782)
 billboard = 1
@@ -246,6 +290,26 @@ texture = SubResource("ViewportTexture_fpdle")
 transform = Transform3D(1.2, 0, 0, 0, 0.868545, -0.828027, 0, 0.828027, 0.868545, 0.685683, 0.951025, 0.680509)
 shape = SubResource("CapsuleShape3D_8v5v7")
 
+[node name="Mating" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+
+[node name="Looking" type="Timer" parent="."]
+process_callback = 0
+wait_time = 8.0
+one_shot = true
+
+[node name="Age" type="Timer" parent="."]
+process_callback = 0
+wait_time = 40.0
+one_shot = true
+
+[node name="Child_Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
@@ -253,3 +317,8 @@ shape = SubResource("CapsuleShape3D_8v5v7")
 [connection signal="state_entered" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_entered"]
 [connection signal="state_processing" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_processing"]
 [connection signal="state_processing" from="StateChart/AlertState/Hunting" to="." method="_on_hunting_state_processing"]
+[connection signal="state_entered" from="StateChart/AlertState/Repo" to="." method="_on_repo_state_entered"]
+[connection signal="timeout" from="Mating" to="." method="_on_mating_timeout"]
+[connection signal="timeout" from="Looking" to="." method="_on_looking_timeout"]
+[connection signal="timeout" from="Age" to="." method="_on_age_timeout"]
+[connection signal="timeout" from="Child_Timer" to="." method="_on_child_timer_timeout"]
