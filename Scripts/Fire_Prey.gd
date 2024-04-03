@@ -471,12 +471,12 @@ func _on_repo_state_entered():
 		var twins = randi_range(1, 2) == 1 
 		
 		if twins :
-			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area)
-			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area)
+			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area,speed_counter, speed)
+			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area,speed_counter, speed)
 			$Mating.start()
 			
 		else:
-			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area)
+			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area,speed_counter, speed)
 			$Mating.start()
 			
 		has_mated = true
@@ -486,7 +486,7 @@ func _on_repo_state_entered():
 		# Reset mating_partner for future reproduction
 		$StateChart.send_event("repo_done")
 
-func create_child(size,speed,accel,hunger,meta,mother_area):
+func create_child(size,inital_speed,accel,hunger,meta,mother_area,speed_counter, speed):
 	
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Prey/Desert_Prey.tscn").instantiate()

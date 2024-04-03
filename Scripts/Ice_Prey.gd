@@ -7,7 +7,7 @@ extends CharacterBody3D
 
 @onready var progress_bar = $SubViewport/Hunger
 @onready var progress_bar2 = $SubViewport/Repo
-@onready var progress_bar3 = $SubViewport/Gender
+@onready var progress_bar3 = $SubViewport/Life
 
 @onready var creature_manager
 
@@ -61,8 +61,6 @@ var child_duration = 10.0
 var child_factor = 0.75
 var child_scale_factor = 0.25
 
-var is_female = false
-
 var speed_counter = 0
 var hunger_half
 
@@ -71,14 +69,16 @@ var mother = null
 
 func _ready():
 	
+	progress_bar_text3.text = "Life Cycle"
+	
 	creature_manager = Engine.get_singleton("CreatureManager")
 	
 	# Check if the singleton instance exists before calling its methods
 	if creature_manager != null:
 		# Call methods on the singleton instance
 		creature_manager.add_creature(self)
-		creature_manager.add_stone_creature(self)
-		creature_manager.add_stone_prey(self)
+		creature_manager.add_ice_creature(self)
+		creature_manager.add_ice_prey(self)
 		#print(creature_manager.get_total_creatures())
 	else:
 		print("CreatureManager singleton instance is not initialized.")
@@ -95,13 +95,9 @@ func _ready():
 		# size *= child_scale_factor
 		self.scale = Vector3(size,size,size)
 		inital_hunger = hunger
-		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		
 		print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
-		print(mother)
-		
-		#start_following_mother()
+		inital_hunger, " Meta: ", metabolism)
 		
 	else:
 		
@@ -114,14 +110,13 @@ func _ready():
 		hunger = randi_range(6.0, 12.0)
 		inital_hunger = hunger
 		metabolism = size / 2
-		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
+		inital_hunger, " Meta: ", metabolism, " Average: ", a)
 		
-		creature_manager.add_stone_gen(generation)
+		creature_manager.add_ice_gen(generation)
 		
-		$Age.start()
+		$LifeCycle.start()
 	
 	hunger_half = hunger/2
 	
@@ -130,26 +125,7 @@ func _ready():
 	progress_bar2.max_value = 1
 	progress_bar2.min_value = 0
 	progress_bar3.value = progress_bar3.max_value
-	
-	if is_female:
-		
-		#print("Female")
-		var desired_color = Color(1.0, 0.75, 0.8)
-		progress_bar3.modulate = desired_color
-		progress_bar_text3.text = "Female"
-		
-		var material = load("res://Assets/CreatureShaders/Stone_Prey.tres").duplicate()  # Load the material and duplicate it
-		material.albedo_color = Color(0.19, 0.19, 0.19)  # Set the new color
-	
-		$Body.set_surface_override_material(0,material) 
-		$Body1.set_surface_override_material(0,material) 
-		
-	else:
-		#print("Male")
-		
-		var desired_color = Color(0.5, 0.5, 1.0)
-		progress_bar3.modulate = desired_color
-		progress_bar_text3.text = "Male"
+
 
 func _process(delta):
 	
@@ -183,8 +159,8 @@ func _process(delta):
 	if hunger == 0:
 		queue_free()
 		creature_manager.remove_creature(self)
-		creature_manager.remove_stone_creature(self)
-		creature_manager.remove_stone_prey(self)
+		creature_manager.remove_ice_creature(self)
+		creature_manager.remove_ice_prey(self)
 	
 	if progress_bar.value > 0:
 		progress_bar.value = hunger
@@ -243,7 +219,6 @@ func _hungry():
 func _on_timer_timeout():
 	hunger -= 1
 	
-var enemy = null
 var mating_partner = null
 var mating_partner_1 = null
 var mating_partner_2 = null
@@ -255,20 +230,14 @@ var mate_chosen = 1
 
 func _on_sensory_area_entered(area):
 	
-	if area.is_in_group("stone_food") && _hungry():
-		
+	if area.is_in_group("ice_food") && _hungry():
 		#print("Prey : Food spotted")
 		food_target = true
 		target_pos = area.global_position
 		nav.target_position = target_pos
 		
-	if area.is_in_group("stone_pred") and !is_child:
-		enemy = area
-		$StateChart.send_event("enemy_entered")
-		time_since_last_target_update = randf_range(1.0, 10.0)  # Start running immediately
-		
-	if is_female and !is_child and reproduction == 1:
-		if area.is_in_group("stone_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:
+	if !is_child and reproduction == 1:
+		if area.is_in_group("ice_prey") and !has_mated and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:
 			
 			if mating_partner_1 == null:
 				
@@ -308,67 +277,15 @@ func _on_sensory_area_entered(area):
 				#print("Mating with : ", mate_chosen)
 
 func _on_self_area_entered(area):
-	if area.is_in_group("stone_pred") and area.get_parent()._hungry():
-		
-		#print("Dead")
-		queue_free()
-		creature_manager.remove_creature(self)
-		creature_manager.remove_stone_creature(self)
-		
-		creature_manager.remove_stone_prey(self)
-		
 	#If food enters self area, it gets eaten
-	if area.is_in_group("stone_food"):
+	if area.is_in_group("ice_food"):
 		food_target = false
 		hunger += 1
 		#print("Prey: Food ate")
 		
-	if area.is_in_group("stone_prey") and partners == 2 and area == mating_partner:
+	if area.is_in_group("ice_prey") and partners == 2 and area == mating_partner:
 		#print("Mate: ", mate_chosen, " Touched Sending Repo State")
 		$StateChart.send_event("repo")
-	
-#If Pred Leaves The Sensory Area
-func _on_sensory_area_exited(area):
-	if area.is_in_group("stone_pred"):
-		$StateChart.send_event("enemy_exited")
-
-func _on_wandering_state_entered():
-	var num_escape_directions = 3
-	escape_directions.clear()
-	
-	# Calculate escape directions: front, left, and right
-	escape_directions.append(global_transform.basis.z.normalized()) # Front
-	escape_directions.append(global_transform.basis.x.normalized()) # Left
-	escape_directions.append(-global_transform.basis.x.normalized()) # Right
-	
-	# Randomize the escape directions slightly
-	for i in range(escape_directions.size()):
-		escape_directions[i] = escape_directions[i].rotated(Vector3.UP, randf_range(-PI / 4, PI / 4))
-	
-	enemy = null
-
-func _on_running_state_processing(delta):
-	
-	# Check if it's time to update escape direction
-	if time_since_last_target_update >= randf_range(1.0, 10.0):
-		
-		#print("Running")
-		# Calculate the direction away from the enemy
-		var direction_to_enemy = global_position - enemy.global_position
-		direction_to_enemy.y = 0  # Ignore vertical component
-		
-		# Normalize the direction
-		direction_to_enemy = direction_to_enemy.normalized()
-		
-		# Calculate the new target position by adding the normalized direction away from the predator
-		# to the prey's current position
-		var new_target_position = global_position + direction_to_enemy * 10
-		
-		# Set the navigation target to the new target position
-		nav.target_position = new_target_position
-		
-		# Reset the timer
-		time_since_last_target_update = 0.0
 
 func _on_wandering_state_processing(delta):
 	
@@ -465,12 +382,12 @@ func _on_repo_state_entered():
 		var twins = randi_range(1, 2) == 1 
 		
 		if twins :
-			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area)
-			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area)
+			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area, speed_counter, speed)
+			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area,speed_counter, speed)
 			$Mating.start()
 			
 		else:
-			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area)
+			create_child(max_size, max_speed, max_accel, max_hunger, max_meta,self_area,speed_counter, speed)
 			$Mating.start()
 			
 		has_mated = true
@@ -480,10 +397,10 @@ func _on_repo_state_entered():
 		# Reset mating_partner for future reproduction
 		$StateChart.send_event("repo_done")
 
-func create_child(size,speed,accel,hunger,meta,mother_area):
+func create_child(size,inital_speed,accel,hunger,meta,mother_area,speed_counter, speed):
 	
 	# Create a new instance of the same creature as a child
-	var child = load("res://Scenes/Prey/Stone_Prey.tscn").instantiate()
+	var child = load("res://Scenes/Prey/Ice_Prey.tscn").instantiate()
 	
 	var child_generation = generation + 1
 	
@@ -498,7 +415,7 @@ func create_child(size,speed,accel,hunger,meta,mother_area):
 	child.is_child = true  # Mark the child as a child
 	child.generation = child_generation
 	
-	creature_manager.add_stone_gen(child_generation)
+	creature_manager.add_ice_gen(child_generation)
 	
 	
 	get_parent().add_child(child)
@@ -535,8 +452,18 @@ func _on_child_timer_timeout():
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	print("Grown Baby Average: ", a)	
 	
-	$Age.start()
+	$LifeCycle.start()
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a
+
+func _on_life_cycle_timeout():
+	queue_free()
+	creature_manager.remove_creature(self)
+	creature_manager.remove_ice_creature(self)
+	creature_manager.remove_ice_prey(self)
+
+func _on_looking_timeout():
+	partners = 2
+	mate_chosen = 1
 
 func _on_mating_timeout():
 	has_mated = false
@@ -544,13 +471,3 @@ func _on_mating_timeout():
 	mating_partner_2 = null
 	partners = 0
 	mate_chosen = 1
-
-func _on_looking_timeout():
-	partners = 2
-	mate_chosen = 1
-
-func _on_age_timeout():
-	queue_free()
-	creature_manager.remove_creature(self)
-	creature_manager.remove_stone_creature(self)
-	creature_manager.remove_stone_prey(self)
