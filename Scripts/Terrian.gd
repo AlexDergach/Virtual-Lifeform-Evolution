@@ -6,7 +6,7 @@ var ui_instance
 
 var ui_scene = load("res://UI/UI.tscn")
 
-var scene = "Fire"
+var scene = "Forest"
 var food_scene = load("res://Scenes/Food/"+ scene + "_Food.tscn")
 var prey_scene = load("res://Scenes/Prey/"+ scene + "_Prey.tscn")
 var pred_scene = load("res://Scenes/Pred/"+ scene + "_Pred.tscn")
@@ -44,6 +44,11 @@ func _process(delta):
 							Predators: " + str(creature_manager.get_fire_pred()) + "
 							Prey: " + str(creature_manager.get_fire_prey()) + "
 							Generation: " + str(creature_manager.get_fire_gen())
+							
+	ui_instance.forest_label.text = "Forest Population: " + str(creature_manager.get_forest_creature()) + "
+						Predators: " + str(creature_manager.get_forest_pred()) + "
+						Prey: " + str(creature_manager.get_forest_prey()) + "
+						Generation: " + str(creature_manager.get_forest_gen())
 								
 	ui_instance.TotalPopLabel.text = "Total Population: " + str(creature_manager.get_total_creatures()) 
 								
