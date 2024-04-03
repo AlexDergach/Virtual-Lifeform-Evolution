@@ -32,4 +32,5 @@
 5. Check out asset collsion with creatures
 
 1. Put down food scale
+2. If child following mother and she dies add logic
 

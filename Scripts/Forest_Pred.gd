@@ -449,7 +449,7 @@ func _on_repo_state_entered():
 
 func create_child(size,inital_speed,accel,hunger,meta,mother_area, speed_counter, speed):
 	# Create a new instance of the same creature as a child
-	var child = load("res://Scenes/Pred/Fire_Pred.tscn").instantiate()
+	var child = load("res://Scenes/Pred/Forest_Pred.tscn").instantiate()
 	
 	var child_generation = generation + 1
 	

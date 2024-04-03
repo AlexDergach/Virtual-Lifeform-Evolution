@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c74tstpolbvwi"]
+[gd_scene load_steps=25 format=3 uid="uid://c74tstpolbvwi"]
 
 [ext_resource type="Script" path="res://Scripts/Forest_Prey.gd" id="1_j4uex"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_3aclw"]
@@ -46,6 +46,11 @@ bg_color = Color(0.286275, 0.792157, 0.364706, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhuof"]
 bg_color = Color(0.831373, 0.435294, 0.745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jm47q"]
+bg_color = Color(0, 0, 0, 0.223529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ceh7a"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ft8ce"]
 
@@ -205,6 +210,40 @@ offset_left = -58.0
 offset_top = -41.0
 offset_right = 82.0
 offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
+
+[node name="Gender" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -68.0
+offset_right = 64.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_jm47q")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ceh7a")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -71.0
+offset_right = 117.0
+offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)

@@ -49,6 +49,15 @@ func _process(delta):
 						Predators: " + str(creature_manager.get_forest_pred()) + "
 						Prey: " + str(creature_manager.get_forest_prey()) + "
 						Generation: " + str(creature_manager.get_forest_gen())
+						
+	ui_instance.ice_label.text = "Ice Population: " + str(creature_manager.get_ice_creature()) + "
+						Prey: " + str(creature_manager.get_ice_prey()) + "
+						Generation: " + str(creature_manager.get_ice_gen())
+						
+	ui_instance.stone_label.text = "Stone Population: " + str(creature_manager.get_stone_creature()) + "
+						Predators: " + str(creature_manager.get_stone_pred()) + "
+						Prey: " + str(creature_manager.get_stone_prey()) + "
+						Generation: " + str(creature_manager.get_stone_gen())
 								
 	ui_instance.TotalPopLabel.text = "Total Population: " + str(creature_manager.get_total_creatures()) 
 								

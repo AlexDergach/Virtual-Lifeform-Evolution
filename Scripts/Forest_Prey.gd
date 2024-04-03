@@ -148,8 +148,8 @@ func _ready():
 		$Leg3.set_surface_override_material(0,material) 
 		$Leg4.set_surface_override_material(0,material) 
 		$Head.set_surface_override_material(0,material) 
-		$Horn.visisble = false
-		$Horn2.visisble = false
+		$Horn.visible = false
+		$Horn2.visible = false
 		
 	else:
 		#print("Male")
