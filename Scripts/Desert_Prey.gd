@@ -60,7 +60,7 @@ var child_duration = 10.0
 var child_factor = 0.75
 var child_scale_factor = 0.25
 
-var is_female = false  # Default to false
+var is_female = false
 
 var speed_counter = 0
 var hunger_half
@@ -88,10 +88,10 @@ func _ready():
 
 	if is_child:
 		# If this instance is a child, start the timer for transitioning parameters
-		#print("Child timer started")
+		# print("Child timer started")
 		$Child_Timer.start()
 		# Scale down the size
-		#size *= child_scale_factor
+		# size *= child_scale_factor
 		self.scale = Vector3(size,size,size)
 		inital_speed = speed
 		inital_hunger = hunger
@@ -110,9 +110,9 @@ func _ready():
 		size = randf_range(0.4, 0.8)
 		self.scale = Vector3(size,size,size)
 		accel = randi_range(3.0, 5.0)
-		speed = randi_range(1.0, 3.0)  # Adjust as needed
+		speed = randi_range(1.0, 3.0)
 		inital_speed = speed
-		hunger = randi_range(6.0, 12.0)  # Adjust as needed
+		hunger = randi_range(6.0, 12.0)
 		inital_hunger = hunger
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
@@ -124,9 +124,7 @@ func _ready():
 		
 		$Age.start()
 	
-	
 	hunger_half = hunger/2
-	
 	
 	progress_bar.max_value = hunger
 	progress_bar.min_value = 0
@@ -135,6 +133,7 @@ func _ready():
 	progress_bar3.value = progress_bar3.max_value
 	
 	if is_female:
+	
 		#print("Female")
 		var desired_color = Color(1.0, 0.75, 0.8)
 		progress_bar3.modulate = desired_color
@@ -155,8 +154,6 @@ func _ready():
 		var desired_color = Color(0.5, 0.5, 1.0)
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Male"
-		
-
 
 func _process(delta):
 	
@@ -263,6 +260,7 @@ var mate_chosen = 1
 func _on_sensory_area_entered(area):
 	
 	if area.is_in_group("desert_food") && _hungry():
+		
 		#print("Prey : Food spotted")
 		food_target = true
 		target_pos = area.global_position
@@ -277,17 +275,23 @@ func _on_sensory_area_entered(area):
 		if area.is_in_group("desert_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:
 			
 			if mating_partner_1 == null:
+				
 				#print("Partner 1 spotted")
 				$Looking.start()
 				mating_partner_1 = area
+				
 				# Save the stats of the first encountered mate
 				first_mate_size = mating_partner_1.get_parent().size
 				first_mate_hunger = mating_partner_1.get_parent().hunger
+				
 				#print("Average Score 1: ", first_mate_size + first_mate_hunger)
 				partners += 1
+				
 			elif mating_partner_2 == null and area != mating_partner_1:
+				
 				#print("Partner 2 spotted")
 				mating_partner_2 = area
+				
 				# Compare stats with the second mate
 				var second_mate_size = area.get_parent().size
 				var second_mate_hunger = area.get_parent().hunger
@@ -303,15 +307,16 @@ func _on_sensory_area_entered(area):
 				partners += 1
 				
 			if partners == 2:
-				print("Mating with : ", mate_chosen)
+				pass
+				#print("Mating with : ", mate_chosen)
 
 func _on_self_area_entered(area):
 	if area.is_in_group("desert_pred") and area.get_parent()._hungry():
+		
 		#print("Dead")
 		queue_free()
 		creature_manager.remove_creature(self)
 		creature_manager.remove_desert_creature(self)
-		
 		creature_manager.remove_desert_prey(self)
 		
 	#If food enters self area, it gets eaten
@@ -319,6 +324,7 @@ func _on_self_area_entered(area):
 		food_target = false
 		hunger += 1
 		#print("Prey: Food ate")
+		
 	if area.is_in_group("desert_prey") and partners == 2 and area == mating_partner:
 		#print("Mate: ", mate_chosen, " Touched Sending Repo State")
 		$StateChart.send_event("repo")
@@ -344,8 +350,10 @@ func _on_wandering_state_entered():
 	enemy = null
 
 func _on_running_state_processing(delta):
+	
 	# Check if it's time to update escape direction
 	if time_since_last_target_update >= randf_range(1.0, 10.0):
+		
 		#print("Running")
 		# Calculate the direction away from the enemy
 		var direction_to_enemy = global_position - enemy.global_position
@@ -356,7 +364,7 @@ func _on_running_state_processing(delta):
 		
 		# Calculate the new target position by adding the normalized direction away from the predator
 		# to the prey's current position
-		var new_target_position = global_position + direction_to_enemy * 10  # Adjust the multiplier as needed
+		var new_target_position = global_position + direction_to_enemy * 10
 		
 		# Set the navigation target to the new target position
 		nav.target_position = new_target_position
@@ -367,6 +375,7 @@ func _on_running_state_processing(delta):
 func _on_wandering_state_processing(delta):
 	
 	time_since_last_target_update += delta
+	
 	# Childer Will Follow Mother Instead
 	if !is_child:
 		if partners == 2:

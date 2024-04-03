@@ -60,7 +60,7 @@ var child_duration = 10.0
 var child_factor = 0.75
 var child_scale_factor = 0.25
 
-var is_female = false  # Default to false
+var is_female = false
 
 var speed_counter = 0
 var hunger_half
@@ -76,8 +76,8 @@ func _ready():
 	if creature_manager != null:
 		# Call methods on the singleton instance
 		creature_manager.add_creature(self)
-		creature_manager.add_desert_creature(self)
-		creature_manager.add_desert_prey(self)
+		creature_manager.add_fire_creature(self)
+		creature_manager.add_fire_prey(self)
 		#print(creature_manager.get_total_creatures())
 	else:
 		print("CreatureManager singleton instance is not initialized.")
@@ -91,7 +91,7 @@ func _ready():
 		#print("Child timer started")
 		$Child_Timer.start()
 		# Scale down the size
-		#size *= child_scale_factor
+		# size *= child_scale_factor
 		self.scale = Vector3(size,size,size)
 		inital_speed = speed
 		inital_hunger = hunger
@@ -103,16 +103,15 @@ func _ready():
 		
 		#start_following_mother()
 		
-		# Do hunger
 	else:
 		
 		# If it's not a child (i.e., an adult), initialize random size, speed, and hunger capacity
 		size = randf_range(0.4, 0.8)
 		self.scale = Vector3(size,size,size)
 		accel = randi_range(3.0, 5.0)
-		speed = randi_range(1.0, 3.0)  # Adjust as needed
+		speed = randi_range(1.0, 3.0)
 		inital_speed = speed
-		hunger = randi_range(6.0, 12.0)  # Adjust as needed
+		hunger = randi_range(6.0, 12.0)
 		inital_hunger = hunger
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
@@ -120,13 +119,11 @@ func _ready():
 		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
 		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 		
-		creature_manager.add_desert_gen(generation)
+		creature_manager.add_fire_gen(generation)
 		
 		$Age.start()
 	
-	
 	hunger_half = hunger/2
-	
 	
 	progress_bar.max_value = hunger
 	progress_bar.min_value = 0
@@ -135,19 +132,21 @@ func _ready():
 	progress_bar3.value = progress_bar3.max_value
 	
 	if is_female:
+		
 		#print("Female")
 		var desired_color = Color(1.0, 0.75, 0.8)
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Female"
 		
-		var material = load("res://Assets/CreatureShaders/Desert_Prey.tres").duplicate()  # Load the material and duplicate it
-		material.albedo_color = Color(1.0, 0.7, 0.5)  # Set the new color
+		var material = load("res://Assets/CreatureShaders/Fire_Prey.tres").duplicate()  # Load the material and duplicate it
+		material.albedo_color = Color(1.0, 0.2, 0.3)  # Set the new color
 	
-		$Main.set_surface_override_material(0,material) 
-		$Leg2.set_surface_override_material(0,material) 
-		$Leg3.set_surface_override_material(0,material) 
-		$Leg4.set_surface_override_material(0,material) 
-		$Leg5.set_surface_override_material(0,material) 
+		$Body.set_surface_override_material(0,material) 
+		$Arm.set_surface_override_material(0,material) 
+		$Arm/Arm.set_surface_override_material(0,material) 
+		$Arm2/Arm.set_surface_override_material(0,material) 
+		$Arm3.set_surface_override_material(0,material) 
+		$Arm3/Arm.set_surface_override_material(0,material) 
 		
 	else:
 		#print("Male")
@@ -155,7 +154,6 @@ func _ready():
 		var desired_color = Color(0.5, 0.5, 1.0)
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Male"
-		
 
 
 func _process(delta):
@@ -190,8 +188,8 @@ func _process(delta):
 	if hunger == 0:
 		queue_free()
 		creature_manager.remove_creature(self)
-		creature_manager.remove_desert_creature(self)
-		creature_manager.remove_desert_prey(self)
+		creature_manager.remove_fire_creature(self)
+		creature_manager.remove_fire_prey(self)
 	
 	if progress_bar.value > 0:
 		progress_bar.value = hunger
@@ -262,35 +260,43 @@ var mate_chosen = 1
 
 func _on_sensory_area_entered(area):
 	
-	if area.is_in_group("desert_food") && _hungry():
+	if area.is_in_group("fire_food") && _hungry():
+		
 		#print("Prey : Food spotted")
 		food_target = true
 		target_pos = area.global_position
 		nav.target_position = target_pos
 		
-	if area.is_in_group("desert_pred") and !is_child:
+	if area.is_in_group("fire_pred") and !is_child:
 		enemy = area
 		$StateChart.send_event("enemy_entered")
 		time_since_last_target_update = randf_range(1.0, 10.0)  # Start running immediately
 		
 	if is_female and !is_child and reproduction == 1:
-		if area.is_in_group("desert_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:
+		if area.is_in_group("fire_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:
 			
 			if mating_partner_1 == null:
+				
 				#print("Partner 1 spotted")
 				$Looking.start()
 				mating_partner_1 = area
+				
 				# Save the stats of the first encountered mate
 				first_mate_size = mating_partner_1.get_parent().size
 				first_mate_hunger = mating_partner_1.get_parent().hunger
+				
 				#print("Average Score 1: ", first_mate_size + first_mate_hunger)
 				partners += 1
+				
 			elif mating_partner_2 == null and area != mating_partner_1:
+				
 				#print("Partner 2 spotted")
 				mating_partner_2 = area
+				
 				# Compare stats with the second mate
 				var second_mate_size = area.get_parent().size
 				var second_mate_hunger = area.get_parent().hunger
+				
 				#print("Average Score 2: ", second_mate_size + second_mate_hunger)
 				
 				if second_mate_size + second_mate_hunger > first_mate_size + first_mate_hunger:
@@ -303,29 +309,32 @@ func _on_sensory_area_entered(area):
 				partners += 1
 				
 			if partners == 2:
-				print("Mating with : ", mate_chosen)
+				pass
+				#print("Mating with : ", mate_chosen)
 
 func _on_self_area_entered(area):
-	if area.is_in_group("desert_pred") and area.get_parent()._hungry():
+	if area.is_in_group("fire_pred") and area.get_parent()._hungry():
+		
 		#print("Dead")
 		queue_free()
 		creature_manager.remove_creature(self)
-		creature_manager.remove_desert_creature(self)
+		creature_manager.remove_fire_creature(self)
 		
-		creature_manager.remove_desert_prey(self)
+		creature_manager.remove_fire_prey(self)
 		
 	#If food enters self area, it gets eaten
-	if area.is_in_group("desert_food"):
+	if area.is_in_group("fire_food"):
 		food_target = false
 		hunger += 1
 		#print("Prey: Food ate")
-	if area.is_in_group("desert_prey") and partners == 2 and area == mating_partner:
+		
+	if area.is_in_group("fire_prey") and partners == 2 and area == mating_partner:
 		#print("Mate: ", mate_chosen, " Touched Sending Repo State")
 		$StateChart.send_event("repo")
 	
 #If Pred Leaves The Sensory Area
 func _on_sensory_area_exited(area):
-	if area.is_in_group("desert_pred"):
+	if area.is_in_group("fire_pred"):
 		$StateChart.send_event("enemy_exited")
 
 func _on_wandering_state_entered():
@@ -344,8 +353,10 @@ func _on_wandering_state_entered():
 	enemy = null
 
 func _on_running_state_processing(delta):
+	
 	# Check if it's time to update escape direction
 	if time_since_last_target_update >= randf_range(1.0, 10.0):
+		
 		#print("Running")
 		# Calculate the direction away from the enemy
 		var direction_to_enemy = global_position - enemy.global_position
@@ -356,7 +367,7 @@ func _on_running_state_processing(delta):
 		
 		# Calculate the new target position by adding the normalized direction away from the predator
 		# to the prey's current position
-		var new_target_position = global_position + direction_to_enemy * 10  # Adjust the multiplier as needed
+		var new_target_position = global_position + direction_to_enemy * 10
 		
 		# Set the navigation target to the new target position
 		nav.target_position = new_target_position
@@ -434,8 +445,10 @@ func _on_wandering_state_processing(delta):
 					time_since_last_target_update = 20.0  # Reset the timer to find a new target position
 
 func _on_repo_state_entered():
+	
 	# Reproduction state entered
 	if mating_partner != null:
+		
 		#print("In Repo state")
 		var max_size = max(size, mating_partner.get_parent().size)
 		var max_speed = max(inital_speed, mating_partner.get_parent().inital_speed)
@@ -473,6 +486,7 @@ func _on_repo_state_entered():
 		$StateChart.send_event("repo_done")
 
 func create_child(size,speed,accel,hunger,meta,mother_area):
+	
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Prey/Desert_Prey.tscn").instantiate()
 	
@@ -487,43 +501,13 @@ func create_child(size,speed,accel,hunger,meta,mother_area):
 	child.is_child = true  # Mark the child as a child
 	child.generation = child_generation
 	
-	creature_manager.add_desert_gen(child_generation)
+	creature_manager.add_fire_gen(child_generation)
 	
 	
 	get_parent().add_child(child)
 	
 	# Position the child nearby the parent
 	child.global_position = global_position + Vector3(randi_range(-1, 1), 0, randi_range(-1, 1))
-
-func _on_child_timer_timeout():
-	#print("baby done")
-	is_child = false
-	size /= child_scale_factor
-	self.scale = Vector3(size,size,size)
-	
-	inital_speed /= child_factor
-	accel /= child_factor
-	inital_hunger /= child_factor
-	metabolism /= child_factor
-	
-	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-	print("Grown Baby Average: ", a)	
-	$Age.start()
-	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
-
-func _on_repo_state_processing(delta):
-	pass # Replace with function body.
-
-func _on_mating_timeout():
-	has_mated = false
-	mating_partner_1 = null
-	mating_partner_2 = null
-	partners = 0
-	mate_chosen = 1
-
-func _on_looking_timeout():
-	partners = 2
-	mate_chosen = 1
 
 # Function to check if a point is inside a polygon
 func is_point_inside_polygon(point: Vector3, polygon: Array) -> bool:
@@ -540,9 +524,39 @@ func is_point_inside_polygon(point: Vector3, polygon: Array) -> bool:
 func is_left(v1: Vector3, v2: Vector3, point: Vector3) -> float:
 	return (v2.x - v1.x) * (point.z - v1.z) - (point.x - v1.x) * (v2.z - v1.z)
 
-func _on_age_timeout():
+
+func _on_child_timer_timeout():
+		
+	#print("baby done")
+	is_child = false
+	size /= child_scale_factor
+	self.scale = Vector3(size,size,size)
 	
+	inital_speed /= child_factor
+	accel /= child_factor
+	inital_hunger /= child_factor
+	metabolism /= child_factor
+	
+	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
+	print("Grown Baby Average: ", a)	
+	$Age.start()
+	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a
+
+func _on_mating_timeout():
+	has_mated = false
+	mating_partner_1 = null
+	mating_partner_2 = null
+	partners = 0
+	mate_chosen = 1
+
+
+func _on_looking_timeout():
+	partners = 2
+	mate_chosen = 1
+
+
+func _on_age_timeout():
 	queue_free()
 	creature_manager.remove_creature(self)
-	creature_manager.remove_desert_creature(self)
-	creature_manager.remove_desert_prey(self)
+	creature_manager.remove_fire_creature(self)
+	creature_manager.remove_fire_prey(self)

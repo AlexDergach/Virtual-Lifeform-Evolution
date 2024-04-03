@@ -1,16 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://c3frrhbug2002"]
+[gd_scene load_steps=17 format=3 uid="uid://c3frrhbug2002"]
 
 [ext_resource type="Script" path="res://Scripts/Fire_Prey.gd" id="1_hv5ux"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_i81rg"]
+[ext_resource type="Material" uid="uid://dc0fdqupaor8p" path="res://Assets/CreatureShaders/Fire_Prey.tres" id="2_rpkyn"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_ydy4c"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_lkyvf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_4k3mw"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ki404"]
-albedo_color = Color(0.227451, 0.00392157, 0.0745098, 1)
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7axhn"]
-material = SubResource("StandardMaterial3D_ki404")
+material = ExtResource("2_rpkyn")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bb21d"]
 
@@ -29,6 +27,11 @@ bg_color = Color(0.286275, 0.792157, 0.364706, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lij5l"]
 bg_color = Color(0.831373, 0.435294, 0.745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyv7l"]
+bg_color = Color(0, 0, 0, 0.223529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6x2d"]
 
 [node name="Fire_Prey" type="CharacterBody3D" groups=["fire_prey"]]
 collision_layer = 2
@@ -188,6 +191,40 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
 scroll_active = false
 
+[node name="Gender" type="ProgressBar" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -68.0
+offset_right = 64.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_jyv7l")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h6x2d")
+value = 60.0
+show_percentage = false
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -71.0
+offset_right = 117.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.94902, 1, 1)
+scroll_active = false
+
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_i81rg")
 
@@ -203,6 +240,11 @@ script = ExtResource("5_4k3mw")
 to = NodePath("../../Running")
 event = &"enemy_entered"
 
+[node name="To Repo" type="Node" parent="StateChart/AlertState/Wandering"]
+script = ExtResource("5_4k3mw")
+to = NodePath("../../Repo")
+event = &"repo"
+
 [node name="Running" type="Node" parent="StateChart/AlertState"]
 script = ExtResource("4_lkyvf")
 
@@ -212,6 +254,39 @@ to = NodePath("../../Wandering")
 event = &"enemy_exited"
 delay_seconds = 1.0
 
+[node name="Repo" type="Node" parent="StateChart/AlertState"]
+script = ExtResource("4_lkyvf")
+
+[node name="To Running" type="Node" parent="StateChart/AlertState/Repo"]
+script = ExtResource("5_4k3mw")
+to = NodePath("../../Running")
+event = &"enemy_entered"
+
+[node name="To Wandering" type="Node" parent="StateChart/AlertState/Repo"]
+script = ExtResource("5_4k3mw")
+to = NodePath("../../Wandering")
+event = &"repo_done"
+
+[node name="Child_Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+
+[node name="Mating" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+
+[node name="Looking" type="Timer" parent="."]
+process_callback = 0
+wait_time = 8.0
+one_shot = true
+
+[node name="Age" type="Timer" parent="."]
+process_callback = 0
+wait_time = 40.0
+one_shot = true
+
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]
 [connection signal="area_exited" from="Sensory" to="." method="_on_sensory_area_exited"]
@@ -219,3 +294,8 @@ delay_seconds = 1.0
 [connection signal="state_entered" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_entered"]
 [connection signal="state_processing" from="StateChart/AlertState/Wandering" to="." method="_on_wandering_state_processing"]
 [connection signal="state_processing" from="StateChart/AlertState/Running" to="." method="_on_running_state_processing"]
+[connection signal="state_entered" from="StateChart/AlertState/Repo" to="." method="_on_repo_state_entered"]
+[connection signal="timeout" from="Child_Timer" to="." method="_on_child_timer_timeout"]
+[connection signal="timeout" from="Mating" to="." method="_on_mating_timeout"]
+[connection signal="timeout" from="Looking" to="." method="_on_looking_timeout"]
+[connection signal="timeout" from="Age" to="." method="_on_age_timeout"]
