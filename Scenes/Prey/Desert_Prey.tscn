@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dspwh4tnvkmhw"]
+[gd_scene load_steps=23 format=3 uid="uid://dspwh4tnvkmhw"]
 
 [ext_resource type="Script" path="res://Scripts/Desert_Prey.gd" id="1_h6jmp"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_e2xqq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_i2ov8"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_273on"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_gswmn"]
+[ext_resource type="AudioStream" uid="uid://dwwlrt5t3gho4" path="res://Assets/Audio/bison.mp3" id="7_nvbt0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vbn0"]
 
@@ -297,6 +298,11 @@ one_shot = true
 process_callback = 0
 wait_time = 40.0
 one_shot = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_nvbt0")
+max_distance = 20.0
+bus = &"Desert_Prey"
 
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]

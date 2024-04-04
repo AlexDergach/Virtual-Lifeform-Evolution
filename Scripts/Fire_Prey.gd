@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
-#@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
-@onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D") # <- For Testing Map
+@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
+#@onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D") # <- For Testing Map
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 
@@ -108,10 +108,10 @@ func _ready():
 		# If it's not a child (i.e., an adult), initialize random size, speed, and hunger capacity
 		size = randf_range(0.4, 0.8)
 		self.scale = Vector3(size,size,size)
-		accel = randi_range(3.0, 5.0)
-		speed = randi_range(1.0, 3.0)
+		accel = randi_range(3, 5)
+		speed = randi_range(1, 3)
 		inital_speed = speed
-		hunger = randi_range(6.0, 12.0)
+		hunger = randi_range(6, 12)
 		inital_hunger = hunger
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
@@ -409,37 +409,8 @@ func _on_wandering_state_processing(delta):
 					
 					var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
 					target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
-					
-					if navigation_region:
-						var nav_mesh = navigation_region.get_navigation_mesh()  # Get the navigation mesh
-						if nav_mesh:
-							var is_inside = false
-							var target_position = target_pos
-							
-							# Check if the target position is within the navigation mesh polygons
-							for i in range(nav_mesh.get_polygon_count()):
-								var polygon_indices = nav_mesh.get_polygon(i)
-								polygon_vertices = []
-								
-								# Convert vertex indices to vertex positions
-								for j in range(polygon_indices.size()):
-									var vertex_index = polygon_indices[j]
-									var vertex_position = nav_mesh.get_vertices()[vertex_index]
-									polygon_vertices.append(vertex_position)
-								
-								# Check if the target position is inside the polygon
-								is_inside = is_point_inside_polygon(target_position, polygon_vertices)
-								if is_inside:
-									nav.target_position = target_pos
-									time_since_last_target_update = 0.0
-									
-									break
-							if !is_inside:
-								#print("Target position is not within the navigation mesh.")
-								time_since_last_target_update = 0.0
-						else:
-							pass
-							#print("Navigation mesh is not available.")
+					nav.target_position = target_pos
+					time_since_last_target_update = 0.0
 					
 				# Check if the creature has reached its target position
 				if global_position.distance_to(nav.target_position) < 1.0: 
@@ -489,7 +460,7 @@ func _on_repo_state_entered():
 func create_child(size,inital_speed,accel,hunger,meta,mother_area,speed_counter, speed):
 	
 	# Create a new instance of the same creature as a child
-	var child = load("res://Scenes/Prey/Desert_Prey.tscn").instantiate()
+	var child = load("res://Scenes/Prey/Fire_Prey.tscn").instantiate()
 	
 	var child_generation = generation + 1
 	

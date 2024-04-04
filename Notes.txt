@@ -31,6 +31,11 @@
 4. Add better night emsiosn and orange gradents for sun down with a longer aninmation tree
 5. Check out asset collsion with creatures
 
-1. Put down food scale
-2. If child following mother and she dies add logic
+1. Put down food scale - Done
+2. If child following mother and she dies add logic - Maybe not
+2. Add if prey running from creature and they die logic and vise versa - Done for pred, idk if i need for prey
+
+1. Test for lag
+2. Do ending screen, ? If pop = 0 then end but what to show?
+3. Do sound
 

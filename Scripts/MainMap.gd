@@ -11,13 +11,15 @@ var snow_island_spawned = false  # Track if a Ice island has been spawned
 var playpos
 var test = 0
 
+@onready var audio_stream_player = $"../../AudioStreamPlayer"
+
 var desert_prey = load("res://Scenes/Prey/Desert_Prey.tscn")
 var fire_prey = load("res://Scenes/Prey/Fire_Prey.tscn")
 var forest_prey = load("res://Scenes/Prey/Forest_Prey.tscn")
 var ice_prey = load("res://Scenes/Prey/Ice_Prey.tscn")
 var stone_prey = load("res://Scenes/Prey/Stone_Prey.tscn")
 
-var ui_scene = load("res://UI.tscn")
+var ui_scene = load("res://UI/UI.tscn")
 
 var desert_pred = load("res://Scenes/Pred/Desert_Pred.tscn")
 var fire_pred = load("res://Scenes/Pred/Fire_Pred.tscn")
@@ -35,10 +37,7 @@ var prey_scenes = [fire_prey, desert_prey, forest_prey, stone_prey,ice_prey]
 var pred_scenes = [fire_pred, desert_pred, forest_pred, stone_pred]
 var food_scenes = [fire_food, desert_food, forest_food, stone_food, ice_food]
 
-var food_size = 0.5
-var prey_size = 0.5
-var pred_size = 0.7
-var spawn_rate = 1
+var food_size = 0.35
 
 @onready var nav_region = get_node("/root/MainMap/NavigationRegion3D")
 
@@ -46,6 +45,7 @@ func _ready():
 	
 	$Timer.start()
 	
+	audio_stream_player.play()
 	
 	generate_biomes()
 	spawn_character()
@@ -77,10 +77,28 @@ func _process(delta):
 								Predators: " + str(creature_manager.get_desert_pred()) + "
 								Prey: " + str(creature_manager.get_desert_prey()) + "
 								Generation: " + str(creature_manager.get_desert_gen())
+	
+	ui_instance.fire_label.text = "Desert Population: " + str(creature_manager.get_fire_creature()) + "
+							Predators: " + str(creature_manager.get_fire_pred()) + "
+							Prey: " + str(creature_manager.get_fire_prey()) + "
+							Generation: " + str(creature_manager.get_fire_gen())
+							
+	ui_instance.forest_label.text = "Forest Population: " + str(creature_manager.get_forest_creature()) + "
+						Predators: " + str(creature_manager.get_forest_pred()) + "
+						Prey: " + str(creature_manager.get_forest_prey()) + "
+						Generation: " + str(creature_manager.get_forest_gen())
+						
+	ui_instance.ice_label.text = "Ice Population: " + str(creature_manager.get_ice_creature()) + "
+						Prey: " + str(creature_manager.get_ice_prey()) + "
+						Generation: " + str(creature_manager.get_ice_gen())
+						
+	ui_instance.stone_label.text = "Stone Population: " + str(creature_manager.get_stone_creature()) + "
+						Predators: " + str(creature_manager.get_stone_pred()) + "
+						Prey: " + str(creature_manager.get_stone_prey()) + "
+						Generation: " + str(creature_manager.get_stone_gen())
 								
 	ui_instance.TotalPopLabel.text = "Total Population: " + str(creature_manager.get_total_creatures()) 
-	
-	
+								
 	pass
 	
 func _physics_process(delta):
@@ -223,13 +241,8 @@ func _spawn_prey(pos, index):
 	
 	# Randomly select a prey scene from the array
 	var prey_scene = prey_scenes[index]
-	
 	var prey_instance = prey_scene.instantiate()
-	var prey_instance_scale = Vector3(prey_size,prey_size,prey_size)
-	
 	prey_instance.position = pos
-	prey_instance.scale = prey_instance_scale
-	
 	
 	add_child(prey_instance)
 
@@ -240,10 +253,7 @@ func _spawn_pred(pos, index):
 		var pred_scene = pred_scenes[index]
 		
 		var pred_instance = pred_scene.instantiate()
-		var pred_instance_scale = Vector3(pred_size,pred_size,pred_size)
-		
 		pred_instance.position = pos
-		pred_instance.scale = pred_instance_scale
 		
 		add_child(pred_instance)
 
@@ -444,6 +454,7 @@ func spawn_character():
 		character_body.global_transform.origin = center_world_position
 
 
+
 func spawn():
 	var spawn_count = 0
 	var spawned_positions = []
@@ -515,7 +526,7 @@ func spawn():
 func spawn_food():
 	var spawn_count = 0
 	var spawned_positions = []
-	var spawn_y = 2.2
+	var spawn_y = 2.1
 	
 	var biomes = [[6,7],[1,2],[20,21],[18],[10,11,12]]
 	

@@ -147,9 +147,9 @@ label_settings = SubResource("LabelSettings_jb46p")
 [node name="Panel" type="Panel" parent="PopPanel"]
 layout_mode = 0
 offset_left = 11.0
-offset_top = 94.0
+offset_top = 100.0
 offset_right = 243.0
-offset_bottom = 95.0
+offset_bottom = 101.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ae4sr")
 
 [node name="Panel2" type="Panel" parent="PopPanel"]

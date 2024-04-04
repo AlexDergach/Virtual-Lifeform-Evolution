@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://b6p2g2yqj3716"]
+[gd_scene load_steps=17 format=3 uid="uid://b6p2g2yqj3716"]
 
 [ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="1_i065e"]
 [ext_resource type="PackedScene" uid="uid://cl25jtx4c5hkl" path="res://Scenes/Ocean.tscn" id="2_pc6ah"]
 [ext_resource type="Texture2D" uid="uid://bg42qar0x0w74" path="res://Assets/HDRI/kloofendal_43d_clear_puresky_4k.hdr" id="3_do3nn"]
 [ext_resource type="MeshLibrary" uid="uid://g7q5jr8bay2p" path="res://Assets/Mesh Library/Tilees.tres" id="4_01qok"]
 [ext_resource type="Script" path="res://Scripts/MainMap.gd" id="5_14dy7"]
+[ext_resource type="AudioStream" uid="uid://c47il3mk0hsr6" path="res://Assets/Audio/mixkit-atmosphere-of-a-river-at-sunrise-2458.mp3" id="6_2at7m"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_b4w4i"]
 panorama = ExtResource("3_do3nn")
@@ -23,8 +24,7 @@ ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
-glow_bloom = 0.44
-glow_blend_mode = 1
+glow_normalized = true
 fog_light_color = Color(0.72549, 0.807843, 0.92549, 1)
 fog_light_energy = 0.68
 volumetric_fog_enabled = true
@@ -182,10 +182,10 @@ _data = {
 }
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_bjvcu"]
-cell_size = 0.1
-cell_height = 0.15
+cell_size = 0.2
+cell_height = 0.2
 agent_height = 3.0
-agent_radius = 0.8
+agent_radius = 1.0
 agent_max_climb = 2.0
 agent_max_slope = 90.0
 
@@ -226,7 +226,12 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Timer" type="Timer" parent="NavigationRegion3D/GridMap"]
 process_callback = 0
-wait_time = 20.0
+wait_time = 40.0
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2at7m")
+bus = &"Music"
 
 [connection signal="bake_finished" from="NavigationRegion3D" to="NavigationRegion3D/GridMap" method="_on_navigation_region_3d_bake_finished"]
 [connection signal="timeout" from="NavigationRegion3D/GridMap/Timer" to="NavigationRegion3D/GridMap" method="_on_timer_timeout"]
