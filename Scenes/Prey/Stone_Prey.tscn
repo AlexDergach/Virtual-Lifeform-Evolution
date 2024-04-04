@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b6d87lymhvojn"]
+[gd_scene load_steps=29 format=3 uid="uid://b6d87lymhvojn"]
 
 [ext_resource type="Script" path="res://Scripts/Stone_Prey.gd" id="1_1et0s"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_2owgh"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_l126l"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_h822o"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_dq1p1"]
+[ext_resource type="AudioStream" uid="uid://d3t6l4ewjmamr" path="res://Assets/Audio/zapsplat_cartoon_insect_scuttle_fast_001_58546.mp3" id="7_4cbko"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q33i7"]
 
@@ -355,6 +356,13 @@ one_shot = true
 process_callback = 0
 wait_time = 8.0
 one_shot = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(-0.989781, 0, -0.142594, 0, 1, 0, 0.142594, 0, -0.989781, 0.628632, 0, 1.4126)
+stream = ExtResource("7_4cbko")
+max_distance = 10.0
+bus = &"Ice_Prey"
+emission_angle_enabled = true
 
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]

@@ -11,7 +11,24 @@ var snow_island_spawned = false  # Track if a Ice island has been spawned
 var playpos
 var test = 0
 
-@onready var audio_stream_player = $"../../AudioStreamPlayer"
+@onready var audio_stream_player = $"../../Music"
+@onready var wave = $"../../Wave"
+@onready var wave_2 = $"../../Wave2"
+@onready var wave_3 = $"../../Wave3"
+@onready var wave_4 = $"../../Wave4"
+@onready var wave_5 = $"../../Wave5"
+@onready var wave_6 = $"../../Wave6"
+@onready var wave_7 = $"../../Wave7"
+@onready var wave_8 = $"../../Wave8"
+@onready var wave_9 = $"../../Wave9"
+@onready var wave_10 = $"../../Wave10"
+@onready var wave_11 = $"../../Wave11"
+@onready var wave_12 = $"../../Wave12"
+@onready var wave_13 = $"../../Wave13"
+@onready var wave_14 = $"../../Wave14"
+@onready var wave_15 = $"../../Wave15"
+@onready var wave_16 = $"../../Wave16"
+
 
 var desert_prey = load("res://Scenes/Prey/Desert_Prey.tscn")
 var fire_prey = load("res://Scenes/Prey/Fire_Prey.tscn")
@@ -46,6 +63,23 @@ func _ready():
 	$Timer.start()
 	
 	audio_stream_player.play()
+	wave.play()
+	wave_2.play()
+	wave_3.play()
+	wave_4.play()
+	wave_5.play()
+	wave_6.play()
+	wave_7.play()
+	wave_8.play()
+	wave_9.play()
+	wave_10.play()
+	wave_11.play()
+	wave_12.play()
+	wave_13.play()
+	wave_14.play()
+	wave_15.play()
+	wave_16.play()
+	
 	
 	generate_biomes()
 	spawn_character()

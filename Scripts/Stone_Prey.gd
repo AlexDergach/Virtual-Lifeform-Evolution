@@ -9,6 +9,8 @@ extends CharacterBody3D
 @onready var progress_bar2 = $SubViewport/Repo
 @onready var progress_bar3 = $SubViewport/Gender
 
+@onready var audio_stream_player_3d = $AudioStreamPlayer3D
+
 @onready var creature_manager
 
 @onready var progress_bar_text = $SubViewport/RichTextLabel
@@ -70,6 +72,8 @@ var mother = null
 
 
 func _ready():
+	
+	audio_stream_player_3d.play()
 	
 	creature_manager = Engine.get_singleton("CreatureManager")
 	
