@@ -175,30 +175,6 @@ offset_right = 1081.0
 offset_bottom = 346.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ntxyo")
 
-[node name="Options" type="OptionButton" parent="."]
-process_priority = 1
-process_physics_priority = 1
-z_index = 1
-layout_mode = 0
-offset_left = 698.0
-offset_top = 258.0
-offset_right = 1076.0
-offset_bottom = 329.0
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 45
-theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
-alignment = 1
-item_count = 4
-selected = 0
-popup/item_0/text = "Spawn Amount"
-popup/item_0/id = 0
-popup/item_1/text = "40"
-popup/item_1/id = 1
-popup/item_2/text = "60"
-popup/item_2/id = 2
-popup/item_3/text = "80"
-popup/item_3/id = 3
-
 [node name="Panel9" type="Panel" parent="."]
 layout_mode = 0
 offset_left = 689.0
@@ -222,5 +198,30 @@ theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
 text = "Quit"
 
+[node name="OptionButton" type="OptionButton" parent="."]
+process_priority = 1
+process_physics_priority = 1
+layout_mode = 0
+offset_left = 698.0
+offset_top = 258.0
+offset_right = 1076.0
+offset_bottom = 329.0
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
+alignment = 1
+item_count = 4
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Spawn Amount"
+popup/item_0/id = 0
+popup/item_1/text = "40"
+popup/item_1/id = 1
+popup/item_2/text = "60"
+popup/item_2/id = 2
+popup/item_3/text = "80"
+popup/item_3/id = 3
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_options_item_selected"]

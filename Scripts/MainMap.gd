@@ -1,6 +1,8 @@
 extends GridMap
 
 @onready var creature_manager
+@onready var start_ui
+
 var ui_instance
 
 var grid_size = Vector2(80, 80)  # Size of the grid map
@@ -10,6 +12,8 @@ var character_body = null
 var snow_island_spawned = false  # Track if a Ice island has been spawned
 var playpos
 var test = 0
+
+
 
 @onready var audio_stream_player = $"../../Music"
 @onready var wave = $"../../Wave"
@@ -50,17 +54,22 @@ var stone_food = load("res://Scenes/Food/Stone_Food.tscn")
 var fire_food = load("res://Scenes/Food/Fire_Food.tscn")
 
 
+
 var prey_scenes = [fire_prey, desert_prey, forest_prey, stone_prey,ice_prey]
 var pred_scenes = [fire_pred, desert_pred, forest_pred, stone_pred]
 var food_scenes = [fire_food, desert_food, forest_food, stone_food, ice_food]
 
 var food_size = 0.35
+var spawn_size
 
 @onready var nav_region = get_node("/root/MainMap/NavigationRegion3D")
 
 func _ready():
 	
 	$Timer.start()
+	
+	start_ui = Engine.get_singleton("Start")
+	
 	
 	audio_stream_player.play()
 	wave.play()
@@ -99,12 +108,16 @@ func _ready():
 	
 	
 	set_process(true)
-	
+
+
 func _process(delta):
+	
 	# Monitor memory usage - Un Comment If Needed
 	#var static_mem = OS.get_static_memory_usage()
 	#var dynamic_mem = OS.get_static_memory_peak_usage()
 	#print("Static Memory Usage: ", static_mem, " Dynamic Memory Usage: ", dynamic_mem)
+	
+
 	
 	
 	ui_instance.desert_label.text = "Desert Population: " + str(creature_manager.get_desert_creature()) + "
@@ -133,13 +146,27 @@ func _process(delta):
 								
 	ui_instance.TotalPopLabel.text = "Total Population: " + str(creature_manager.get_total_creatures()) 
 								
-	pass
+								
+	if creature_manager.get_total_creatures() == 0:
+		get_tree().change_scene_to_file("res://UI/Final.tscn")
 	
 func _physics_process(delta):
 	pass
 
 func generate_biomes():
 	var biome_map = []
+
+	if 	Start.spawn_size != null:
+		if Start.spawn_size == 1:
+			spawn_size = 40
+		elif Start.spawn_size == 2:
+			spawn_size = 60
+		elif Start.spawn_size == 2:
+			spawn_size = 80
+		else:
+			spawn_size = 2
+	else:
+		print("No Spawn Size")
 
 	# Initialize biome map
 	for x in range(int(grid_size.x)):
@@ -157,9 +184,9 @@ func generate_biomes():
 		var num_clusters = 5
 
 		# Clustering factor based on biome type
-		var clustering_factor = 1.5
+		var clustering_factor = 1.2
 		if biome_id == 12 or biome_id == 18:  # Ice_Cube or Stone_Cube
-			clustering_factor = 0.75 # Adjust the clustering factor for these biomes to make them smaller than the rest
+			clustering_factor = 0.6 # Adjust the clustering factor for these biomes to make them smaller than the rest
 		
 		# Generate initial clusters and have at least one snow biome
 		if biome_id == 12 and !snow_island_spawned:
@@ -497,7 +524,7 @@ func spawn():
 	var biomes = [[6,7],[1,2],[20,21],[18],[10,11,12]]
 	var type_of_creature = 1
 	
-	while spawn_count < 80:
+	while spawn_count < spawn_size:
 		for i in range(0,5):
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)
@@ -564,7 +591,7 @@ func spawn_food():
 	
 	var biomes = [[6,7],[1,2],[20,21],[18],[10,11,12]]
 	
-	while spawn_count < 120:
+	while spawn_count < spawn_size/2:
 		for i in range(0,5):
 			var x = randi() % int(grid_size.x)
 			var z = randi() % int(grid_size.y)

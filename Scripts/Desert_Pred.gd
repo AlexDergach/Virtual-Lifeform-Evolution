@@ -11,6 +11,8 @@ extends CharacterBody3D
 @onready var progress_bar2 = $SubViewport/Repo
 @onready var progress_bar3 = $SubViewport/Gender
 
+@onready var audio_stream_player_3d = $AudioStreamPlayer3D
+
 @onready var progress_bar_text = $SubViewport/RichTextLabel
 @onready var progress_bar_text2 = $SubViewport/RichTextLabel2
 @onready var progress_bar_text3 = $SubViewport/RichTextLabel3
@@ -70,6 +72,8 @@ var mother = null
 
 
 func _ready():
+	
+	audio_stream_player_3d.play()
 	
 	$Timer.start()
 	

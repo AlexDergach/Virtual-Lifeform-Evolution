@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b6p2g2yqj3716"]
+[gd_scene load_steps=18 format=3 uid="uid://b6p2g2yqj3716"]
 
 [ext_resource type="PackedScene" uid="uid://cuj7wddquevxc" path="res://Scenes/Camera.tscn" id="1_i065e"]
 [ext_resource type="PackedScene" uid="uid://cl25jtx4c5hkl" path="res://Scenes/Ocean.tscn" id="2_pc6ah"]
@@ -189,8 +189,6 @@ agent_radius = 1.0
 agent_max_climb = 2.0
 agent_max_slope = 90.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_e0j3o"]
-
 [node name="MainMap" type="Node3D"]
 
 [node name="Camera" parent="." instance=ExtResource("1_i065e")]
@@ -233,6 +231,7 @@ one_shot = true
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_2at7m")
+volume_db = -10.0
 bus = &"Music"
 
 [node name="Wave" type="AudioStreamPlayer3D" parent="."]
@@ -241,23 +240,11 @@ stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -0.381866, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
-
 [node name="Wave2" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.839, 0.167877, 143.909)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave2/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -0.381867, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
 
 [node name="Wave3" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33562, 4.77198, -8.69823)
@@ -265,23 +252,11 @@ stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave3"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave3/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -0.381866, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
-
 [node name="Wave4" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.567, 0.1586, -9.77951)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave4"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave4/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.186142, -0.381866, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
 
 [node name="Wave5" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.6903, 0.1586, -13.8359)
@@ -289,23 +264,11 @@ stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave5"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave5/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.186142, -0.381866, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
-
 [node name="Wave6" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.567, 0.1586, 65.0727)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave6"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave6/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.186142, -0.381866, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
 
 [node name="Wave7" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.4086, 0.1586, 145.943)
@@ -313,23 +276,11 @@ stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave7"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave7/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.186142, -0.381866, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
-
 [node name="Wave8" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15958, 0.1586, 62.6954)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave8"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave8/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.186142, -0.381866, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
 
 [node name="Wave9" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 99.549)
@@ -337,23 +288,11 @@ stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave9"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave9/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -0.381866, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
-
 [node name="Wave10" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 32.4465)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Wave10"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wave10/StaticBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -0.381866, 0.771915)
-shape = SubResource("SphereShape3D_e0j3o")
 
 [node name="Wave11" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.2873, 2.19129, 148.208)

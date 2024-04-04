@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cs0xx3wis7r2c"]
+[gd_scene load_steps=24 format=3 uid="uid://cs0xx3wis7r2c"]
 
 [ext_resource type="Script" path="res://Scripts/Fire_Pred.gd" id="1_ru8r4"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_4eahf"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_wu85i"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_s3sy5"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_k0e0q"]
+[ext_resource type="AudioStream" uid="uid://b6a57drjbdw0f" path="res://Assets/Audio/Large Black Bear Single Roar - QuickSounds.com.mp3" id="7_s5t3m"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pvry6"]
 
@@ -309,6 +310,13 @@ one_shot = true
 process_callback = 0
 wait_time = 10.0
 one_shot = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(-0.950895, 0, 0.309515, 0, 1, 0, -0.309515, 0, -0.950895, 0, 2.26882, 2.42348)
+stream = ExtResource("7_s5t3m")
+max_distance = 15.0
+bus = &"Fire_Pred"
+emission_angle_enabled = true
 
 [connection signal="area_entered" from="Self" to="." method="_on_self_area_entered"]
 [connection signal="area_entered" from="Sensory" to="." method="_on_sensory_area_entered"]

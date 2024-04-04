@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://x5j8x3j57gjw"
+path="res://.godot/imported/Tiger Snarl Aggressive - QuickSounds.com.mp3-0f4d6bef11aa4ca8c909ce700fd33c42.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Tiger Snarl Aggressive - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Tiger Snarl Aggressive - QuickSounds.com.mp3-0f4d6bef11aa4ca8c909ce700fd33c42.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

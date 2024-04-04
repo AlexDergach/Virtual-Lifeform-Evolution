@@ -10,6 +10,7 @@ func _ready():
 	ResourceLoader.load_threaded_request(sceneName)
 
 func _process(delta):
+
 	scene_load_status = ResourceLoader.load_threaded_get_status(sceneName, progress)
 	match scene_load_status:
 		ResourceLoader.THREAD_LOAD_IN_PROGRESS:
