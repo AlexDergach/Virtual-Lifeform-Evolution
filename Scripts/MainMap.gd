@@ -64,7 +64,7 @@ var pred_scenes = [fire_pred, desert_pred, forest_pred, stone_pred]
 var food_scenes = [fire_food, desert_food, forest_food, stone_food, ice_food]
 
 var food_size = 0.35
-var spawn_size
+var spawn_size = 0
 
 @onready var nav_region = get_node("/root/MainMap/NavigationRegion3D")
 

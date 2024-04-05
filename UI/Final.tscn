@@ -1,4 +1,51 @@
-[gd_scene format=3 uid="uid://c2w7x0jr1y8x4"]
+[gd_scene load_steps=11 format=3 uid="uid://c2w7x0jr1y8x4"]
+
+[ext_resource type="Script" path="res://Scripts/Final.gd" id="1_53g8u"]
+[ext_resource type="FontFile" uid="uid://ck3fdadbi5bw6" path="res://Assets/Fonts/Roboto-Black.ttf" id="2_g8n5c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rc3k5"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7055y"]
+color = Color(1, 1, 1, 1)
+thickness = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edxmk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tujr8"]
+bg_color = Color(0.513726, 0.541176, 0.372549, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4sey6"]
+font = ExtResource("2_g8n5c")
+font_size = 46
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idl4b"]
+bg_color = Color(0.513726, 0.541176, 0.372549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5yf76"]
+bg_color = Color(0.141176, 0.152941, 0.0862745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e24s"]
+bg_color = Color(0.513726, 0.541176, 0.372549, 1)
+border_color = Color(0, 0.0431373, 0, 1)
 
 [node name="Final" type="Control"]
 layout_mode = 3
@@ -7,3 +54,93 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_53g8u")
+
+[node name="Panel5" type="Panel" parent="."]
+z_index = -1
+layout_mode = 0
+offset_right = 1149.0
+offset_bottom = 644.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rc3k5")
+
+[node name="Panel4" type="Panel" parent="."]
+offset_left = 319.0
+offset_top = 120.0
+offset_right = 802.0
+offset_bottom = 434.0
+theme_override_styles/panel = SubResource("StyleBoxLine_7055y")
+
+[node name="Panel3" type="Panel" parent="."]
+offset_right = 1151.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_edxmk")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 317.0
+offset_top = 39.0
+offset_right = 808.0
+offset_bottom = 102.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tujr8")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -29.5
+offset_right = 221.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Simulation Completed"
+label_settings = SubResource("LabelSettings_4sey6")
+
+[node name="Panel7" type="Panel" parent="."]
+offset_left = 215.0
+offset_top = 214.0
+offset_right = 255.0
+offset_bottom = 254.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_idl4b")
+
+[node name="Panel9" type="Panel" parent="."]
+offset_left = 330.0
+offset_top = 527.0
+offset_right = 723.0
+offset_bottom = 620.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5yf76")
+
+[node name="Quit" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
+process_priority = 1
+process_physics_priority = 1
+z_index = 1
+offset_left = 340.0
+offset_top = 532.0
+offset_right = 718.0
+offset_bottom = 603.0
+shortcut_context = NodePath("")
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_0e24s")
+text = "Quit"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -293.0
+offset_top = -120.0
+offset_right = 171.0
+offset_bottom = -62.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "
+"
+label_settings = SubResource("LabelSettings_4sey6")
+
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
