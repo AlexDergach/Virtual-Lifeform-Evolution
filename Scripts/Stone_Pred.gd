@@ -425,7 +425,7 @@ func create_child(size,inital_speed,accel,hunger,meta,mother_area, speed_counter
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Pred/Stone_Pred.tscn").instantiate()
 	
-	var child_generation = generation + 1
+	var child_generation = floor((generation + mating_partner.get_parent().generation) / 2)
 	
 	child.speed_counter = speed_counter
 	child.mother = mother_area
