@@ -110,10 +110,10 @@ func _ready():
 		# If it's not a child (i.e., an adult), initialize random size, speed, and hunger capacity
 		size = randf_range(0.4, 0.8)
 		self.scale = Vector3(size,size,size)
-		accel = randi_range(3, 5)
-		speed = randi_range(1, 3)
+		accel = randf_range(3.0, 5.0)
+		speed = randf_range(1.0, 3.0)
 		inital_speed = speed
-		hunger = randi_range(6, 12)
+		hunger = randf_range(6.0, 12.0)
 		inital_hunger = hunger
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
@@ -471,7 +471,7 @@ func create_child(size,inital_speed,accel,hunger,meta,mother_area,speed_counter,
 	
 	creature_manager.add_desert_gen(child_generation)
 	
-	
+	print("Speed of child: ", speed)
 	get_parent().add_child(child)
 	
 	# Position the child nearby the parent
@@ -490,6 +490,7 @@ func _on_child_timer_timeout():
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	creature_manager.desert_prey_gen_score(a, self.generation)
+	print("Speed of gorwn: ", speed)
 	
 	print("Grown Baby Average: ", a)
 	print("self.generation: ", self.generation)

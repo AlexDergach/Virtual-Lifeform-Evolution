@@ -107,10 +107,10 @@ func _ready():
 		# If it's not a child (i.e., an adult), initialize random size, speed, and hunger capacity
 		size = randf_range(0.4, 0.8)
 		self.scale = Vector3(size,size,size)
-		accel = randi_range(3, 5)
-		speed = randi_range(1, 3)
+		accel = randf_range(3.0, 5.0)
+		speed = randf_range(1.0, 3.0)
 		inital_speed = speed
-		hunger = randi_range(6, 12)
+		hunger = randf_range(6.0, 12.0)
 		inital_hunger = hunger
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)

@@ -76,7 +76,7 @@ func desert_prey_highest_gen_score():
 	# Iterate through each generation
 	for gen in range(desert_prey_gen.size()):
 		var gen_scores = desert_prey_gen[gen]
-		print("PRey Gen scores, ",gen_scores)
+		#print("PRey Gen scores, ",gen_scores)
 		var highest_score = 0
 		# Find the highest average score for the current generation
 		for score in gen_scores:
@@ -139,13 +139,13 @@ func desert_pred_highest_gen_score():
 	# Iterate through each generation
 	for gen in range(desert_pred_gen.size()):
 		var gen_scores = desert_pred_gen[gen]
-		print("Pred Gen scores, ",gen_scores)
+		#print("Pred Gen scores, ",gen_scores)
 		var highest_score = 0
 		# Find the highest average score for the current generation
 		for score in gen_scores:
 			if score > highest_score:
 				highest_score = score
-		highest_desert_prey_scores.append([gen, highest_score])
+		highest_desert_pred_scores.append([gen, highest_score])
 
 	return highest_desert_pred_scores
 
