@@ -101,8 +101,7 @@ func _ready():
 		inital_hunger = hunger
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		
-		print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
+		#print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
 		#print(mother)
 		
 		#start_following_mother()
@@ -120,12 +119,12 @@ func _ready():
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
+		#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 		
 		$Age.start()
 		
 		creature_manager.add_desert_gen(generation)
+		creature_manager.desert_pred_gen_score(a, self.generation)
 	
 	
 	hunger_half = inital_hunger/2
@@ -370,7 +369,7 @@ func _on_wandering_state_processing(delta):
 					time_since_last_target_update = 0.0
 					
 				# Check if the creature has reached its target position
-				if global_position.distance_to(nav.target_position) < 1.0: 
+				if global_position.distance_to(nav.target_position) < 0.1 or global_position.distance_to(nav.target_position) == 0: 
 					time_since_last_target_update = 20.0  # Reset the timer to find a new target position
 
 func _on_hunting_state_processing(delta):
@@ -424,7 +423,7 @@ func create_child(size,inital_speed,accel,hunger,meta,mother_area, speed_counter
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Pred/Desert_Pred.tscn").instantiate()
 	
-	var child_generation = floor((generation + mating_partner.get_parent().generation) / 2)
+	var child_generation = generation + 1
 	
 	child.speed_counter = speed_counter
 	child.mother = mother_area
@@ -462,6 +461,9 @@ func _on_child_timer_timeout():
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	print("Grown Baby Average: ", a)	
 	$Age.start()
+	
+	creature_manager.desert_pred_gen_score(a, self.generation)
+	
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 
 func _on_looking_timeout():

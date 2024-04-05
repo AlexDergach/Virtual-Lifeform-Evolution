@@ -104,8 +104,7 @@ func _ready():
 		inital_hunger = hunger
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		
-		print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
+		#print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
 		
 	else:
 		
@@ -120,8 +119,7 @@ func _ready():
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
+		#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 		
 		$Age.start()
 		
@@ -427,7 +425,7 @@ func create_child(size,inital_speed,accel,hunger,meta,mother_area, speed_counter
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Pred/Forest_Pred.tscn").instantiate()
 	
-	var child_generation = floor((generation + mating_partner.get_parent().generation) / 2)
+	var child_generation = generation + 1
 	
 	child.speed_counter = speed_counter
 	child.mother = mother_area
@@ -490,7 +488,7 @@ func _on_child_timer_timeout():
 	metabolism /= child_factor
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-	print("Grown Baby Average: ", a)
+	#print("Grown Baby Average: ", a)
 	
 	$Age.start()
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)

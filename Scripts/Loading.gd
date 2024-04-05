@@ -22,5 +22,6 @@ func _process(delta):
 		ResourceLoader.THREAD_LOAD_LOADED:
 			print("Scene loaded successfully!")
 			progressbar.value = 100  # Set progress bar to 100% when scene is loaded
-			var newScene = ResourceLoader.load_threaded_get(sceneName)
-			get_tree().change_scene_to_packed(newScene)
+			if progressbar.value == 100:
+				var newScene = ResourceLoader.load_threaded_get(sceneName)
+				get_tree().change_scene_to_packed(newScene)

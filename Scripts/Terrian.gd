@@ -6,7 +6,7 @@ var ui_instance
 
 var ui_scene = load("res://UI/UI.tscn")
 
-var scene = "Stone"
+var scene = "Desert"
 var food_scene = load("res://Scenes/Food/"+ scene + "_Food.tscn")
 var prey_scene = load("res://Scenes/Prey/"+ scene + "_Prey.tscn")
 var pred_scene = load("res://Scenes/Pred/"+ scene + "_Pred.tscn")
@@ -100,6 +100,27 @@ func _physics_process(delta):
 		_spawn_rabbit()
 		_spawn_rabbit()
 		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		_spawn_rabbit()
+		
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
+		_spawn_enemy()
 		
 		spawn_rate = 0
 		
@@ -110,6 +131,28 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("SpeedDown"):
 		pass
 	if Input.is_action_just_pressed("Exit"):
+		
+	
+		# Call the function to get the highest scores
+		var highest_dprey_scores = creature_manager.desert_prey_highest_gen_score()
+
+		# Iterate through the results and print them
+		for result in highest_dprey_scores:
+			var gen = result[0]
+			var highest_score = result[1]
+			print("Generation: ", gen, " Highest Score: ", highest_score)
+			
+				# Call the function to get the highest scores
+		var highest_dpred_scores = creature_manager.desert_prey_highest_gen_score()
+
+		# Iterate through the results and print them
+		for result in highest_dpred_scores:
+			var gen = result[0]
+			var highest_score = result[1]
+			print("Generation: ", gen, " Highest Score Pred: ", highest_score)
+		
+		
+		
 		get_tree().quit()
 
 func _on_timer_timeout():

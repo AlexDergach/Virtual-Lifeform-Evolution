@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
-@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
+#@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
+@onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D")
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 @onready var music = $AudioStreamPlayer3D
@@ -98,9 +99,8 @@ func _ready():
 		inital_hunger = hunger
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		
-		print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
-		print(mother)
+		#print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
+		#print(mother)
 		
 		#start_following_mother()
 		
@@ -118,10 +118,10 @@ func _ready():
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
+		#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 		
-		creature_manager.add_desert_gen(generation)
+		creature_manager.add_desert_gen(self.generation)
+		creature_manager.desert_prey_gen_score(a, self.generation)
 		
 		$Age.start()
 	
@@ -411,7 +411,7 @@ func _on_wandering_state_processing(delta):
 					time_since_last_target_update = 0.0
 
 				# Check if the creature has reached its target position
-				if global_position.distance_to(nav.target_position) < 1.0: 
+				if global_position.distance_to(nav.target_position) < 3: 
 					time_since_last_target_update = 20.0  # Reset the timer to find a new target position
 
 func _on_repo_state_entered():
@@ -429,10 +429,10 @@ func _on_repo_state_entered():
 		+ mating_partner.get_parent().accel + mating_partner.get_parent().inital_hunger
 		 + mating_partner.get_parent().metabolism ) / 5
 	
-		print("Parent Average 1 ", par1)
+		#print("Parent Average 1 ", par1)
 		#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
 		
-		print("Parent Average 2 ", par2)
+		#print("Parent Average 2 ", par2)
 		#print(" Size: ", mating_partner.get_parent().size , " Accel: ", mating_partner.get_parent().accel, " Speed: ",mating_partner.get_parent().inital_speed, " Hunger: ", mating_partner.get_parent().inital_hunger, " Meta: ", mating_partner.get_parent().metabolism, " Female: ", mating_partner.get_parent().is_female)
 		
 		var twins = randi_range(1, 2) == 1 
@@ -456,9 +456,7 @@ func _on_repo_state_entered():
 func create_child(size,inital_speed,accel,hunger,meta,mother_area,speed_counter, speed):
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Prey/Desert_Prey.tscn").instantiate()
-
-	var child_generation = 	floor((generation + mating_partner.get_parent().generation) / 2)
-	
+	var child_generation = generation + 1
 	
 	child.speed_counter = speed_counter
 	child.mother = mother_area
@@ -491,7 +489,10 @@ func _on_child_timer_timeout():
 	metabolism /= child_factor
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-	print("Grown Baby Average: ", a)	
+	creature_manager.desert_prey_gen_score(a, self.generation)
+	
+	print("Grown Baby Average: ", a)
+	print("self.generation: ", self.generation)
 	$Age.start()
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 

@@ -53,7 +53,38 @@ func add_desert_gen(gen):
 		highest_desert_gen = gen
 	else:
 		if previous_gen < gen:
+			print("Setting gen to:", gen ," The Previous gen was: ", previous_gen)
 			highest_desert_gen = gen
+			previous_gen = gen
+			
+var desert_prey_gen = []
+
+func desert_prey_gen_score(average, gen):
+	# If the generation is not yet added, initialize it as an empty array
+	if len(desert_prey_gen) <= gen:
+		desert_prey_gen.resize(gen + 1)
+		print("Generation added", gen)
+		desert_prey_gen[gen] = []  # Initialize the generation array
+	# Append the average score to the corresponding generation
+	desert_prey_gen[gen].append(average)
+	
+var highest_desert_prey_scores = []
+	
+func desert_prey_highest_gen_score():
+	highest_desert_prey_scores.clear()  # Clear the previous scores
+
+	# Iterate through each generation
+	for gen in range(desert_prey_gen.size()):
+		var gen_scores = desert_prey_gen[gen]
+		print("PRey Gen scores, ",gen_scores)
+		var highest_score = 0
+		# Find the highest average score for the current generation
+		for score in gen_scores:
+			if score > highest_score:
+				highest_score = score
+		highest_desert_prey_scores.append([gen, highest_score])
+
+	return highest_desert_prey_scores
 
 func get_desert_gen():
 	return highest_desert_gen
@@ -87,6 +118,38 @@ func remove_desert_pred(creature):
 # Get the total number of creatures
 func get_desert_pred():
 	return len(total_desert_pred)
+
+
+var desert_pred_gen = []
+
+func desert_pred_gen_score(average, gen):
+	# If the generation is not yet added, initialize it as an empty array
+	if len(desert_pred_gen) <= gen:
+		desert_pred_gen.resize(gen + 1)
+		#print("Generation added", gen)
+		desert_pred_gen[gen] = []  # Initialize the generation array
+	# Append the average score to the corresponding generation
+	desert_pred_gen[gen].append(average)
+	
+var highest_desert_pred_scores = []
+	
+func desert_pred_highest_gen_score():
+	highest_desert_pred_scores.clear()  # Clear the previous scores
+
+	# Iterate through each generation
+	for gen in range(desert_pred_gen.size()):
+		var gen_scores = desert_pred_gen[gen]
+		print("Pred Gen scores, ",gen_scores)
+		var highest_score = 0
+		# Find the highest average score for the current generation
+		for score in gen_scores:
+			if score > highest_score:
+				highest_score = score
+		highest_desert_prey_scores.append([gen, highest_score])
+
+	return highest_desert_pred_scores
+
+
 
 
 var total_ice_creatures = []

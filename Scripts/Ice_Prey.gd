@@ -100,8 +100,7 @@ func _ready():
 		self.scale = Vector3(size,size,size)
 		inital_hunger = hunger
 		
-		print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism)
+		#print("Baby born Size: ", size , " Accel: ", accel," Speed: ",speed, " Hunger: ", inital_hunger, " Meta: ", metabolism)
 		
 	else:
 		
@@ -115,8 +114,7 @@ func _ready():
 		inital_hunger = hunger
 		metabolism = size / 2
 		var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-		print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", 
-		inital_hunger, " Meta: ", metabolism, " Average: ", a)
+		#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Average: ", a)
 		
 		creature_manager.add_ice_gen(generation)
 		
@@ -376,7 +374,7 @@ func create_child(size,inital_speed,accel,hunger,meta,mother_area,speed_counter,
 	# Create a new instance of the same creature as a child
 	var child = load("res://Scenes/Prey/Ice_Prey.tscn").instantiate()
 	
-	var child_generation = floor((generation + mating_partner.get_parent().generation) / 2)
+	var child_generation = generation + 1
 	
 	child.speed_counter = speed_counter
 	child.mother = mother_area
@@ -424,7 +422,7 @@ func _on_child_timer_timeout():
 	metabolism /= child_factor
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-	print("Grown Baby Average: ", a)	
+	#print("Grown Baby Average: ", a)	
 	
 	$LifeCycle.start()
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a

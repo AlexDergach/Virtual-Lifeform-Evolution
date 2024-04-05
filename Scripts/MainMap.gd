@@ -75,7 +75,6 @@ func _ready():
 	start_ui = Engine.get_singleton("Start")
 	
 	
-	audio_stream_player.play()
 	wave.play()
 	wave_2.play()
 	wave_3.play()
@@ -520,8 +519,6 @@ func spawn_character():
 		# Set the character's global position to the calculated position
 		character_body.global_transform.origin = center_world_position
 
-
-
 func spawn():
 	var spawn_count = 0
 	var spawned_positions = []
@@ -656,6 +653,8 @@ func spawn_food():
 
 func _on_navigation_region_3d_bake_finished():
 	print("Navigation mesh baking finished")
+	audio_stream_player.play()
+	
 	spawn()
 	spawn_food()
 

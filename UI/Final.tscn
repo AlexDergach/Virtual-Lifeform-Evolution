@@ -64,6 +64,7 @@ offset_bottom = 644.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_rc3k5")
 
 [node name="Panel4" type="Panel" parent="."]
+layout_mode = 0
 offset_left = 319.0
 offset_top = 120.0
 offset_right = 802.0
@@ -71,11 +72,13 @@ offset_bottom = 434.0
 theme_override_styles/panel = SubResource("StyleBoxLine_7055y")
 
 [node name="Panel3" type="Panel" parent="."]
+layout_mode = 0
 offset_right = 1151.0
 offset_bottom = 648.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_edxmk")
 
 [node name="Panel" type="Panel" parent="."]
+layout_mode = 0
 offset_left = 317.0
 offset_top = 39.0
 offset_right = 808.0
@@ -99,6 +102,7 @@ text = "Simulation Completed"
 label_settings = SubResource("LabelSettings_4sey6")
 
 [node name="Panel7" type="Panel" parent="."]
+layout_mode = 0
 offset_left = 215.0
 offset_top = 214.0
 offset_right = 255.0
@@ -106,21 +110,22 @@ offset_bottom = 254.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_idl4b")
 
 [node name="Panel9" type="Panel" parent="."]
-offset_left = 330.0
-offset_top = 527.0
-offset_right = 723.0
-offset_bottom = 620.0
+layout_mode = 0
+offset_left = 365.0
+offset_top = 524.0
+offset_right = 758.0
+offset_bottom = 617.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5yf76")
 
-[node name="Quit" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
+[node name="Quit" type="Button" parent="."]
 process_priority = 1
 process_physics_priority = 1
 z_index = 1
-offset_left = 340.0
-offset_top = 532.0
-offset_right = 718.0
-offset_bottom = 603.0
-shortcut_context = NodePath("")
+layout_mode = 0
+offset_left = 375.0
+offset_top = 529.0
+offset_right = 753.0
+offset_bottom = 600.0
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxFlat_0e24s")
