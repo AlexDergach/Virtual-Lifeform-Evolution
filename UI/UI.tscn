@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://yjsnj1atdqps"]
+[gd_scene load_steps=18 format=3 uid="uid://yjsnj1atdqps"]
 
 [ext_resource type="Script" path="res://Scripts/UI.gd" id="1_nl5k8"]
 [ext_resource type="Texture2D" uid="uid://cdeic2l5bopdd" path="res://Assets/UI/desert.png" id="2_4p380"]
@@ -41,6 +41,9 @@ font_size = 36
 [sub_resource type="LabelSettings" id="LabelSettings_aghfs"]
 font = ExtResource("7_utotl")
 font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_blje2"]
+font_size = 38
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -366,3 +369,32 @@ grow_vertical = 2
 text = "Exit"
 label_settings = SubResource("LabelSettings_aghfs")
 horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -91.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Time" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -28.0
+offset_right = 44.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_blje2")
+horizontal_alignment = 1
+text_overrun_behavior = 1

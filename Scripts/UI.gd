@@ -5,8 +5,12 @@ extends Control
 @onready var fire_label = $"PopPanel/Fire/Label"
 @onready var stone_label = $"PopPanel/Stone/Label"
 @onready var ice_label = $"PopPanel/Ice/Label"
+@onready var time_label = $"Panel/Time"
+
 
 @onready var TotalPopLabel = $"TotalPop/Label"
+
+@onready var time = $Panel
 
 @onready var PopPanel = $PopPanel
 @onready var TotalPop = $TotalPop
@@ -25,9 +29,12 @@ func _process(delta):
 			PopPanel.visible = false
 			TotalPop.visible = false
 			Controls.visible = false
+			time.visible = false
 			toggel = 0
 	else:
 		if Input.is_action_just_pressed("Vis"):
 			PopPanel.visible = true
 			TotalPop.visible = true
 			Controls.visible = true
+			time.visible = true
+			toggel = 1			

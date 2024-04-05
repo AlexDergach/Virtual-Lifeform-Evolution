@@ -182,8 +182,7 @@ _data = {
 }
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_bjvcu"]
-cell_size = 0.2
-cell_height = 0.2
+cell_size = 0.5
 agent_height = 3.0
 agent_radius = 1.0
 agent_max_climb = 2.0
@@ -228,6 +227,10 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 process_callback = 0
 wait_time = 40.0
 one_shot = true
+
+[node name="Time" type="Timer" parent="NavigationRegion3D/GridMap"]
+process_callback = 0
+wait_time = 0.1
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_2at7m")
@@ -332,3 +335,4 @@ bus = &"Waves"
 
 [connection signal="bake_finished" from="NavigationRegion3D" to="NavigationRegion3D/GridMap" method="_on_navigation_region_3d_bake_finished"]
 [connection signal="timeout" from="NavigationRegion3D/GridMap/Timer" to="NavigationRegion3D/GridMap" method="_on_timer_timeout"]
+[connection signal="timeout" from="NavigationRegion3D/GridMap/Time" to="NavigationRegion3D/GridMap" method="_on_time_timeout"]

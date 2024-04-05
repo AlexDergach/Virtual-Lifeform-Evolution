@@ -5,6 +5,10 @@ extends GridMap
 
 var ui_instance
 
+var time = 0.0
+
+var creatures_spawned = false
+
 var grid_size = Vector2(80, 80)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
@@ -147,7 +151,9 @@ func _process(delta):
 	ui_instance.TotalPopLabel.text = "Total Population: " + str(creature_manager.get_total_creatures()) 
 								
 								
-	if creature_manager.get_total_creatures() == 0:
+	ui_instance.time_label.text = str(time)
+								
+	if creature_manager.get_total_creatures() == 0 and creatures_spawned:
 		get_tree().change_scene_to_file("res://UI/Final.tscn")
 	
 func _physics_process(delta):
@@ -161,7 +167,7 @@ func generate_biomes():
 			spawn_size = 40
 		elif Start.spawn_size == 2:
 			spawn_size = 60
-		elif Start.spawn_size == 2:
+		elif Start.spawn_size == 3:
 			spawn_size = 80
 		else:
 			spawn_size = 2
@@ -583,7 +589,9 @@ func spawn():
 						
 					spawned_positions.append(position)
 					break  # Exit the inner loop once a valid position is found
-
+	$Time.start()
+	creatures_spawned = true
+	
 func spawn_food():
 	var spawn_count = 0
 	var spawned_positions = []
@@ -653,5 +661,8 @@ func _on_navigation_region_3d_bake_finished():
 
 
 func _on_timer_timeout():
-	print("spawned food")
+	#print("spawned food")
 	spawn_food()
+
+func _on_time_timeout():
+	time += 0.1

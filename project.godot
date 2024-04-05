@@ -101,11 +101,6 @@ Vis={
 
 limits/message_queue/max_size_mb=64
 
-[navigation]
-
-3d/default_cell_size=0.2
-3d/default_cell_height=0.2
-
 [shader_globals]
 
 oceanpos={
