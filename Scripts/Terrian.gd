@@ -135,6 +135,8 @@ func _physics_process(delta):
 	
 		# Call the function to get the highest scores
 		var highest_dprey_scores = creature_manager.desert_prey_highest_gen_score()
+		var highest_dpred_scores = creature_manager.desert_pred_highest_gen_score()
+
 
 		# Iterate through the results and print them
 		for result in highest_dprey_scores:
@@ -143,30 +145,13 @@ func _physics_process(delta):
 			print("Generation: ", gen, " Highest Score: ", highest_score)
 			
 				# Call the function to get the highest scores
-		var highest_dpred_scores = creature_manager.desert_pred_highest_gen_score()
 
 		# Iterate through the results and print them
 		for result in highest_dpred_scores:
 			var gen = result[0]
 			var highest_score = result[1]
 			print("Generation: ", gen, " Highest Score Pred: ", highest_score)
-		
-		
-		# Iterate through the generations
-		for gen in range(max(highest_dprey_scores.size(), highest_dpred_scores.size())):
-			# Get the highest score for desert prey for the current generation
-			var highest_dprey_score = highest_dprey_scores.get(gen, -1)
-			
-			# Get the highest score for desert predators for the current generation
-			var highest_dpred_score = highest_dpred_scores.get(gen, -1)
-			
-			# Calculate the highest overall score for the current generation
-			var highest_overall_score = max(highest_dprey_score, highest_dpred_score)
-			
-			# Print the highest overall score for each generation
-			print("Generation:", gen)
-			print("Highest Overall Score:", highest_overall_score)
-		
+
 		
 		get_tree().quit()
 

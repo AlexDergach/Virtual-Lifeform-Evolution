@@ -160,6 +160,8 @@ func _ready():
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Male"
 
+	creature_manager.add_desert_pred_gender(is_female)
+
 func _process(delta):
 	
 	

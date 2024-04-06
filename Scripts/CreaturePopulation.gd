@@ -5,14 +5,24 @@ func _ready():
 	if not Engine.has_singleton("CreatureManager"):
 		Engine.register_singleton("CreatureManager", self)
 
-# List to store references to all creature instances
-var total_creatures = []
+
+
+
+
+
+
+
 
 #============ Total Creatures ========================
+var total_creatures = []
+var final_total_creatures = []
+var final_total_creatures_male = 0
+var final_total_creatures_female = 0
 
 # Add a creature instance to the list
 func add_creature(creature):
 	total_creatures.append(creature)
+	final_total_creatures.append(creature)
 
 # Remove a creature instance from the list
 func remove_creature(creature):
@@ -22,20 +32,38 @@ func remove_creature(creature):
 # Get the total number of creatures
 func get_total_creatures():
 	return len(total_creatures)
+	
+# Get the total number of creatures
+func get_final_total_creatures():
+	return len(final_total_creatures)
+
+func get_creature_gender(choice):
+	if choice:
+		return final_total_creatures_female
+	else:
+		return final_total_creatures_male
+
+
+#============ Desert Creatures ========================
 
 
 var total_desert_creatures = []
+var total_final_desert_creatures = []
 var highest_desert_gen
 var starting_gen
 var previous_gen
 var total_desert_prey = []
+var total_final_desert_prey = []
 var total_desert_pred = []
+var total_final_desert_pred = []
 
-#============ Desert Creatures ========================
+
+
 	
 # Add a creature instance to the list
 func add_desert_creature(creature):
 	total_desert_creatures.append(creature)
+	total_final_desert_creatures.append(creature)
 
 # Remove a creature instance from the list
 func remove_desert_creature(creature):
@@ -45,6 +73,11 @@ func remove_desert_creature(creature):
 # Get the total number of creatures
 func get_desert_creature():
 	return len(total_desert_creatures)
+	
+# Get the total number of creatures
+func get_final_desert_creatures():
+	return len(total_final_desert_creatures)
+	
 	
 func add_desert_gen(gen):
 	if gen == 0:
@@ -56,7 +89,13 @@ func add_desert_gen(gen):
 			print("Setting gen to:", gen ," The Previous gen was: ", previous_gen)
 			highest_desert_gen = gen
 			previous_gen = gen
-			
+
+func get_desert_gen():
+	return highest_desert_gen
+
+#=============== Desert Prey Gen ======================
+
+
 var desert_prey_gen = []
 
 func desert_prey_gen_score(average, gen):
@@ -86,14 +125,13 @@ func desert_prey_highest_gen_score():
 
 	return highest_desert_prey_scores
 
-func get_desert_gen():
-	return highest_desert_gen
-
 #============ Desert Prey ========================
+
 
 # Add a creature instance to the list
 func add_desert_prey(creature):
 	total_desert_prey.append(creature)
+	total_final_desert_creatures.append(creature)
 
 # Remove a creature instance from the list
 func remove_desert_prey(creature):
@@ -103,12 +141,17 @@ func remove_desert_prey(creature):
 # Get the total number of creatures
 func get_desert_prey():
 	return len(total_desert_prey)
+	
+# Get the total number of creatures
+func get_final_desert_prey():
+	return len(total_final_desert_creatures)
 
 #============ Desert Pred ========================
 
 # Add a creature instance to the list
 func add_desert_pred(creature):
 	total_desert_pred.append(creature)
+	total_final_desert_pred.append(creature)
 
 # Remove a creature instance from the list
 func remove_desert_pred(creature):
@@ -119,6 +162,59 @@ func remove_desert_pred(creature):
 func get_desert_pred():
 	return len(total_desert_pred)
 
+# Get the total number of creatures
+func get_final_desert_pred():
+	return len(total_final_desert_pred)
+	
+#======= Desert Gender =======
+	
+	
+var total_desert_gender_male = 0
+var total_desert_gender_female = 0
+var total_desert_pred_male = 0
+var total_desert_pred_female = 0
+var total_desert_prey_male = 0
+var total_desert_prey_female = 0
+	
+func add_desert_pred_gender(gender):
+	if gender == true:
+		total_desert_pred_female += 1
+		total_desert_gender_female += 1
+		final_total_creatures_female += 1
+	else:
+		total_desert_pred_male += 1
+		total_desert_gender_male += 1
+		final_total_creatures_male += 1
+		
+func add_desert_prey_gender(gender):
+	if gender == true:
+		total_desert_prey_female += 1
+		total_desert_gender_female += 1
+		final_total_creatures_female += 1
+	else:
+		total_desert_prey_male += 1
+		total_desert_gender_male += 1
+		final_total_creatures_male += 1
+
+func get_desert_gender(choice):
+	if choice:
+		return total_desert_gender_female
+	else:
+		return total_desert_gender_male
+		
+func get_desert_pred_gender(choice):
+	if choice:
+		return total_desert_pred_female
+	else: 
+		return total_desert_pred_male
+
+func get_desert_prey_gender(choice):
+	if choice:
+		return total_desert_prey_female
+	else: 
+		return total_desert_prey_male
+		
+#=================== Desert Pred Gen ==========================
 
 var desert_pred_gen = []
 
@@ -150,6 +246,8 @@ func desert_pred_highest_gen_score():
 	return highest_desert_pred_scores
 
 
+#============ Ice Creatures ========================
+
 
 
 var total_ice_creatures = []
@@ -159,7 +257,6 @@ var previous_ice_gen
 var total_ice_prey = []
 
 
-#============ Ice Creatures ========================
 	
 # Add a creature instance to the list
 func add_ice_creature(creature):
@@ -202,6 +299,30 @@ func get_ice_prey():
 	return len(total_ice_prey)
 
 
+
+#============== Ice Gender ================
+
+var total_ice_gender_male = 0
+var total_ice_gender_female = 0
+	
+func add_ice_gender(gender):
+	if gender == true:
+		total_ice_gender_female += 1
+		final_total_creatures_female += 1
+	else:
+		total_ice_gender_male += 1
+		final_total_creatures_male += 1
+
+func get_ice_gender(choice):
+	if choice:
+		return total_ice_gender_female
+	else:
+		return total_ice_gender_male
+
+
+
+#============ Forest Creatures ========================
+
 var total_forest_creatures = []
 var highest_forest_gen
 var starting_forest_gen
@@ -209,8 +330,7 @@ var previous_forest_gen
 var total_forest_prey = []
 var total_forest_pred = []
 
-#============ Forest Creatures ========================
-	
+
 # Add a creature instance to the list
 func add_forest_creature(creature):
 	total_forest_creatures.append(creature)
@@ -268,6 +388,57 @@ func get_forest_pred():
 	return len(total_forest_pred)
 
 
+#============ Forest Gender ===============
+
+var total_forest_gender_male = 0
+var total_forest_gender_female = 0
+var total_forest_pred_male = 0
+var total_forest_pred_female = 0
+var total_forest_prey_male = 0
+var total_forest_prey_female = 0
+	
+func add_forest_pred_gender(gender):
+	if gender == true:
+		total_forest_pred_female += 1
+		total_forest_gender_female += 1
+		final_total_creatures_female += 1
+	else:
+		total_forest_pred_male += 1
+		total_forest_gender_male += 1
+		final_total_creatures_male += 1
+		
+func add_forest_prey_gender(gender):
+	if gender == true:
+		total_forest_prey_female += 1
+		total_forest_gender_female += 1
+		final_total_creatures_female += 1
+	else:
+		total_forest_prey_male += 1
+		total_forest_gender_male += 1
+		final_total_creatures_male += 1
+
+func get_forest_gender(choice):
+	if choice:
+		return total_forest_gender_female
+	else:
+		return total_forest_gender_male
+		
+func get_forest_pred_gender(choice):
+	if choice:
+		return total_forest_pred_female
+	else: 
+		return total_forest_pred_male
+
+func get_forest_prey_gender(choice):
+	if choice:
+		return total_forest_prey_female
+	else: 
+		return total_forest_prey_male
+
+
+
+
+#============ Fire Creatures ========================
 
 var total_fire_creatures = []
 var highest_fire_gen
@@ -276,8 +447,7 @@ var previous_fire_gen
 var total_fire_prey = []
 var total_fire_pred = []
 
-#============ Fire Creatures ========================
-	
+
 # Add a creature instance to the list
 func add_fire_creature(creature):
 	total_fire_creatures.append(creature)
@@ -337,6 +507,57 @@ func get_fire_pred():
 
 
 
+#============ Fire Gender ===============
+
+var total_fire_gender_male = 0
+var total_fire_gender_female = 0
+var total_fire_pred_male = 0
+var total_fire_pred_female = 0
+var total_fire_prey_male = 0
+var total_fire_prey_female = 0
+	
+func add_fire_pred_gender(gender):
+	if gender == true:
+		total_fire_pred_female += 1
+		total_fire_gender_female += 1
+		final_total_creatures_female += 1
+	else:
+		total_fire_pred_male += 1
+		total_fire_gender_male += 1
+		final_total_creatures_male += 1
+		
+func add_fire_prey_gender(gender):
+	if gender == true:
+		total_fire_prey_female += 1
+		total_fire_gender_female += 1
+		final_total_creatures_female += 1
+	else:
+		total_fire_prey_male += 1
+		total_fire_gender_male += 1
+		final_total_creatures_male += 1
+
+func get_fire_gender(choice):
+	if choice:
+		return total_fire_gender_female
+	else:
+		return total_fire_gender_male
+		
+func get_fire_pred_gender(choice):
+	if choice:
+		return total_fire_pred_female
+	else: 
+		return total_fire_pred_male
+
+func get_fire_prey_gender(choice):
+	if choice:
+		return total_fire_prey_female
+	else: 
+		return total_fire_prey_male
+
+
+#============ Stone Creatures ========================
+
+
 var total_stone_creatures = []
 var highest_stone_gen
 var starting_stone_gen
@@ -345,8 +566,6 @@ var total_stone_prey = []
 var total_stone_pred = []
 
 
-#============ Stone Creatures ========================
-	
 # Add a creature instance to the list
 func add_stone_creature(creature):
 	total_stone_creatures.append(creature)
@@ -404,3 +623,49 @@ func get_stone_pred():
 	return len(total_stone_pred)
 
 
+#============ Stone Gender ===============
+
+var total_stone_gender_male = 0
+var total_stone_gender_female = 0
+var total_stone_pred_male = 0
+var total_stone_pred_female = 0
+var total_stone_prey_male = 0
+var total_stone_prey_female = 0
+	
+func add_stone_pred_gender(gender):
+	if gender == true:
+		total_stone_pred_female += 1
+		total_stone_gender_female += 1
+		final_total_creatures_female += 1
+	else:
+		total_stone_pred_male += 1
+		total_stone_gender_male += 1
+		final_total_creatures_male += 1
+		
+func add_stone_prey_gender(gender):
+	if gender == true:
+		total_stone_prey_female += 1
+		total_stone_gender_female += 1
+		final_total_creatures_female += 1
+	else:
+		total_stone_prey_male += 1
+		total_stone_gender_male += 1
+		final_total_creatures_male += 1
+
+func get_stone_gender(choice):
+	if choice:
+		return total_stone_gender_female
+	else:
+		return total_stone_gender_male
+		
+func get_stone_pred_gender(choice):
+	if choice:
+		return total_stone_pred_female
+	else: 
+		return total_stone_pred_male
+
+func get_stone_prey_gender(choice):
+	if choice:
+		return total_stone_prey_female
+	else: 
+		return total_stone_prey_male

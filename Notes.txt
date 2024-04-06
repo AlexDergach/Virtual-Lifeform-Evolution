@@ -39,3 +39,5 @@
 2. Do ending screen, ? If pop = 0 then end but what to show?
 3. Do sound
 
+1. Check averages, if only taking from gen 0 then they will never go up, maybe give gen 1 a +1 in a stat
+
