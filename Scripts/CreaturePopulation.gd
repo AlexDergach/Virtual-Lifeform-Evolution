@@ -320,6 +320,38 @@ func get_ice_gender(choice):
 		return total_ice_gender_male
 
 
+#=================== Ice Prey Gen ==========================
+
+var ice_prey_gen = []
+
+func ice_prey_gen_score(average, gen):
+	# If the generation is not yet added, initialize it as an empty array
+	if len(ice_prey_gen) <= gen:
+		ice_prey_gen.resize(gen + 1)
+		#print("Generation added", gen)
+		ice_prey_gen[gen] = []  # Initialize the generation array
+	# Append the average score to the corresponding generation
+	ice_prey_gen[gen].append(average)
+	
+var highest_ice_prey_scores = []
+	
+func ice_prey_highest_gen_score():
+	highest_ice_prey_scores.clear()  # Clear the previous scores
+
+	# Iterate through each generation
+	for gen in range(ice_prey_gen.size()):
+		var gen_scores = ice_prey_gen[gen]
+		#print("Pred Gen scores, ",gen_scores)
+		var highest_score = 0
+		# Find the highest average score for the current generation
+		for score in gen_scores:
+			if score > highest_score:
+				highest_score = score
+		highest_ice_prey_scores.append([gen, highest_score])
+
+	return highest_ice_prey_scores
+
+
 
 #============ Forest Creatures ========================
 
@@ -434,6 +466,69 @@ func get_forest_prey_gender(choice):
 		return total_forest_prey_female
 	else: 
 		return total_forest_prey_male
+
+#=================== Forest Prey Gen ==========================
+
+var forest_prey_gen = []
+
+func forest_prey_gen_score(average, gen):
+	# If the generation is not yet added, initialize it as an empty array
+	if len(forest_prey_gen) <= gen:
+		forest_prey_gen.resize(gen + 1)
+		#print("Generation added", gen)
+		forest_prey_gen[gen] = []  # Initialize the generation array
+	# Append the average score to the corresponding generation
+	forest_prey_gen[gen].append(average)
+	
+var highest_forest_prey_scores = []
+	
+func forest_prey_highest_gen_score():
+	highest_forest_prey_scores.clear()  # Clear the previous scores
+
+	# Iterate through each generation
+	for gen in range(forest_prey_gen.size()):
+		var gen_scores = forest_prey_gen[gen]
+		#print("Pred Gen scores, ",gen_scores)
+		var highest_score = 0
+		# Find the highest average score for the current generation
+		for score in gen_scores:
+			if score > highest_score:
+				highest_score = score
+		highest_forest_prey_scores.append([gen, highest_score])
+
+	return highest_forest_prey_scores
+
+#=================== Forest Pred Gen ==========================
+
+var forest_pred_gen = []
+
+func forest_pred_gen_score(average, gen):
+	# If the generation is not yet added, initialize it as an empty array
+	if len(forest_pred_gen) <= gen:
+		forest_pred_gen.resize(gen + 1)
+		#print("Generation added", gen)
+		forest_pred_gen[gen] = []  # Initialize the generation array
+	# Append the average score to the corresponding generation
+	forest_pred_gen[gen].append(average)
+	
+var highest_forest_pred_scores = []
+	
+func forest_pred_highest_gen_score():
+	highest_forest_pred_scores.clear()  # Clear the previous scores
+
+	# Iterate through each generation
+	for gen in range(forest_pred_gen.size()):
+		var gen_scores = forest_pred_gen[gen]
+		#print("Pred Gen scores, ",gen_scores)
+		var highest_score = 0
+		# Find the highest average score for the current generation
+		for score in gen_scores:
+			if score > highest_score:
+				highest_score = score
+		highest_forest_pred_scores.append([gen, highest_score])
+
+	return highest_forest_pred_scores
+
 
 
 
@@ -555,6 +650,73 @@ func get_fire_prey_gender(choice):
 		return total_fire_prey_male
 
 
+#=================== Fire Prey Gen ==========================
+
+var fire_prey_gen = []
+
+func fire_prey_gen_score(average, gen):
+	# If the generation is not yet added, initialize it as an empty array
+	if len(fire_prey_gen) <= gen:
+		fire_prey_gen.resize(gen + 1)
+		#print("Generation added", gen)
+		fire_prey_gen[gen] = []  # Initialize the generation array
+	# Append the average score to the corresponding generation
+	fire_prey_gen[gen].append(average)
+	
+var highest_fire_prey_scores = []
+	
+func fire_prey_highest_gen_score():
+	highest_fire_prey_scores.clear()  # Clear the previous scores
+
+	# Iterate through each generation
+	for gen in range(fire_prey_gen.size()):
+		var gen_scores = fire_prey_gen[gen]
+		#print("Pred Gen scores, ",gen_scores)
+		var highest_score = 0
+		# Find the highest average score for the current generation
+		for score in gen_scores:
+			if score > highest_score:
+				highest_score = score
+		highest_fire_prey_scores.append([gen, highest_score])
+
+	return highest_fire_prey_scores
+
+#=================== Fire Pred Gen ==========================
+
+var fire_pred_gen = []
+
+func fire_pred_gen_score(average, gen):
+	# If the generation is not yet added, initialize it as an empty array
+	if len(fire_pred_gen) <= gen:
+		fire_pred_gen.resize(gen + 1)
+		#print("Generation added", gen)
+		fire_pred_gen[gen] = []  # Initialize the generation array
+	# Append the average score to the corresponding generation
+	fire_pred_gen[gen].append(average)
+	
+var highest_fire_pred_scores = []
+	
+func fire_pred_highest_gen_score():
+	highest_fire_pred_scores.clear()  # Clear the previous scores
+
+	# Iterate through each generation
+	for gen in range(fire_pred_gen.size()):
+		var gen_scores = fire_pred_gen[gen]
+		#print("Pred Gen scores, ",gen_scores)
+		var highest_score = 0
+		# Find the highest average score for the current generation
+		for score in gen_scores:
+			if score > highest_score:
+				highest_score = score
+		highest_fire_pred_scores.append([gen, highest_score])
+
+	return highest_fire_pred_scores
+
+
+
+
+
+
 #============ Stone Creatures ========================
 
 
@@ -669,3 +831,67 @@ func get_stone_prey_gender(choice):
 		return total_stone_prey_female
 	else: 
 		return total_stone_prey_male
+		
+		
+		
+#=================== Stone Prey Gen ==========================
+
+var stone_prey_gen = []
+
+func stone_prey_gen_score(average, gen):
+	# If the generation is not yet added, initialize it as an empty array
+	if len(stone_prey_gen) <= gen:
+		stone_prey_gen.resize(gen + 1)
+		#print("Generation added", gen)
+		stone_prey_gen[gen] = []  # Initialize the generation array
+	# Append the average score to the corresponding generation
+	stone_prey_gen[gen].append(average)
+	
+var highest_stone_prey_scores = []
+	
+func stone_prey_highest_gen_score():
+	highest_stone_prey_scores.clear()  # Clear the previous scores
+
+	# Iterate through each generation
+	for gen in range(stone_prey_gen.size()):
+		var gen_scores = stone_prey_gen[gen]
+		#print("Pred Gen scores, ",gen_scores)
+		var highest_score = 0
+		# Find the highest average score for the current generation
+		for score in gen_scores:
+			if score > highest_score:
+				highest_score = score
+		highest_stone_prey_scores.append([gen, highest_score])
+
+	return highest_stone_prey_scores
+
+#=================== Stone Pred Gen ==========================
+
+var stone_pred_gen = []
+
+func stone_pred_gen_score(average, gen):
+	# If the generation is not yet added, initialize it as an empty array
+	if len(stone_pred_gen) <= gen:
+		stone_pred_gen.resize(gen + 1)
+		#print("Generation added", gen)
+		stone_pred_gen[gen] = []  # Initialize the generation array
+	# Append the average score to the corresponding generation
+	stone_pred_gen[gen].append(average)
+	
+var highest_stone_pred_scores = []
+	
+func stone_pred_highest_gen_score():
+	highest_stone_pred_scores.clear()  # Clear the previous scores
+
+	# Iterate through each generation
+	for gen in range(stone_pred_gen.size()):
+		var gen_scores = stone_pred_gen[gen]
+		#print("Pred Gen scores, ",gen_scores)
+		var highest_score = 0
+		# Find the highest average score for the current generation
+		for score in gen_scores:
+			if score > highest_score:
+				highest_score = score
+		highest_stone_pred_scores.append([gen, highest_score])
+
+	return highest_stone_pred_scores
