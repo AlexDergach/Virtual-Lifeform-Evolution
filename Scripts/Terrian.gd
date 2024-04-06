@@ -151,7 +151,72 @@ func _physics_process(delta):
 			var gen = result[0]
 			var highest_score = result[1]
 			print("Generation: ", gen, " Highest Score Pred: ", highest_score)
+			
+				# Call the function to get the highest scores
+		var highest_iprey_scores = creature_manager.ice_prey_highest_gen_score()
 
+		# Iterate through the results and print them
+		for result in highest_iprey_scores:
+			var gen = result[0]
+			var highest_score = result[1]
+			print("Generation: ", gen, " Highest Score: ", highest_score)
+
+
+				# Call the function to get the highest scores
+		var highest_fiprey_scores = creature_manager.fire_prey_highest_gen_score()
+		var highest_fipred_scores = creature_manager.fire_pred_highest_gen_score()
+
+
+		# Iterate through the results and print them
+		for result in highest_fiprey_scores:
+			var gen = result[0]
+			var highest_score = result[1]
+			print("Generation: ", gen, " Highest Score: ", highest_score)
+			
+				# Call the function to get the highest scores
+
+		# Iterate through the results and print them
+		for result in highest_fipred_scores:
+			var gen = result[0]
+			var highest_score = result[1]
+			print("Generation: ", gen, " Highest Score Pred: ", highest_score)
+
+		var highest_fprey_scores = creature_manager.forest_prey_highest_gen_score()
+		var highest_fpred_scores = creature_manager.forest_pred_highest_gen_score()
+
+
+		# Iterate through the results and print them
+		for result in highest_fprey_scores:
+			var gen = result[0]
+			var highest_score = result[1]
+			print("Generation: ", gen, " Highest Score: ", highest_score)
+			
+				# Call the function to get the highest scores
+
+		# Iterate through the results and print them
+		for result in highest_fpred_scores:
+			var gen = result[0]
+			var highest_score = result[1]
+			print("Generation: ", gen, " Highest Score Pred: ", highest_score)
+			
+		var highest_sprey_scores = creature_manager.stone_prey_highest_gen_score()
+		var highest_spred_scores = creature_manager.stone_pred_highest_gen_score()
+
+
+		# Iterate through the results and print them
+		for result in highest_sprey_scores:
+			var gen = result[0]
+			var highest_score = result[1]
+			print("Generation: ", gen, " Highest Score: ", highest_score)
+			
+				# Call the function to get the highest scores
+
+		# Iterate through the results and print them
+		for result in highest_spred_scores:
+			var gen = result[0]
+			var highest_score = result[1]
+			print("Generation: ", gen, " Highest Score Pred: ", highest_score)
+		
 		
 		get_tree().quit()
 
