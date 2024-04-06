@@ -7,12 +7,6 @@ func _ready():
 
 
 
-
-
-
-
-
-
 #============ Total Creatures ========================
 var total_creatures = []
 var final_total_creatures = []
@@ -144,7 +138,8 @@ func get_desert_prey():
 	
 # Get the total number of creatures
 func get_final_desert_prey():
-	return len(total_final_desert_creatures)
+	return len(total_final_desert_prey)
+
 
 #============ Desert Pred ========================
 

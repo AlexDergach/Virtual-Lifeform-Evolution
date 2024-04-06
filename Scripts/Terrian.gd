@@ -136,7 +136,29 @@ func _physics_process(delta):
 		# Call the function to get the highest scores
 		var highest_dprey_scores = creature_manager.desert_prey_highest_gen_score()
 		var highest_dpred_scores = creature_manager.desert_pred_highest_gen_score()
+		
+		var total_desert_creature_count = creature_manager.get_desert_creature()
+		var total_desert_creature_prey_count = creature_manager.get_desert_prey()
+		var total_desert_creature_pred_count = creature_manager.get_desert_pred()
+		print("Total Desert Creature Amount: ",total_desert_creature_count ," Total Pred Amount: ", 
+		total_desert_creature_pred_count ," Total Prey Amount: ",total_desert_creature_prey_count)
+		
+		var full_gender_desert_amount_male = creature_manager.get_desert_gender(false)
+		var full_gender_desert_amount_female = creature_manager.get_desert_gender(true)
+		print("Full desert male gender: ",full_gender_desert_amount_male ,
+		" Full desert female gender: ",full_gender_desert_amount_female )
+		var full_gender_desert_pred_amount_male = creature_manager.get_desert_pred_gender(false)
+		var full_gender_desert_pred_amount_female = creature_manager.get_desert_pred_gender(true)
+		print("Full desert pred male gender: ",full_gender_desert_pred_amount_male ,
+		" Full desert pred female gender: ",full_gender_desert_pred_amount_female )
+		var full_gender_desert_prey_amount_male = creature_manager.get_desert_prey_gender(false)
+		var full_gender_desert_prey_amount_female = creature_manager.get_desert_prey_gender(true)
+		print("Full desert prey male gender: ",full_gender_desert_prey_amount_male ,
+		" Full desert prey female gender: ",full_gender_desert_prey_amount_female )
 
+		
+		var highest_desert_gen_reach = creature_manager.get_desert_gen()
+		print("Higest Desert Gen Reached: ", highest_desert_gen_reach)
 
 		# Iterate through the results and print them
 		for result in highest_dprey_scores:
@@ -154,6 +176,16 @@ func _physics_process(delta):
 			
 				# Call the function to get the highest scores
 		var highest_iprey_scores = creature_manager.ice_prey_highest_gen_score()
+		var highest_ice_gen_reach = creature_manager.get_ice_gen()
+		print("Higest Ice Gen Reached: ", highest_ice_gen_reach)
+		
+		var total_ice_creature_count = creature_manager.get_ice_creature()
+		print("Total Ice Creature Amount: ",total_ice_creature_count)
+		
+		var full_gender_ice_amount_male = creature_manager.get_ice_gender(false)
+		var full_gender_ice_amount_female = creature_manager.get_ice_gender(true)
+		print("Full Fire male gender: ",full_gender_ice_amount_male ,
+		" Full Fire female gender: ",full_gender_ice_amount_female )
 
 		# Iterate through the results and print them
 		for result in highest_iprey_scores:
@@ -165,6 +197,28 @@ func _physics_process(delta):
 				# Call the function to get the highest scores
 		var highest_fiprey_scores = creature_manager.fire_prey_highest_gen_score()
 		var highest_fipred_scores = creature_manager.fire_pred_highest_gen_score()
+		var highest_fire_gen_reach = creature_manager.get_fire_gen()
+		print("Higest Fire Gen Reached: ", highest_fire_gen_reach)
+
+		var total_fire_creature_count = creature_manager.get_fire_creature()
+		var total_fire_creature_prey_count = creature_manager.get_fire_prey()
+		var total_fire_creature_pred_count = creature_manager.get_fire_pred()
+		print("Total Fire Creature Amount: ",total_fire_creature_count ," Total Pred Amount: ", 
+		total_fire_creature_prey_count ," Total Prey Amount: ",total_fire_creature_pred_count)
+		
+		var full_gender_fire_amount_male = creature_manager.get_fire_gender(false)
+		var full_gender_fire_amount_female = creature_manager.get_fire_gender(true)
+		print("Full Fire male gender: ",full_gender_fire_amount_male ,
+		" Full Fire female gender: ",full_gender_fire_amount_female )
+		var full_gender_fire_pred_amount_male = creature_manager.get_fire_pred_gender(false)
+		var full_gender_fire_pred_amount_female = creature_manager.get_fire_pred_gender(true)
+		print("Full Fire pred male gender: ",full_gender_fire_pred_amount_male ,
+		" Full Fire pred female gender: ",full_gender_fire_pred_amount_female )
+		var full_gender_fire_prey_amount_male = creature_manager.get_fire_prey_gender(false)
+		var full_gender_fire_prey_amount_female = creature_manager.get_fire_prey_gender(true)
+		print("Full Fire prey male gender: ",full_gender_fire_prey_amount_male ,
+		" Full Fire prey female gender: ",full_gender_fire_prey_amount_female )
+
 
 
 		# Iterate through the results and print them
@@ -183,6 +237,28 @@ func _physics_process(delta):
 
 		var highest_fprey_scores = creature_manager.forest_prey_highest_gen_score()
 		var highest_fpred_scores = creature_manager.forest_pred_highest_gen_score()
+		var highest_forest_gen_reach = creature_manager.get_forest_gen()
+		print("Higest Forest Gen Reached: ", highest_forest_gen_reach)
+		
+		
+		var total_forest_creature_count = creature_manager.get_forest_creature()
+		var total_forest_creature_prey_count = creature_manager.get_forest_prey()
+		var total_forest_creature_pred_count = creature_manager.get_forest_pred()
+		print("Total Forest Creature Amount: ",total_forest_creature_count ," Total Pred Amount: ", 
+		total_forest_creature_prey_count ," Total Prey Amount: ",total_forest_creature_pred_count)
+		
+		var full_gender_forest_amount_male = creature_manager.get_forest_gender(false)
+		var full_gender_forest_amount_female = creature_manager.get_forest_gender(true)
+		print("Full Forest male gender: ",full_gender_forest_amount_male ,
+		" Full Forest female gender: ",full_gender_forest_amount_female )
+		var full_gender_forest_pred_amount_male = creature_manager.get_forest_pred_gender(false)
+		var full_gender_forest_pred_amount_female = creature_manager.get_forest_pred_gender(true)
+		print("Full Forest pred male gender: ",full_gender_forest_pred_amount_male ,
+		" Full Forest pred female gender: ",full_gender_forest_pred_amount_female )
+		var full_gender_forest_prey_amount_male = creature_manager.get_forest_prey_gender(false)
+		var full_gender_forest_prey_amount_female = creature_manager.get_forest_prey_gender(true)
+		print("Full Forest prey male gender: ",full_gender_forest_prey_amount_male ,
+		" Full Forest prey female gender: ",full_gender_forest_prey_amount_female )
 
 
 		# Iterate through the results and print them
@@ -201,6 +277,29 @@ func _physics_process(delta):
 			
 		var highest_sprey_scores = creature_manager.stone_prey_highest_gen_score()
 		var highest_spred_scores = creature_manager.stone_pred_highest_gen_score()
+		var highest_stone_gen_reach = creature_manager.get_stone_gen()
+		print("Higest Stone Gen Reached: ", highest_stone_gen_reach)
+
+		var total_stone_creature_count = creature_manager.get_stone_creature()
+		var total_stone_creature_prey_count = creature_manager.get_stone_prey()
+		var total_stone_creature_pred_count = creature_manager.get_stone_pred()
+		print("Total Stone Creature Amount: ",total_stone_creature_count ," Total Pred Amount: ", 
+		total_stone_creature_prey_count ," Total Prey Amount: ",total_stone_creature_pred_count)
+		
+		var full_gender_stone_amount_male = creature_manager.get_stone_gender(false)
+		var full_gender_stone_amount_female = creature_manager.get_stone_gender(true)
+		print("Full Stone male gender: ",full_gender_stone_amount_male ,
+		" Full Stone female gender: ",full_gender_stone_amount_female )
+		var full_gender_stone_pred_amount_male = creature_manager.get_stone_pred_gender(false)
+		var full_gender_stone_pred_amount_female = creature_manager.get_stone_pred_gender(true)
+		print("Full Stone pred male gender: ",full_gender_stone_pred_amount_male ,
+		" Full Stone pred female gender: ",full_gender_stone_pred_amount_female )
+		var full_gender_stone_prey_amount_male = creature_manager.get_stone_prey_gender(false)
+		var full_gender_stone_prey_amount_female = creature_manager.get_stone_prey_gender(true)
+		print("Full Stone prey male gender: ",full_gender_stone_prey_amount_male ,
+		" Full Stone prey female gender: ",full_gender_stone_prey_amount_female )
+
+
 
 
 		# Iterate through the results and print them
@@ -216,8 +315,19 @@ func _physics_process(delta):
 			var gen = result[0]
 			var highest_score = result[1]
 			print("Generation: ", gen, " Highest Score Pred: ", highest_score)
+			
+			
+			
+			
+			
 		
+		var final_creature_count = creature_manager.get_final_total_creatures()
+		print("Full creature count: ", final_creature_count)
 		
+		var full_female_creatures = creature_manager.get_creature_gender(true)
+		var full_males_creatures = creature_manager.get_creature_gender(false)
+		print("Full Female Count: ", full_female_creatures, " Full Male Count: ",full_males_creatures)
+				
 		get_tree().quit()
 
 func _on_timer_timeout():
