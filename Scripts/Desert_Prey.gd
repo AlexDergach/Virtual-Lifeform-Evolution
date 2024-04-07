@@ -72,6 +72,9 @@ var mother = null
 func _ready():
 	
 	music.play()
+	var lifespan = randi_range(60,100)
+	$Age.set_wait_time(lifespan)
+	
 	
 	creature_manager = Engine.get_singleton("CreatureManager")
 	
@@ -496,15 +499,15 @@ func _on_child_timer_timeout():
 	# Increment the selected variable by 1.0
 	match random_index:
 		0:
-			size += 1.0
+			size += 0.5
 		1:
-			inital_speed += 1.0
+			inital_speed += 0.5
 		2:
-			accel += 1.0
+			accel += 0.5
 		3:
-			inital_hunger += 1.0
+			inital_hunger += 0.5
 		4:
-			metabolism += 1.0
+			metabolism += 0.5
 	
 	self.scale = Vector3(size,size,size)
 	

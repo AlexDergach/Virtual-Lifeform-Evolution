@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlh7br1btepke"]
+
+[sub_resource type="GDScript" id="GDScript_ikf62"]
+script/source = "extends Node3D
+
+var ui_scene = load(\"res://UI/UI.tscn\")
+var ui_instance
+var creature_manager
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	ui_instance = ui_scene.instantiate()
+	add_child(ui_instance)
+	creature_manager = Engine.get_singleton(\"CreatureManager\")
+	
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	ui_instance.desert_label.text = \"Desert Population: \" + str(creature_manager.get_desert_creature()) + \"
+								Predators: \" + str(creature_manager.get_desert_pred()) + \"
+								Prey: \" + str(creature_manager.get_desert_prey()) + \"
+								Generation: \" + str(creature_manager.get_desert_gen())
+	
+	ui_instance.fire_label.text = \"Desert Population: \" + str(creature_manager.get_fire_creature()) + \"
+							Predators: \" + str(creature_manager.get_fire_pred()) + \"
+							Prey: \" + str(creature_manager.get_fire_prey()) + \"
+							Generation: \" + str(creature_manager.get_fire_gen())
+							
+	ui_instance.forest_label.text = \"Forest Population: \" + str(creature_manager.get_forest_creature()) + \"
+						Predators: \" + str(creature_manager.get_forest_pred()) + \"
+						Prey: \" + str(creature_manager.get_forest_prey()) + \"
+						Generation: \" + str(creature_manager.get_forest_gen())
+						
+	ui_instance.ice_label.text = \"Ice Population: \" + str(creature_manager.get_ice_creature()) + \"
+						Prey: \" + str(creature_manager.get_ice_prey()) + \"
+						Generation: \" + str(creature_manager.get_ice_gen())
+						
+	ui_instance.stone_label.text = \"Stone Population: \" + str(creature_manager.get_stone_creature()) + \"
+						Predators: \" + str(creature_manager.get_stone_pred()) + \"
+						Prey: \" + str(creature_manager.get_stone_prey()) + \"
+						Generation: \" + str(creature_manager.get_stone_gen())
+								
+	ui_instance.TotalPopLabel.text = \"Total Population: \" + str(creature_manager.get_total_creatures()) 
+								
+								
+	
+	if Input.is_action_pressed(\"Exit\"):
+		get_tree().change_scene_to_file(\"res://UI/Final.tscn\")
+"
+
+[node name="Node3D" type="Node3D"]
+script = SubResource("GDScript_ikf62")

@@ -53,7 +53,7 @@ transform = Transform3D(1.6109, 0, 0, 0, 1.52002, 0, 0, 0, 2.01221, 0, 0.545247,
 shape = SubResource("CapsuleShape3D_bb21d")
 
 [node name="Sensory" type="Area3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)

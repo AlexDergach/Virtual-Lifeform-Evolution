@@ -8,7 +8,7 @@ var loaded
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	creature_manager = Engine.get_singleton("CreatureManager")
 	
@@ -274,11 +274,6 @@ func save(content):
 		loaded = true
 	else:
 		loaded = false
-
-func load():
-	var file = FileAccess.open("res://Text/Data/Test.txt", FileAccess.READ)
-	var content = file.get_as_text()
-	return content
 
 func _on_quit_pressed():
 	get_tree().quit()

@@ -13,11 +13,10 @@ var grid_size = Vector2(80, 80)  # Size of the grid map
 var tile_size = Vector3(2, 1, 2)  # Size of each tile
 var map_center = grid_size / 2  # Center of the grid map
 var character_body = null
-var snow_island_spawned = false  # Track if a Ice island has been spawned
+var snow_island_spawned = false
+
 var playpos
 var test = 0
-
-
 
 @onready var audio_stream_player = $"../../Music"
 @onready var wave = $"../../Wave"
@@ -57,8 +56,6 @@ var forest_food = load("res://Scenes/Food/Forest_Food.tscn")
 var stone_food = load("res://Scenes/Food/Stone_Food.tscn")
 var fire_food = load("res://Scenes/Food/Fire_Food.tscn")
 
-
-
 var prey_scenes = [fire_prey, desert_prey, forest_prey, stone_prey,ice_prey]
 var pred_scenes = [fire_pred, desert_pred, forest_pred, stone_pred]
 var food_scenes = [fire_food, desert_food, forest_food, stone_food, ice_food]
@@ -73,7 +70,7 @@ func _ready():
 	$Timer.start()
 	
 	start_ui = Engine.get_singleton("Start")
-	
+	creature_manager = Engine.get_singleton("CreatureManager")
 	
 	wave.play()
 	wave_2.play()
@@ -103,7 +100,6 @@ func _ready():
 	else:
 		print("NavigationRegion3D node not found")
 		
-	creature_manager = Engine.get_singleton("CreatureManager")
 
 	
 	ui_instance = ui_scene.instantiate()
@@ -155,6 +151,7 @@ func _process(delta):
 	if creature_manager.get_total_creatures() == 0 and creatures_spawned or Input.is_action_pressed("Exit"):
 		get_tree().change_scene_to_file("res://UI/Final.tscn")
 		queue_free()
+		ui_instance.queue_free()
 	
 	
 func _physics_process(delta):
@@ -171,10 +168,12 @@ func generate_biomes():
 		elif Start.spawn_size == 3:
 			spawn_size = 80
 		else:
-			spawn_size = 2
+			spawn_size = 0
 	else:
 		print("No Spawn Size")
+		
 	creature_manager.original_start_size(spawn_size)
+	
 	# Initialize biome map
 	for x in range(int(grid_size.x)):
 		var column = []
@@ -185,15 +184,18 @@ func generate_biomes():
 	#Dictonary for all the biomes
 	var biome_ids = { "Desert_Cube": 2, "Lava_Cube": 7, "Forest_Cube": 20, "Ice_Cube": 12, "Stone_Cube": 18 }
 
+	var biome_keys = biome_ids.keys()
+	biome_keys.shuffle()
+	
 	# Generate clusters for each biome
-	for biome_name in biome_ids.keys():
+	for biome_name in biome_keys:
 		var biome_id = biome_ids[biome_name]
 		var num_clusters = 5
 
 		# Clustering factor based on biome type
-		var clustering_factor = 1.2
+		var clustering_factor = 1.0
 		if biome_id == 12 or biome_id == 18:  # Ice_Cube or Stone_Cube
-			clustering_factor = 0.6 # Adjust the clustering factor for these biomes to make them smaller than the rest
+			clustering_factor = 0.6 # Made smaller than the rest
 		
 		# Generate initial clusters and have at least one snow biome
 		if biome_id == 12 and !snow_island_spawned:
@@ -659,7 +661,6 @@ func _on_navigation_region_3d_bake_finished():
 	
 	spawn()
 	spawn_food()
-
 
 func _on_timer_timeout():
 	#print("spawned food")

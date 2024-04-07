@@ -82,7 +82,7 @@ func add_desert_gen(gen):
 		highest_desert_gen = gen
 	else:
 		if previous_gen < gen:
-			print("Setting gen to:", gen ," The Previous gen was: ", previous_gen)
+			#print("Setting gen to:", gen ," The Previous gen was: ", previous_gen)
 			highest_desert_gen = gen
 			previous_gen = gen
 
@@ -98,7 +98,6 @@ func desert_prey_gen_score(average, gen):
 	# If the generation is not yet added, initialize it as an empty array
 	if len(desert_prey_gen) <= gen:
 		desert_prey_gen.resize(gen + 1)
-		print("Generation added", gen)
 		desert_prey_gen[gen] = []  # Initialize the generation array
 	# Append the average score to the corresponding generation
 	desert_prey_gen[gen].append(average)

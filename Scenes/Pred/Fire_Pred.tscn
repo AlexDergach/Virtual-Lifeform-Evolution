@@ -66,10 +66,10 @@ transform = Transform3D(1.2, 0, 0, 0, 1.194, 0.11985, 0, -0.11985, 1.194, 0.1240
 shape = SubResource("CapsuleShape3D_pvry6")
 
 [node name="Sensory" type="Area3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.834667, 0, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.834667, 0, 1.56976)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sensory"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0.00271034, 0.560504)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.00271034, 0.560504)
 shape = SubResource("SphereShape3D_3whqx")
 
 [node name="Timer" type="Timer" parent="."]
