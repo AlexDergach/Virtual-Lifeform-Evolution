@@ -480,26 +480,40 @@ func create_child(size,inital_speed,accel,hunger,meta,mother_area,speed_counter,
 	child.global_position = global_position + Vector3(randi_range(-1, 1), 0, randi_range(-1, 1))
 
 func _on_child_timer_timeout():
-	#print("baby done")
-	is_child = false
-	size /= child_scale_factor
-	self.scale = Vector3(size,size,size)
 	
+	#print("baby done")
+	
+	is_child = false
+	
+	size /= child_scale_factor
 	inital_speed /= child_factor
 	accel /= child_factor
 	inital_hunger /= child_factor
 	metabolism /= child_factor
 	
+	var random_index = randi_range(0, 4)
+	
+	# Increment the selected variable by 1.0
+	match random_index:
+		0:
+			size += 1.0
+		1:
+			inital_speed += 1.0
+		2:
+			accel += 1.0
+		3:
+			inital_hunger += 1.0
+		4:
+			metabolism += 1.0
+	
+	self.scale = Vector3(size,size,size)
+	
+	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	
 	creature_manager.desert_prey_gen_score(a, self.generation)
 	
-	#print("Speed of gorwn: ", speed)
-	
-	#print("Grown Baby Average: ", a)
-	#print("self.generation: ", self.generation)
 	$Age.start()
-	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 
 func _on_repo_state_processing(delta):
 	pass # Replace with function body.

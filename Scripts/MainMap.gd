@@ -174,7 +174,7 @@ func generate_biomes():
 			spawn_size = 2
 	else:
 		print("No Spawn Size")
-
+	creature_manager.original_start_size(spawn_size)
 	# Initialize biome map
 	for x in range(int(grid_size.x)):
 		var column = []

@@ -9,6 +9,7 @@ var loaded
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	
 	creature_manager = Engine.get_singleton("CreatureManager")
 	
 
@@ -25,6 +26,10 @@ func _ready():
 	var full_female_creatures = creature_manager.get_creature_gender(true)
 	var full_males_creatures = creature_manager.get_creature_gender(false)
 	data += str("Full Female Count: ") + str(full_female_creatures) + str(" Full Male Count: ") + str(full_males_creatures) + "\n"
+	
+	var start_spawn_size = creature_manager.starting_size
+	data += "Starting Spawn Size: " + str(start_spawn_size) + "\n"
+	
 	
 	data += "\n\n================================ Desert Creatures =====================================\n\n"
 	

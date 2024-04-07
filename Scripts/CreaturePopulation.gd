@@ -12,6 +12,7 @@ var total_creatures = []
 var final_total_creatures = []
 var final_total_creatures_male = 0
 var final_total_creatures_female = 0
+var starting_size = 0
 
 # Add a creature instance to the list
 func add_creature(creature):
@@ -37,7 +38,8 @@ func get_creature_gender(choice):
 	else:
 		return final_total_creatures_male
 
-
+func original_start_size(size):
+	starting_size = size
 #============ Desert Creatures ========================
 
 

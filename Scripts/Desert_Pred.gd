@@ -398,10 +398,10 @@ func _on_repo_state_entered():
 		+ mating_partner.get_parent().accel + mating_partner.get_parent().inital_hunger
 		 + mating_partner.get_parent().metabolism ) / 5
 	
-		print("Parent Average 1 ", par1)
+		#print("Parent Average 1 ", par1)
 		#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female)
 		
-		print("Parent Average 2 ", par2)
+		#print("Parent Average 2 ", par2)
 		#print(" Size: ", mating_partner.get_parent().size , " Accel: ", mating_partner.get_parent().accel, " Speed: ",mating_partner.get_parent().inital_speed, " Hunger: ", mating_partner.get_parent().inital_hunger, " Meta: ", mating_partner.get_parent().metabolism, " Female: ", mating_partner.get_parent().is_female)
 		
 		var twins = randi_range(1, 2) == 1 
@@ -451,23 +451,39 @@ func _on_repo_state_processing(delta):
 	pass # Replace with function body.
 
 func _on_child_timer_timeout():
-	#print("baby done")
-	is_child = false
-	size /= child_scale_factor
-	self.scale = Vector3(size,size,size)
 	
+	#print("baby done")
+	
+	is_child = false
+	
+	size /= child_scale_factor
 	inital_speed /= child_factor
 	accel /= child_factor
 	inital_hunger /= child_factor
 	metabolism /= child_factor
 	
+	var random_index = randi_range(0, 4)
+	
+	# Increment the selected variable by 1.0
+	match random_index:
+		0:
+			size += 1.0
+		1:
+			inital_speed += 1.0
+		2:
+			accel += 1.0
+		3:
+			inital_hunger += 1.0
+		4:
+			metabolism += 1.0
+	
+	self.scale = Vector3(size,size,size)
+	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-	print("Grown Baby Average: ", a)	
-	$Age.start()
 	
 	creature_manager.desert_pred_gen_score(a, self.generation)
 	
-	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
+	$Age.start()
 
 func _on_looking_timeout():
 	partners = 2
