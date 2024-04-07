@@ -294,27 +294,6 @@ func get_ice_prey():
 	return len(total_ice_prey)
 
 
-
-#============== Ice Gender ================
-
-var total_ice_gender_male = 0
-var total_ice_gender_female = 0
-	
-func add_ice_gender(gender):
-	if gender == true:
-		total_ice_gender_female += 1
-		final_total_creatures_female += 1
-	else:
-		total_ice_gender_male += 1
-		final_total_creatures_male += 1
-
-func get_ice_gender(choice):
-	if choice:
-		return total_ice_gender_female
-	else:
-		return total_ice_gender_male
-
-
 #=================== Ice Prey Gen ==========================
 
 var ice_prey_gen = []

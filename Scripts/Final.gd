@@ -7,6 +7,12 @@ var data
 func _ready():
 
 	
+	data = "=================================     Data      ======================================\n\n\n\n"
+	
+	data += "================================ Desert Creatures =====================================\n\n"
+	
+	
+	
 	creature_manager = Engine.get_singleton("CreatureManager")
 		# Call the function to get the highest scores
 	var highest_dprey_scores = creature_manager.desert_prey_highest_gen_score()
@@ -16,7 +22,7 @@ func _ready():
 	var total_desert_creature_prey_count = creature_manager.get_desert_prey()
 	var total_desert_creature_pred_count = creature_manager.get_desert_pred()
 
-	data = str("Total Desert Creature Amount: ") + str(total_desert_creature_count) + str(" Total Pred Amount: ") + str(total_desert_creature_pred_count) + str(" Total Prey Amount: ") + str(total_desert_creature_prey_count) + "\n"
+	data += str("Total Desert Creature Amount: ") + str(total_desert_creature_count) + str(" Total Pred Amount: ") + str(total_desert_creature_pred_count) + str(" Total Prey Amount: ") + str(total_desert_creature_prey_count) + "\n"
 
 	var full_gender_desert_amount_male = creature_manager.get_desert_gender(false)
 	var full_gender_desert_amount_female = creature_manager.get_desert_gender(true)
@@ -36,15 +42,21 @@ func _ready():
 
 	# Iterate through the results and print them
 	for result in highest_dprey_scores:
-		var gen = str(result[0])
-		var highest_score = str(result[1])
-		data += str("Generation: ") + gen + str(" Highest Score: ") + highest_score + "\n" 
+		
+		var gen = result[0]
+		var highest_score = result[1]
+		data += str("Generation: ") + str(gen) + str(" Highest Score Prey: ") + str(highest_score) + "\n" 
 
 	# Iterate through the results and print them
 	for result in highest_dpred_scores:
-		var gen = str(result[0])
-		var highest_score = str(result[1])
-		data += str("Generation: ") + gen + str(" Highest Score Pred: ") + highest_score + "\n"
+		var gen = result[0]
+		var highest_score = result[1]
+		data += str("Generation: ") + str(gen) + str(" Highest Score Pred: ") + str(highest_score) + "\n"
+
+
+	data += "================================ Ice Creatures =====================================\n\n"
+	
+
 
 	var highest_iprey_scores = creature_manager.ice_prey_highest_gen_score()
 	var highest_ice_gen_reach = creature_manager.get_ice_gen()
@@ -53,20 +65,31 @@ func _ready():
 	var total_ice_creature_count = creature_manager.get_ice_creature()
 	data += str("Total Ice Creature Amount: ") + str(total_ice_creature_count) + "\n"
 
-	var full_gender_ice_amount_male = creature_manager.get_ice_gender(false)
-	var full_gender_ice_amount_female = creature_manager.get_ice_gender(true)
-	data += str("Full Fire male gender: ") + str(full_gender_ice_amount_male) + str(" Full Fire female gender: ") + str(full_gender_ice_amount_female) + "\n"
-
 	# Iterate through the results and print them
 	for result in highest_iprey_scores:
-		var gen = str(result[0])
-		var highest_score = str(result[1])
-		data += str("Generation: ") + gen + str(" Highest Score: ") + highest_score + "\n"
+		var gen = result[0]
+		var highest_score = result[1]
+		data += str("Generation: ") + str(gen) + str(" Highest Score: ") + str(highest_score) + "\n"
+
+	data += "================================ Fire Creatures =====================================\n\n"
+
 
 	var highest_fiprey_scores = creature_manager.fire_prey_highest_gen_score()
 	var highest_fipred_scores = creature_manager.fire_pred_highest_gen_score()
 	var highest_fire_gen_reach = creature_manager.get_fire_gen()
 	data += str("Higest Fire Gen Reached: ") + str(highest_fire_gen_reach) + "\n"
+	
+	# Iterate through the results and print them
+	for result in highest_fiprey_scores:
+		var gen = result[0]
+		var highest_score = result[1]
+		data += str("Generation: ") + str(gen) + str(" Highest Score Prey: ") + str(highest_score) + "\n"
+		
+		# Iterate through the results and print them
+	for result in highest_fipred_scores:
+		var gen = result[0]
+		var highest_score = result[1]
+		data += str("Generation: ") + str(gen) + str(" Highest Score Pred: ") + str(highest_score) + "\n"
 
 	var total_fire_creature_count = creature_manager.get_fire_creature()
 	var total_fire_creature_prey_count = creature_manager.get_fire_prey()
@@ -85,11 +108,10 @@ func _ready():
 	var full_gender_fire_prey_amount_female = creature_manager.get_fire_prey_gender(true)
 	data += str("Full Fire prey male gender: ") + str(full_gender_fire_prey_amount_male) + str(" Full Fire prey female gender: ") + str(full_gender_fire_prey_amount_female) + "\n"
 
-	# Iterate through the results and print them
-	for result in highest_fiprey_scores:
-		var gen = str(result[0])
-		var highest_score = str(result[1])
-		data += str("Generation: ") + gen + str(" Highest Score: ") + highest_score + "\n"
+
+	data += "================================ Forest Creatures =====================================\n\n"
+
+
 		
 	var highest_fprey_scores = creature_manager.forest_prey_highest_gen_score()
 	var highest_fpred_scores = creature_manager.forest_pred_highest_gen_score()
@@ -121,15 +143,18 @@ func _ready():
 
 	# Iterate through the results and print them
 	for result in highest_fprey_scores:
-		var gen = str(result[0])
-		var highest_score = str(result[1])
-		data += str("Generation: ") + gen + str(" Highest Score: ") + highest_score + "\n"
+		var gen = result[0]
+		var highest_score = result[1]
+		data += str("Generation: ") + str(gen) + str(" Highest Score: ") + str(highest_score) + "\n"
 
 	# Iterate through the results and print them
 	for result in highest_fpred_scores:
-		var gen = str(result[0])
-		var highest_score = str(result[1])
-		data += str("Generation: ") + gen + str(" Highest Score Pred: ") + highest_score + "\n"
+		var gen = result[0]
+		var highest_score = result[1]
+		data += str("Generation: ") + str(gen) + str(" Highest Score Pred: ") + str(highest_score) + "\n"
+
+	data += "================================ Stone Creatures =====================================\n\n"
+
 
 	var highest_sprey_scores = creature_manager.stone_prey_highest_gen_score()
 	var highest_spred_scores = creature_manager.stone_pred_highest_gen_score()
@@ -155,15 +180,15 @@ func _ready():
 
 	# Iterate through the results and print them
 	for result in highest_sprey_scores:
-		var gen = str(result[0])
-		var highest_score = str(result[1])
-		data += str("Generation: ") + gen + str(" Highest Score: ") + highest_score + "\n"
+		var gen = result[0]
+		var highest_score = result[1]
+		data += str("Generation: ") + str(gen) + str(" Highest Score: ") + str(highest_score) + "\n"
 
 	# Iterate through the results and print them
 	for result in highest_spred_scores:
-		var gen = str(result[0])
-		var highest_score = str(result[1])
-		data += str("Generation: ") + gen + str(" Highest Score Pred: ") + highest_score + "\n"
+		var gen = result[0]
+		var highest_score = result[1]
+		data += str("Generation: ") + str(gen) + str(" Highest Score Pred: ") + str(highest_score) + "\n"
 
 	var final_creature_count = creature_manager.get_final_total_creatures()
 	data += str("Full creature count: ") + str(final_creature_count) + "\n"
@@ -177,7 +202,7 @@ func _ready():
 
 
 func save(content):
-	print("Save:" ,content)
+	#print("Save:" ,content)
 	if FileAccess.file_exists("res://Text/Data/Data.txt"):
 		var file = FileAccess.open("res://Text/Data/NewData.txt", FileAccess.WRITE_READ)
 		file.store_string(content)

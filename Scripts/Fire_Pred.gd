@@ -118,11 +118,14 @@ func _ready():
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
 		var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
+		
+		
 		#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 		
 		$Age.start()
 		
 		creature_manager.add_fire_gen(generation)
+		creature_manager.fire_pred_gen_score(a, self.generation)
 	
 	hunger_half = inital_hunger/2
 	
@@ -161,6 +164,8 @@ func _ready():
 		var desired_color = Color(0.5, 0.5, 1.0)
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Male"
+	
+	creature_manager.add_fire_pred_gender(is_female)
 
 func _process(delta):
 	
@@ -480,6 +485,9 @@ func _on_child_timer_timeout():
 	metabolism /= child_factor
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
+	
+	creature_manager.fire_pred_gen_score(a, self.generation)
+	
 	#print("Grown Baby Average: ", a)
 	
 	$Age.start()

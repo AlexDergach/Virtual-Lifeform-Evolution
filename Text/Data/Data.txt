@@ -1,25 +1,33 @@
-Total Desert Creature Amount: 0 Total Pred Amount: 0 Total Prey Amount: 0
-Full desert male gender: 0 Full desert female gender: 0
-Full desert pred male gender: 0 Full desert pred female gender: 0
-Full desert prey male gender: 0 Full desert prey female gender: 0
-Higest Desert Gen Reached: <null>
+Total Desert Creature Amount: 15 Total Pred Amount: 7 Total Prey Amount: 8
+
+Full desert male gender: 12 Full desert female gender: 3
+Full desert pred male gender: 7 Full desert pred female gender: 0
+Full desert prey male gender: 5 Full desert prey female gender: 3
+
+Higest Desert Gen Reached: 0
+Generation: 0 Highest Score Prey: 3.87118318489603
+Generation: 0 Highest Score Pred: 3.70961308383425
+
 Higest Ice Gen Reached: <null>
 Total Ice Creature Amount: 0
+
 Full Fire male gender: 0 Full Fire female gender: 0
-Higest Fire Gen Reached: <null>
-Total Fire Creature Amount: 0 Total Pred Amount: 0 Total Prey Amount: 0
+Higest Fire Gen Reached: 1
+Total Fire Creature Amount: 18 Total Pred Amount: 8 Total Prey Amount: 10
 Full Fire male gender: 0 Full Fire female gender: 0
 Full Fire pred male gender: 0 Full Fire pred female gender: 0
 Full Fire prey male gender: 0 Full Fire prey female gender: 0
-Higest Forest Gen Reached: <null>
-Total Forest Creature Amount: 0 Total Pred Amount: 0 Total Prey Amount: 0
+
+
+Higest Forest Gen Reached: 0
+Total Forest Creature Amount: 7 Total Pred Amount: 4 Total Prey Amount: 3
 Full Forest male gender: 0 Full Forest female gender: 0
 Full Forest pred male gender: 0 Full Forest pred female gender: 0
 Full Forest prey male gender: 0 Full Forest prey female gender: 0
-Higest Stone Gen Reached: <null>
-Total Stone Creature Amount: 0 Total Pred Amount: 0 Total Prey Amount: 0
+Higest Stone Gen Reached: 0
+Total Stone Creature Amount: 1 Total Pred Amount: 1 Total Prey Amount: 0
 Full Stone male gender: 0 Full Stone female gender: 0
 Full Stone pred male gender: 0 Full Stone pred female gender: 0
 Full Stone prey male gender: 0 Full Stone prey female gender: 0
-Full creature count: 0
-Full Female Count: 0 Full Male Count: 0
+Full creature count: 41
+Full Female Count: 3 Full Male Count: 12

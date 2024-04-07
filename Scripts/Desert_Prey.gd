@@ -491,11 +491,13 @@ func _on_child_timer_timeout():
 	metabolism /= child_factor
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
-	creature_manager.desert_prey_gen_score(a, self.generation)
-	print("Speed of gorwn: ", speed)
 	
-	print("Grown Baby Average: ", a)
-	print("self.generation: ", self.generation)
+	creature_manager.desert_prey_gen_score(a, self.generation)
+	
+	#print("Speed of gorwn: ", speed)
+	
+	#print("Grown Baby Average: ", a)
+	#print("self.generation: ", self.generation)
 	$Age.start()
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 

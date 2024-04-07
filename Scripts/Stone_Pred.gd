@@ -122,6 +122,7 @@ func _ready():
 		$Age.start()
 		
 		creature_manager.add_stone_gen(generation)
+		creature_manager.stone_pred_gen_score(a, self.generation)
 	
 	hunger_half = inital_hunger/2
 	
@@ -151,6 +152,8 @@ func _ready():
 		var desired_color = Color(0.5, 0.5, 1.0)
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Male"
+		
+	creature_manager.add_stone_pred_gender(is_female)
 
 func _process(delta):
 	
@@ -469,6 +472,10 @@ func _on_child_timer_timeout():
 	metabolism /= child_factor
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
+	
+	creature_manager.stone_pred_gen_score(a, self.generation)
+	
+	
 	#print("Grown Baby Average: ", a)
 	
 	$Age.start()

@@ -117,6 +117,7 @@ func _ready():
 		#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Average: ", a)
 		
 		creature_manager.add_ice_gen(generation)
+		creature_manager.ice_prey_gen_score(a, self.generation)
 		
 		$LifeCycle.start()
 	
@@ -127,7 +128,7 @@ func _ready():
 	progress_bar2.max_value = 1
 	progress_bar2.min_value = 0
 	progress_bar3.value = progress_bar3.max_value
-
+	
 
 func _process(delta):
 	
@@ -422,6 +423,8 @@ func _on_child_timer_timeout():
 	metabolism /= child_factor
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
+	
+	creature_manager.ice_prey_gen_score(a, self.generation)
 	#print("Grown Baby Average: ", a)	
 	
 	$LifeCycle.start()

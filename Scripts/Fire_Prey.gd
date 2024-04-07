@@ -118,6 +118,7 @@ func _ready():
 		#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a)
 		
 		creature_manager.add_fire_gen(generation)
+		creature_manager.fire_prey_gen_score(a, self.generation)
 		
 		$Age.start()
 	
@@ -154,6 +155,7 @@ func _ready():
 		progress_bar3.modulate = desired_color
 		progress_bar_text3.text = "Male"
 
+	creature_manager.add_fire_prey_gender(is_female)
 
 func _process(delta):
 	
@@ -509,6 +511,8 @@ func _on_child_timer_timeout():
 	metabolism /= child_factor
 	
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
+	
+	creature_manager.fire_prey_gen_score(a, self.generation)
 	#print("Grown Baby Average: ", a)	
 	$Age.start()
 	#print(" Size: ", size , " Accel: ", accel," Speed: ",inital_speed, " Hunger: ", inital_hunger, " Meta: ", metabolism, " Female: ", is_female, " Average: ", a
