@@ -20,15 +20,17 @@ func _ready():
 	data += "================================ All Creatures =====================================\n\n"
 	
 	
+	var start_spawn_size = creature_manager.starting_size
+	data += "Starting Spawn Size: " + str(start_spawn_size) + "\n"
+	
 	var final_creature_count = creature_manager.get_final_total_creatures()
-	data += str("Full creature count: ") + str(final_creature_count) + "\n"
+	data += str("\nFull creature count: ") + str(final_creature_count) + "\n"
 
 	var full_female_creatures = creature_manager.get_creature_gender(true)
 	var full_males_creatures = creature_manager.get_creature_gender(false)
-	data += str("Full Female Count: ") + str(full_female_creatures) + str(" Full Male Count: ") + str(full_males_creatures) + "\n"
+	data += str("\nFull Female Count: ") + str(full_female_creatures) + str(" Full Male Count: ") + str(full_males_creatures) + "\n"
 	
-	var start_spawn_size = creature_manager.starting_size
-	data += "Starting Spawn Size: " + str(start_spawn_size) + "\n"
+
 	
 	
 	data += "\n\n================================ Desert Creatures =====================================\n\n"
@@ -38,9 +40,9 @@ func _ready():
 	var highest_dprey_scores = creature_manager.desert_prey_highest_gen_score()
 	var highest_dpred_scores = creature_manager.desert_pred_highest_gen_score()
 
-	var total_desert_creature_count = creature_manager.get_desert_creature()
-	var total_desert_creature_prey_count = creature_manager.get_desert_prey()
-	var total_desert_creature_pred_count = creature_manager.get_desert_pred()
+	var total_desert_creature_count = creature_manager.get_final_desert_creatures()
+	var total_desert_creature_prey_count = creature_manager.get_final_desert_prey()
+	var total_desert_creature_pred_count = creature_manager.get_final_desert_pred()
 
 	data += str("Total Desert Creature Amount: ") + str(total_desert_creature_count) + str(" Total Pred Amount: ") + str(total_desert_creature_pred_count) + str(" Total Prey Amount: ") + str(total_desert_creature_prey_count) + "\n\n"
 
@@ -76,6 +78,8 @@ func _ready():
 	var all_gen_scores_desert_pred = creature_manager.desert_pred_gen
 	var all_gen_scores_desert_prey = creature_manager.desert_prey_gen
 	
+	data += "\n"
+	
 	for gen in range(all_gen_scores_desert_prey.size()):
 		data += "Generation: "+ str(gen) + " Prey Scores: "+ str(all_gen_scores_desert_prey[gen]) + "\n"
 	for gen in range(all_gen_scores_desert_pred.size()):
@@ -85,7 +89,7 @@ func _ready():
 	data += "\n\n================================ Ice Creatures =====================================\n\n"
 
 
-	var total_ice_creature_count = creature_manager.get_ice_creature()
+	var total_ice_creature_count = creature_manager.get_final_ice_creatures()
 	data += str("Total Ice Creature Amount: ") + str(total_ice_creature_count) + "\n\n"
 	
 	var highest_iprey_scores = creature_manager.ice_prey_highest_gen_score()
@@ -100,15 +104,17 @@ func _ready():
 		
 	var all_gen_scores_ice_prey = creature_manager.ice_prey_gen
 	
+	data += "\n"
+	
 	for gen in range(all_gen_scores_ice_prey.size()):
 		data += "Generation: "+ str(gen) + " Scores: "+ str(all_gen_scores_ice_prey[gen]) + "\n"
 
 	data += "\n\n================================ Fire Creatures =====================================\n\n"
 
 
-	var total_fire_creature_count = creature_manager.get_fire_creature()
-	var total_fire_creature_prey_count = creature_manager.get_fire_prey()
-	var total_fire_creature_pred_count = creature_manager.get_fire_pred()
+	var total_fire_creature_count = creature_manager.get_final_fire_creatures()
+	var total_fire_creature_prey_count = creature_manager.get_final_fire_prey()
+	var total_fire_creature_pred_count = creature_manager.get_final_fire_pred()
 	data += str("Total Fire Creature Amount: ") + str(total_fire_creature_count) + str(" Total Prey Amount: ") + str(total_fire_creature_prey_count) + str(" Total Pred Amount: ") + str(total_fire_creature_pred_count) + "\n\n"
 
 	var full_gender_fire_amount_male = creature_manager.get_fire_gender(false)
@@ -143,6 +149,8 @@ func _ready():
 	var all_gen_scores_fire_pred = creature_manager.fire_pred_gen
 	var all_gen_scores_fire_prey = creature_manager.fire_prey_gen
 	
+	data += "\n"
+	
 	for gen in range(all_gen_scores_fire_prey.size()):
 		data += "Generation: "+ str(gen) + " Prey Scores: "+ str(all_gen_scores_fire_prey[gen]) + "\n"
 	for gen in range(all_gen_scores_fire_pred.size()):
@@ -151,9 +159,9 @@ func _ready():
 	data += "\n\n================================ Forest Creatures =====================================\n\n"
 
 
-	var total_forest_creature_count = creature_manager.get_forest_creature()
-	var total_forest_creature_prey_count = creature_manager.get_forest_prey()
-	var total_forest_creature_pred_count = creature_manager.get_forest_pred()
+	var total_forest_creature_count = creature_manager.get_final_forest_creatures()
+	var total_forest_creature_prey_count = creature_manager.get_final_forest_prey()
+	var total_forest_creature_pred_count = creature_manager.get_final_forest_pred()
 	data += str("\nTotal Forest Creature Amount: ") + str(total_forest_creature_count) + str(" Total Prey Amount: ") + str(total_forest_creature_prey_count) + str(" Total Pred Amount: ") + str(total_forest_creature_pred_count) + "\n"
 
 	var full_gender_forest_amount_male = creature_manager.get_forest_gender(false)
@@ -190,6 +198,8 @@ func _ready():
 	var all_gen_scores_forst_pred = creature_manager.forest_pred_gen
 	var all_gen_scores_forest_prey = creature_manager.forest_prey_gen
 	
+	data += "\n"	
+	
 	for gen in range(all_gen_scores_forest_prey.size()):
 		data += "Generation: "+ str(gen) + " Prey Scores: "+ str(all_gen_scores_forest_prey[gen]) + "\n"
 	for gen in range(all_gen_scores_forst_pred.size()):
@@ -201,9 +211,9 @@ func _ready():
 
 
 
-	var total_stone_creature_count = creature_manager.get_stone_creature()
-	var total_stone_creature_prey_count = creature_manager.get_stone_prey()
-	var total_stone_creature_pred_count = creature_manager.get_stone_pred()
+	var total_stone_creature_count = creature_manager.get_final_stone_creatures()
+	var total_stone_creature_prey_count = creature_manager.get_final_stone_prey()
+	var total_stone_creature_pred_count = creature_manager.get_final_stone_pred()
 	data += str("\nTotal Stone Creature Amount: ") + str(total_stone_creature_count) + str(" Total Prey Amount: ") + str(total_stone_creature_prey_count) + str(" Total Pred Amount: ") + str(total_stone_creature_pred_count) + "\n"
 
 	var full_gender_stone_amount_male = creature_manager.get_stone_gender(false)
@@ -237,6 +247,8 @@ func _ready():
 		
 	var all_gen_scores_stone_pred = creature_manager.stone_pred_gen
 	var all_gen_scores_stone_prey = creature_manager.stone_prey_gen
+	
+	data += "\n"
 	
 	for gen in range(all_gen_scores_stone_prey.size()):
 		data += "Generation: "+ str(gen) + " Prey Scores: "+ str(all_gen_scores_stone_prey[gen]) + "\n"

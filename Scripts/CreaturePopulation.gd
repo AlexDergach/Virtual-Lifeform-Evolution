@@ -247,16 +247,19 @@ func desert_pred_highest_gen_score():
 
 
 var total_ice_creatures = []
+var total_final_ice_creatures = []
 var highest_ice_gen
 var starting_ice_gen
 var previous_ice_gen
 var total_ice_prey = []
 
-
+func get_final_ice_creatures():
+	return len(total_final_ice_creatures)
 	
 # Add a creature instance to the list
 func add_ice_creature(creature):
 	total_ice_creatures.append(creature)
+	total_final_ice_creatures.append(creature)
 
 # Remove a creature instance from the list
 func remove_ice_creature(creature):
@@ -336,11 +339,25 @@ var starting_forest_gen
 var previous_forest_gen
 var total_forest_prey = []
 var total_forest_pred = []
+var total_final_forest_pred = []
+var total_final_forest_prey = []
+var total_final_forest_creatures = []
+
+func get_final_forest_creatures():
+	return len(total_final_forest_creatures)
+
+func get_final_forest_prey():
+	return len(total_final_forest_prey)
+	
+func get_final_forest_pred():
+	return len(total_final_forest_pred)
+
 
 
 # Add a creature instance to the list
 func add_forest_creature(creature):
 	total_forest_creatures.append(creature)
+	total_final_forest_creatures.append(creature)
 
 # Remove a creature instance from the list
 func remove_forest_creature(creature):
@@ -369,6 +386,7 @@ func get_forest_gen():
 # Add a creature instance to the list
 func add_forest_prey(creature):
 	total_forest_prey.append(creature)
+	total_final_forest_prey.append(creature)
 
 # Remove a creature instance from the list
 func remove_forest_prey(creature):
@@ -384,6 +402,7 @@ func get_forest_prey():
 # Add a creature instance to the list
 func add_forest_pred(creature):
 	total_forest_pred.append(creature)
+	total_final_forest_pred.append(creature)
 
 # Remove a creature instance from the list
 func remove_forest_pred(creature):
@@ -517,10 +536,24 @@ var previous_fire_gen
 var total_fire_prey = []
 var total_fire_pred = []
 
+var total_final_fire_pred = []
+var total_final_fire_prey = []
+var total_final_fire_creatures = []
+
+func get_final_fire_creatures():
+	return len(total_final_fire_creatures)
+
+func get_final_fire_prey():
+	return len(total_final_fire_prey)
+	
+func get_final_fire_pred():
+	return len(total_final_fire_pred)
+
 
 # Add a creature instance to the list
 func add_fire_creature(creature):
 	total_fire_creatures.append(creature)
+	total_final_fire_creatures.append(creature)
 
 # Remove a creature instance from the list
 func remove_fire_creature(creature):
@@ -550,6 +583,8 @@ func get_fire_gen():
 # Add a creature instance to the list
 func add_fire_prey(creature):
 	total_fire_prey.append(creature)
+	total_final_fire_prey.append(creature)
+	
 
 # Remove a creature instance from the list
 func remove_fire_prey(creature):
@@ -565,6 +600,7 @@ func get_fire_prey():
 # Add a creature instance to the list
 func add_fire_pred(creature):
 	total_fire_pred.append(creature)
+	total_final_fire_pred.append(creature)
 
 # Remove a creature instance from the list
 func remove_fire_pred(creature):
@@ -703,9 +739,24 @@ var total_stone_prey = []
 var total_stone_pred = []
 
 
+var total_final_stone_pred = []
+var total_final_stone_prey = []
+var total_final_stone_creatures = []
+
+func get_final_stone_creatures():
+	return len(total_final_stone_creatures)
+
+func get_final_stone_prey():
+	return len(total_final_stone_prey)
+	
+func get_final_stone_pred():
+	return len(total_final_stone_pred)
+
+
 # Add a creature instance to the list
 func add_stone_creature(creature):
 	total_stone_creatures.append(creature)
+	total_final_stone_creatures.append(creature)
 
 # Remove a creature instance from the list
 func remove_stone_creature(creature):
@@ -718,7 +769,6 @@ func get_stone_creature():
 
 func add_stone_gen(gen):
 	
-
 	if gen == 0:
 		starting_stone_gen = gen
 		previous_stone_gen = starting_stone_gen
@@ -734,6 +784,7 @@ func get_stone_gen():
 # Add a creature instance to the list
 func add_stone_prey(creature):
 	total_stone_prey.append(creature)
+	total_final_stone_prey.append(creature)
 
 # Remove a creature instance from the list
 func remove_stone_prey(creature):
@@ -749,6 +800,8 @@ func get_stone_prey():
 # Add a creature instance to the list
 func add_stone_pred(creature):
 	total_stone_pred.append(creature)
+	total_final_stone_pred.append(creature)
+	
 
 # Remove a creature instance from the list
 func remove_stone_pred(creature):

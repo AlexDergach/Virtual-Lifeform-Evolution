@@ -224,7 +224,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Timer" type="Timer" parent="NavigationRegion3D/GridMap"]
 process_callback = 0
-wait_time = 40.0
+wait_time = 20.0
 one_shot = true
 
 [node name="Time" type="Timer" parent="NavigationRegion3D/GridMap"]

@@ -117,7 +117,7 @@ func _ready():
 		accel = randf_range(3.0, 5.0)
 		speed = randf_range(1.0, 3.0)
 		inital_speed = speed
-		hunger = randf_range(6.0, 12.0)
+		hunger = randi_range(6, 12)
 		inital_hunger = hunger
 		metabolism = size / 2
 		is_female = randf() < 1.0 / 3.0   # Randomly assign true (female) or false (male)
@@ -214,21 +214,22 @@ func _physics_process(delta):
 	
 	if is_child and mother != null:
 		nav.target_position = mother.global_position
-	
-	# Calculate the direction to the target
-	var target_direction = nav.target_position - global_position
-	target_direction.y = 0  # Ignore vertical component for 2D rotation
-	
-	# Calculate the angle between the forward vector and the target direction
-	var target_rotation = atan2(target_direction.x, target_direction.z)
-	
-	# Adjust rotation speed based on proximity to target rotation
-	var rotation_speed_adjusted = rotation_speed * 0.5
-	if abs(rotation.y - target_rotation) < 0.1:
-		rotation_speed_adjusted *= 0.5
-	
-	# Smoothly rotate towards the target rotation
-	rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
+		
+	if nav.target_position != global_position:
+		# Calculate the direction to the target
+		var target_direction = nav.target_position - global_position
+		target_direction.y = 0  # Ignore vertical component for 2D rotation
+		
+		# Calculate the angle between the forward vector and the target direction
+		var target_rotation = atan2(target_direction.x, target_direction.z)
+		
+		# Adjust rotation speed based on proximity to target rotation
+		var rotation_speed_adjusted = rotation_speed * 0.5
+		if abs(rotation.y - target_rotation) < 0.1:
+			rotation_speed_adjusted *= 0.5
+		
+		# Smoothly rotate towards the target rotation
+		rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
 		
 	time = delta
 	
@@ -407,16 +408,12 @@ func _on_wandering_state_processing(delta):
 		else: 
 			if food_target == false:
 				# Continue wandering
-				if time_since_last_target_update >= TARGET_UPDATE_INTERVAL:
+				if time_since_last_target_update >= TARGET_UPDATE_INTERVAL or global_position == target_pos:
 					
 					var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
 					target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
 					nav.target_position = target_pos
 					time_since_last_target_update = 0.0
-					
-				# Check if the creature has reached its target position
-				if global_position.distance_to(nav.target_position) < 1.0: 
-					time_since_last_target_update = 20.0  # Reset the timer to find a new target position
 
 func _on_repo_state_entered():
 	
@@ -517,7 +514,7 @@ func _on_child_timer_timeout():
 	# Increment the selected variable by 1.0
 	match random_index:
 		0:
-			size += 0.5
+			size += 0.25
 		1:
 			inital_speed += 0.5
 		2:
