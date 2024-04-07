@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
-#@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
-@onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D")
+@onready var navigation_region: NavigationRegion3D = get_node("/root/MainMap/NavigationRegion3D")
+#@onready var navigation_region: NavigationRegion3D = get_node("/root/Terrian/NavigationRegion3D")
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 @onready var music = $AudioStreamPlayer3D

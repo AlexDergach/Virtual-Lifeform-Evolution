@@ -154,6 +154,7 @@ func _process(delta):
 								
 	if creature_manager.get_total_creatures() == 0 and creatures_spawned or Input.is_action_pressed("Exit"):
 		get_tree().change_scene_to_file("res://UI/Final.tscn")
+		queue_free()
 	
 	
 func _physics_process(delta):

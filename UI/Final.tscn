@@ -104,10 +104,10 @@ label_settings = SubResource("LabelSettings_4sey6")
 
 [node name="Panel7" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 215.0
-offset_top = 214.0
-offset_right = 255.0
-offset_bottom = 254.0
+offset_left = 213.0
+offset_top = 262.0
+offset_right = 253.0
+offset_bottom = 302.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_idl4b")
 
 [node name="Panel9" type="Panel" parent="."]
@@ -139,10 +139,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -293.0
-offset_top = -120.0
-offset_right = 171.0
-offset_bottom = -62.0
+offset_left = -279.0
+offset_top = -68.0
+offset_right = 185.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "
