@@ -1,0 +1,25 @@
+Total Desert Creature Amount: 0 Total Pred Amount: 0 Total Prey Amount: 0
+Full desert male gender: 0 Full desert female gender: 0
+Full desert pred male gender: 0 Full desert pred female gender: 0
+Full desert prey male gender: 0 Full desert prey female gender: 0
+Higest Desert Gen Reached: <null>
+Higest Ice Gen Reached: <null>
+Total Ice Creature Amount: 0
+Full Fire male gender: 0 Full Fire female gender: 0
+Higest Fire Gen Reached: <null>
+Total Fire Creature Amount: 0 Total Pred Amount: 0 Total Prey Amount: 0
+Full Fire male gender: 0 Full Fire female gender: 0
+Full Fire pred male gender: 0 Full Fire pred female gender: 0
+Full Fire prey male gender: 0 Full Fire prey female gender: 0
+Higest Forest Gen Reached: <null>
+Total Forest Creature Amount: 0 Total Pred Amount: 0 Total Prey Amount: 0
+Full Forest male gender: 0 Full Forest female gender: 0
+Full Forest pred male gender: 0 Full Forest pred female gender: 0
+Full Forest prey male gender: 0 Full Forest prey female gender: 0
+Higest Stone Gen Reached: <null>
+Total Stone Creature Amount: 0 Total Pred Amount: 0 Total Prey Amount: 0
+Full Stone male gender: 0 Full Stone female gender: 0
+Full Stone pred male gender: 0 Full Stone pred female gender: 0
+Full Stone prey male gender: 0 Full Stone prey female gender: 0
+Full creature count: 0
+Full Female Count: 0 Full Male Count: 0

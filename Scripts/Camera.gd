@@ -114,8 +114,6 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(delta):
-	#ocean.position.x = self.position.x
-	#ocean.position.z = self.position.z
-	if Input.is_action_pressed("Exit"):
-		get_tree().quit()
+	ocean.position.x = self.position.x
+	ocean.position.z = self.position.z
 
