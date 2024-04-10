@@ -398,3 +398,25 @@ grow_vertical = 2
 label_settings = SubResource("LabelSettings_blje2")
 horizontal_alignment = 1
 text_overrun_behavior = 1
+
+[node name="Cords" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -246.0
+offset_right = 246.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Cords"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.5
+offset_right = 130.5
+offset_bottom = 26.0
+grow_horizontal = 2
+horizontal_alignment = 1
+vertical_alignment = 1

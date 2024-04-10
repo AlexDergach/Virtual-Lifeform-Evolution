@@ -9,10 +9,14 @@ var time = 0.0
 
 var creatures_spawned = false
 
-var grid_size = Vector2(80, 80)  # Size of the grid map
-var tile_size = Vector3(2, 1, 2)  # Size of each tile
-var map_center = grid_size / 2  # Center of the grid map
+var grid_size 
+var tile_size 
+var map_center 
+var map_size
+
 var character_body = null
+var cords
+
 var snow_island_spawned = false
 
 var playpos
@@ -35,6 +39,7 @@ var test = 0
 @onready var wave_14 = $"../../Wave14"
 @onready var wave_15 = $"../../Wave15"
 @onready var wave_16 = $"../../Wave16"
+
 
 
 var desert_prey = load("res://Scenes/Prey/Desert_Prey.tscn")
@@ -67,6 +72,8 @@ var spawn_size = 0
 
 func _ready():
 	
+	cords = get_node("../../Camera")
+	
 	$Timer.start()
 	
 	start_ui = Engine.get_singleton("Start")
@@ -88,25 +95,54 @@ func _ready():
 	wave_14.play()
 	wave_15.play()
 	wave_16.play()
+	# Load waves dynamically based on map size
 	
+	if Start.map_size == 0:
+		map_size = 0
+	elif Start.map_size == 1:
+		map_size = 80
+	elif Start.map_size == 2:
+		map_size = 100
+	elif Start.map_size == 3:
+		map_size = 120
+		
 	
 	generate_biomes()
 	spawn_character()
-	
-
 	
 	if nav_region:
 		nav_region.bake_navigation_mesh()
 	else:
 		print("NavigationRegion3D node not found")
 		
-
-	
 	ui_instance = ui_scene.instantiate()
 	add_child(ui_instance)
 	
+	load_waves_at_edges()
 	
 	set_process(true)
+
+func load_waves_at_edges():
+	var wave_instances = [wave, wave_2, wave_3, wave_4, wave_5, wave_6, wave_7, wave_8, wave_9, wave_10, wave_11, wave_12, wave_13, wave_14, wave_15, wave_16]
+	
+	# Define the positions of waves on each edge
+	var edges = [
+		Vector2(0, map_size * 2),
+		Vector2(0, map_size),
+		Vector2(0, 0),
+		Vector2(map_size, 0),
+		Vector2(map_size*2, 0),
+		Vector2(map_size*2, map_size),
+		Vector2(map_size * 2, map_size * 2),
+		Vector2(map_size, map_size*2)
+		
+	]
+	
+	for edge_pos in edges:
+		var wave_index = randi() % wave_instances.size()  # Randomly select a wave instance
+		var wave_instance = wave_instances[wave_index]
+		
+		wave_instance.transform.origin = Vector3(edge_pos.x, 0, edge_pos.y)
 
 
 func _process(delta):
@@ -148,6 +184,8 @@ func _process(delta):
 
 	ui_instance.time_label.text = str(time)
 	
+	ui_instance.cords_label.text = str(cords.global_position)
+	
 								
 	if creature_manager.get_total_creatures() == 0 and creatures_spawned or Input.is_action_pressed("Exit"):
 		get_tree().change_scene_to_file("res://UI/Final.tscn")
@@ -158,8 +196,15 @@ func _process(delta):
 	
 func _physics_process(delta):
 	pass
+	
 
 func generate_biomes():
+	
+	
+	grid_size = Vector2(map_size, map_size)  # Size of the grid map
+	tile_size = Vector3(2, 1, 2)  # Size of each tile
+	map_center = grid_size / 2  # Center of the grid map
+	
 	var biome_map = []
 
 	if 	Start.spawn_size != null:

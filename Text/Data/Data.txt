@@ -1,0 +1,100 @@
+======================================================================================
+=================================     Data      ======================================
+======================================================================================
+
+
+
+================================ All Creatures =====================================
+
+Time Taken to completion: 0.88333333333334
+
+Starting Spawn Size: 40
+
+Full creature count: 57
+
+Full Female Count: 21 Full Male Count: 36
+
+
+================================ Desert Creatures =====================================
+
+Total Desert Creature Amount: 42 Total Pred Amount: 19 Total Prey Amount: 23
+
+Full desert male gender: 27 Full desert female gender: 15
+Full desert pred male gender: 15 Full desert pred female gender: 4
+Full desert prey male gender: 12 Full desert prey female gender: 11
+
+Higest Desert Gen Reached: 2
+Generation: 0 Highest Score Prey: 3.91081990784465
+Generation: 1 Highest Score Prey: 3.73763385498154
+Generation: 2 Highest Score Prey: 3.83763385498154
+Generation: 0 Highest Score Pred: 3.66779915701961
+Generation: 1 Highest Score Pred: 3.84593806176853
+
+Generation: 0 Prey Scores: [3.91081990784465, 2.72270116371709, 3.41034284633863, 2.65536486371949, 2.75569562622967, 3.766044794816, 2.60779102229419, 2.6759864074064, 3.70347158498376, 3.3106117643526, 2.66235583460515, 3.3533456815995, 3.52424000914571, 3.71044488588338]
+Generation: 1 Prey Scores: [3.73763385498154, 3.73763385498154, 3.56909515692036, 3.56909515692036, 3.05569562622967]
+Generation: 2 Prey Scores: [3.83763385498154, 3.78763385498154]
+Generation: 0 Pred Scores: [3.17234841581094, 3.21745551013623, 3.06741013448326, 3.60058699151253, 3.00766979123671, 2.52276021066216, 3.23689052091286, 3.66779915701961, 3.35945960810756, 2.85661338483486, 2.96494520665565, 3.0858365637058]
+Generation: 1 Pred Scores: [3.74593806176853, 3.74593806176853, 3.74593806176853, 3.84593806176853, 3.84593806176853]
+
+
+================================ Ice Creatures =====================================
+
+Total Ice Creature Amount: 0
+
+
+Higest Ice Gen Reached: 0
+
+
+
+================================ Fire Creatures =====================================
+
+Total Fire Creature Amount: 10 Total Prey Amount: 3 Total Pred Amount: 7
+
+Full Fire male gender: 6 Full Fire female gender: 4
+Full Fire pred male gender: 4 Full Fire pred female gender: 3
+Full Fire prey male gender: 2 Full Fire prey female gender: 1
+
+Higest Fire Gen Reached: 0
+Generation: 0 Highest Score Prey: 3.36643636855141
+Generation: 0 Highest Score Pred: 3.44963773677953
+
+Generation: 0 Prey Scores: [2.61544016129462, 3.36643636855141, 3.25152213080001]
+Generation: 0 Pred Scores: [2.71477015045333, 3.3542877859105, 3.44963773677953, 2.94025630623598, 3.25278112226476, 2.62620851113784]
+
+
+================================ Forest Creatures =====================================
+
+
+Total Forest Creature Amount: 3 Total Prey Amount: 2 Total Pred Amount: 1
+Full Forest male gender: 3 Full Forest female gender: 0
+Full Forest pred male gender: 1 Full Forest pred female gender: 0
+Full Forest prey male gender: 2 Full Forest prey female gender: 0
+
+Higest Forest Gen Reached: 0
+Generation: 0 Highest Score Prey: 3.77764157931761
+Generation: 0 Highest Score Pred: 3.55774379489632
+
+Generation: 0 Prey Scores: [3.68679126828416, 3.77764157931761]
+Generation: 0 Pred Scores: [3.55774379489632]
+
+
+================================ Stone Creatures =====================================
+
+
+Total Stone Creature Amount: 2 Total Prey Amount: 1 Total Pred Amount: 1
+Full Stone male gender: 0 Full Stone female gender: 2
+Full Stone pred male gender: 0 Full Stone pred female gender: 1
+Full Stone prey male gender: 0 Full Stone prey female gender: 1
+
+Higest Stone Gen Reached: 0
+Generation: 0 Highest Score Prey: 3.73101370667161
+Generation: 0 Highest Score Pred: 3.4505580089964
+
+Generation: 0 Prey Scores: [3.73101370667161]
+Generation: 0 Pred Scores: [3.4505580089964]
+
+
+
+======================================================================================
+=================================     End      ======================================
+======================================================================================

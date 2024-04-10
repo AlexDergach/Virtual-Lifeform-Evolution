@@ -59,18 +59,18 @@ script = ExtResource("1_c12uk")
 
 [node name="Panel6" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 628.0
-offset_top = 261.0
-offset_right = 668.0
-offset_bottom = 301.0
+offset_left = 629.0
+offset_top = 258.0
+offset_right = 669.0
+offset_bottom = 298.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_14tqg")
 
 [node name="Panel5" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 625.0
-offset_top = 159.0
-offset_right = 665.0
-offset_bottom = 199.0
+offset_left = 629.0
+offset_top = 143.0
+offset_right = 669.0
+offset_bottom = 183.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_14tqg")
 
 [node name="Panel4" type="Panel" parent="."]
@@ -161,10 +161,10 @@ text = " Start Simulation "
 
 [node name="Panel7" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 628.0
-offset_top = 368.0
-offset_right = 668.0
-offset_bottom = 408.0
+offset_left = 629.0
+offset_top = 372.0
+offset_right = 669.0
+offset_bottom = 412.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_14tqg")
 
 [node name="Panel8" type="Panel" parent="."]
@@ -174,29 +174,6 @@ offset_top = 253.0
 offset_right = 1081.0
 offset_bottom = 346.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ntxyo")
-
-[node name="Panel9" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 689.0
-offset_top = 367.0
-offset_right = 1082.0
-offset_bottom = 460.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ntxyo")
-
-[node name="Quit" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
-process_priority = 1
-process_physics_priority = 1
-z_index = 1
-layout_mode = 0
-offset_left = 699.0
-offset_top = 372.0
-offset_right = 1077.0
-offset_bottom = 443.0
-shortcut_context = NodePath("..")
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 45
-theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
-text = "Quit"
 
 [node name="OptionButton" type="OptionButton" parent="."]
 process_priority = 1
@@ -222,6 +199,67 @@ popup/item_2/id = 2
 popup/item_3/text = "80"
 popup/item_3/id = 3
 
+[node name="Panel9" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 488.0
+offset_right = 1081.0
+offset_bottom = 581.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ntxyo")
+
+[node name="Quit" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
+process_priority = 1
+process_physics_priority = 1
+z_index = 1
+layout_mode = 0
+offset_left = 698.0
+offset_top = 493.0
+offset_right = 1076.0
+offset_bottom = 564.0
+shortcut_context = NodePath("..")
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
+text = "Quit"
+
+[node name="Panel10" type="Panel" parent="."]
+offset_left = 689.0
+offset_top = 367.0
+offset_right = 1082.0
+offset_bottom = 460.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ntxyo")
+
+[node name="OptionButton2" type="OptionButton" parent="."]
+process_priority = 1
+process_physics_priority = 1
+offset_left = 699.0
+offset_top = 372.0
+offset_right = 1077.0
+offset_bottom = 443.0
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
+alignment = 1
+item_count = 4
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Map Size"
+popup/item_0/id = 0
+popup/item_1/text = "80x80"
+popup/item_1/id = 1
+popup/item_2/text = "100x100"
+popup/item_2/id = 2
+popup/item_3/text = "120x120"
+popup/item_3/id = 3
+
+[node name="Panel11" type="Panel" parent="."]
+offset_left = 629.0
+offset_top = 493.0
+offset_right = 669.0
+offset_bottom = 533.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_14tqg")
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_options_item_selected"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="item_selected" from="OptionButton2" to="." method="_on_option_button_2_item_selected"]

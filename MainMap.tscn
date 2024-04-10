@@ -243,91 +243,91 @@ max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave2" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.839, 0.167877, 143.909)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave3" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33562, 4.77198, -8.69823)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave4" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.567, 0.1586, -9.77951)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave5" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.6903, 0.1586, -13.8359)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave6" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.567, 0.1586, 65.0727)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave7" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.4086, 0.1586, 145.943)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave8" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15958, 0.1586, 62.6954)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave9" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 99.549)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave10" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 32.4465)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave11" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.2873, 2.19129, 148.208)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave12" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 114.284, 2.19129, 145.014)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave13" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.021, 2.19129, -11.7381)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave14" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.6114, 2.19129, -11.4356)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave15" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.786, 2.19129, 103.086)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"
 
 [node name="Wave16" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.567, 0.1586, 29.9628)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19129, 148.176)
 stream = ExtResource("7_7rkwp")
 max_distance = 30.0
 bus = &"Waves"

@@ -1,0 +1,27 @@
+Total Creature Amount,Total Female Count,Total Male Count,Starting Spawn Size,Time Taken
+57,21,36,40,0.88333333333334
+
+Species,Total Species Amount,Predator Count,Prey Count,Female Count,Male Count,Higest Generation Reached,Gen 0,Gen 1,Gen 2,
+Desert,42,19,23,15,27,2
+Higest Generational Scores
+Prey, , , , , , ,3.91081990784465,3.73763385498154,3.83763385498154,
+Predators, , , , , , ,3.66779915701961,3.84593806176853,
+
+Ice,0, , , , ,0
+Higest Generational Scores, , , , , , ,
+
+Fire,10,7,3,4,6,0
+Higest Generational Scores
+Prey, , , , , , ,3.36643636855141,
+Predators, , , , , , ,3.44963773677953,
+
+Forest,3,1,2,0,3,0
+Higest Generational Scores
+Prey, , , , , , ,3.77764157931761,
+Predators, , , , , , ,3.55774379489632,
+
+Stone,2,1,1,2,0,0
+Higest Generational Scores
+Prey, , , , , , ,3.73101370667161,
+Predators, , , , , , ,3.4505580089964,
+

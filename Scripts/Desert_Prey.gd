@@ -295,7 +295,6 @@ func _on_sensory_area_entered(area):
 	if area.is_in_group("desert_pred") and !is_child:
 		enemy = area
 		$StateChart.send_event("enemy_entered")
-		time_since_last_target_update = randf_range(1.0, 10.0)  # Start running immediately
 		
 	if is_female and !is_child and reproduction == 1:
 		if area.is_in_group("desert_prey") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:

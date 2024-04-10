@@ -7,6 +7,7 @@ extends Control
 @onready var ice_label = $"PopPanel/Ice/Label"
 @onready var time_label = $"Panel/Time"
 
+@onready var cords_label = $Cords/Label
 
 @onready var TotalPopLabel = $"TotalPop/Label"
 
@@ -15,6 +16,7 @@ extends Control
 @onready var PopPanel = $PopPanel
 @onready var TotalPop = $TotalPop
 @onready var Controls = $Controls
+@onready var Cords = $Cords
 
 var toggel = 1
 
@@ -30,6 +32,7 @@ func _process(delta):
 			TotalPop.visible = false
 			Controls.visible = false
 			time.visible = false
+			Cords.visible = false
 			toggel = 0
 	else:
 		if Input.is_action_just_pressed("Vis"):
@@ -37,4 +40,5 @@ func _process(delta):
 			TotalPop.visible = true
 			Controls.visible = true
 			time.visible = true
+			Cords.visible = true			
 			toggel = 1			
