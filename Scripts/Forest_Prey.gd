@@ -21,6 +21,8 @@ extends CharacterBody3D
 
 var generation = 0
 
+var move = true
+
 var TARGET_UPDATE_INTERVAL = randf_range(4.0, 10.0)
 
 var roam_size = 20.0
@@ -198,7 +200,7 @@ func _process(delta):
 		queue_free()
 		creature_manager.remove_creature(self)
 		creature_manager.remove_forest_creature(self)
-		creature_manager.remove_forst_prey(self)
+		creature_manager.remove_forest_prey(self)
 	
 	if progress_bar.value > 0:
 		progress_bar.value = hunger
@@ -222,7 +224,6 @@ func _physics_process(delta):
 		nav.target_position = mother.global_position
 	
 	if nav.target_position != global_position:
-	
 		# Calculate the direction to the target
 		var target_direction = nav.target_position - global_position
 		target_direction.y = 0  # Ignore vertical component for 2D rotation
@@ -237,10 +238,26 @@ func _physics_process(delta):
 		
 		# Smoothly rotate towards the target rotation
 		rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
+	else:
+		rotation = Vector3(0,rotation.y,0)
 		
-	time = delta
+	time_since_last_target_update += delta
 	
 	calculate_movement(delta)
+	
+	if velocity == Vector3.ZERO:
+		move = true
+		# Check if the target is 1 unit away from the target position
+	
+	if time_since_last_target_update >= TARGET_UPDATE_INTERVAL:
+		move = true
+		time_since_last_target_update = 0.0
+	
+	if nav.target_position != Vector3.ZERO:
+		var distance_to_target = global_position.distance_to(nav.target_position)
+		if distance_to_target <= 1.0:
+			move = true
+			velocity = Vector3.ZERO
 
 func calculate_movement(delta):
 
@@ -413,14 +430,12 @@ func _on_wandering_state_processing(delta):
 					$StateChart.send_event("repo_done")
 					#print("Has Died")
 		else: 
-			if food_target == false:
-				# Continue wandering
-				if time_since_last_target_update >= TARGET_UPDATE_INTERVAL or global_position == target_pos:
+			if food_target == false and move == true:
 					
-					var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
-					target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
-					nav.target_position = target_pos
-					time_since_last_target_update = 0.0
+				var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
+				target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
+				nav.target_position = target_pos
+				move = false
 					
 func _on_repo_state_entered():
 	
@@ -481,7 +496,6 @@ func create_child(size,initial_speed,accel,hunger,meta,mother_area,speed_counter
 	child.is_child = true  # Mark the child as a child
 	child.generation = child_generation
 	
-	creature_manager.add_forest_gen(child_generation)
 	
 	
 	get_parent().add_child(child)
@@ -554,5 +568,7 @@ func _on_child_timer_timeout():
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	
 	creature_manager.forest_prey_gen_score(a, self.generation)
+	creature_manager.add_forest_gen(self.generation)
+	
 	
 	$Age.start()

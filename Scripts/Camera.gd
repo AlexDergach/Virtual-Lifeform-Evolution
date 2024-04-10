@@ -48,10 +48,6 @@ func _unhandled_input(event):
 
 func _physics_process(delta):
 	
-	if Input.is_action_pressed("Sprint"):
-		print(self.position)
-	
-	
 	var target_fov: float
 
 	if sprinting:
@@ -114,6 +110,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(delta):
-	ocean.position.x = self.position.x
-	ocean.position.z = self.position.z
+	pass
+	#ocean.position.x = self.position.x
+	#ocean.position.z = self.position.z
 

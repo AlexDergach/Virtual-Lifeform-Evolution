@@ -30,6 +30,8 @@ var time:float = 0.0
 
 var polygon_vertices
 
+var move = true
+
 var metabolism
 var size
 var hunger
@@ -128,7 +130,7 @@ func _ready():
 		
 		$Age.start()
 	
-	hunger_half = hunger/2
+	hunger_half = floor(inital_hunger/2)
 	
 	progress_bar.max_value = hunger
 	progress_bar.min_value = 0
@@ -233,13 +235,29 @@ func _physics_process(delta):
 		
 		# Smoothly rotate towards the target rotation
 		rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
+	else:
+		rotation = Vector3(0,rotation.y,0)
 		
-	time = delta
+	time_since_last_target_update += delta
 	
 	calculate_movement(delta)
+	
+	if velocity == Vector3.ZERO:
+		move = true
+		# Check if the target is 1 unit away from the target position
+	
+	if time_since_last_target_update >= TARGET_UPDATE_INTERVAL:
+		move = true
+		time_since_last_target_update = 0.0
+	
+	if nav.target_position != Vector3.ZERO:
+		var distance_to_target = global_position.distance_to(nav.target_position)
+		if distance_to_target <= 1.0:
+			move = true
+			velocity = Vector3.ZERO
 
 func calculate_movement(delta):
-
+	
 	direction = nav.get_next_path_position() - global_position
 	direction = direction.normalized()
 	velocity = velocity.lerp(direction * speed, accel * delta)
@@ -408,14 +426,13 @@ func _on_wandering_state_processing(delta):
 					$StateChart.send_event("repo_done")
 					#print("Has Died")
 		else: 
-			if food_target == false:
+			if food_target == false and move == true:
 				# Continue wandering
-				if time_since_last_target_update >= TARGET_UPDATE_INTERVAL or global_position == target_pos:
-					
-					var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
-					target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
-					nav.target_position = target_pos
-					time_since_last_target_update = 0.0
+				move = false
+				var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
+				target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
+				nav.target_position = target_pos
+				#time_since_last_target_update = 0.0
 
 
 func _on_repo_state_entered():
@@ -473,9 +490,8 @@ func create_child(size,inital_speed,accel,hunger,meta,mother_area,speed_counter,
 	child.is_child = true  # Mark the child as a child
 	child.generation = child_generation
 	
-	creature_manager.add_desert_gen(child_generation)
 	
-	print("Speed of child: ", speed)
+	#print("Speed of child: ", speed)
 	get_parent().add_child(child)
 	
 	# Position the child nearby the parent
@@ -514,6 +530,7 @@ func _on_child_timer_timeout():
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	
 	creature_manager.desert_prey_gen_score(a, self.generation)
+	creature_manager.add_desert_gen(self.generation)
 	
 	$Age.start()
 

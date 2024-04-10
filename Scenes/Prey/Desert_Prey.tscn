@@ -116,6 +116,8 @@ transform = Transform3D(0.7, 0, 0, 0, 0.854456, 0, 0, 0, 0.7, 1.13488, -0.118753
 mesh = SubResource("CapsuleMesh_h4km0")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Leg5"]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Leg5/StaticBody3D"]
 shape = SubResource("CapsuleShape3D_bccjd")

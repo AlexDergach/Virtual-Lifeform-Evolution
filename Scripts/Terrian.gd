@@ -157,10 +157,10 @@ func _physics_process(delta):
 		var total_ice_creature_count = creature_manager.get_ice_creature()
 		print("Total Ice Creature Amount: ",total_ice_creature_count)
 		
-		var full_gender_ice_amount_male = creature_manager.get_ice_gender(false)
-		var full_gender_ice_amount_female = creature_manager.get_ice_gender(true)
-		print("Full Fire male gender: ",full_gender_ice_amount_male ,
-		" Full Fire female gender: ",full_gender_ice_amount_female )
+		#var full_gender_ice_amount_male = creature_manager.get_ice_gender(false)
+		#var full_gender_ice_amount_female = creature_manager.get_ice_gender(true)
+		#print("Full Fire male gender: ",full_gender_ice_amount_male ,
+		#" Full Fire female gender: ",full_gender_ice_amount_female )
 
 		# Iterate through the results and print them
 		for result in highest_iprey_scores:

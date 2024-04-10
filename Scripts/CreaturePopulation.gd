@@ -5,7 +5,12 @@ func _ready():
 	if not Engine.has_singleton("CreatureManager"):
 		Engine.register_singleton("CreatureManager", self)
 
+var time = 0
+func total_time_taken(time_taken):
+	time = time_taken
 
+func get_time():
+	return time
 
 #============ Total Creatures ========================
 var total_creatures = []
@@ -18,6 +23,7 @@ var starting_size = 0
 func add_creature(creature):
 	total_creatures.append(creature)
 	final_total_creatures.append(creature)
+	print(len(final_total_creatures))
 
 # Remove a creature instance from the list
 func remove_creature(creature):
@@ -45,7 +51,7 @@ func original_start_size(size):
 
 var total_desert_creatures = []
 var total_final_desert_creatures = []
-var highest_desert_gen
+var highest_desert_gen = 0
 var starting_gen
 var previous_gen
 var total_desert_prey = []
@@ -126,7 +132,7 @@ func desert_prey_highest_gen_score():
 # Add a creature instance to the list
 func add_desert_prey(creature):
 	total_desert_prey.append(creature)
-	total_final_desert_creatures.append(creature)
+	total_final_desert_prey.append(creature)
 
 # Remove a creature instance from the list
 func remove_desert_prey(creature):
@@ -248,7 +254,7 @@ func desert_pred_highest_gen_score():
 
 var total_ice_creatures = []
 var total_final_ice_creatures = []
-var highest_ice_gen
+var highest_ice_gen = 0
 var starting_ice_gen
 var previous_ice_gen
 var total_ice_prey = []
@@ -334,7 +340,7 @@ func ice_prey_highest_gen_score():
 #============ Forest Creatures ========================
 
 var total_forest_creatures = []
-var highest_forest_gen
+var highest_forest_gen = 0
 var starting_forest_gen
 var previous_forest_gen
 var total_forest_prey = []
@@ -530,7 +536,7 @@ func forest_pred_highest_gen_score():
 #============ Fire Creatures ========================
 
 var total_fire_creatures = []
-var highest_fire_gen
+var highest_fire_gen = 0
 var starting_fire_gen
 var previous_fire_gen
 var total_fire_prey = []
@@ -732,7 +738,7 @@ func fire_pred_highest_gen_score():
 
 
 var total_stone_creatures = []
-var highest_stone_gen
+var highest_stone_gen = 0
 var starting_stone_gen
 var previous_stone_gen
 var total_stone_prey = []

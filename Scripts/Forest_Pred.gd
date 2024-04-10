@@ -23,6 +23,8 @@ extends CharacterBody3D
 
 var generation = 0
 
+var move = true
+
 
 var TARGET_UPDATE_INTERVAL = randf_range(4.0, 10.0)
 
@@ -168,18 +170,18 @@ func _process(delta):
 			speed_counter += 1
 			speed = inital_speed
 			speed *= 2
-			print(speed)
+			#print(speed)
 		elif speed_counter == 1:
 			speed_counter += 1
 			speed = inital_speed
 			speed *= 3
-			print(speed)
+			#print(speed)
 			
 		elif speed_counter == 2:
 			speed_counter += 1
 			speed = inital_speed
 			speed *= 4
-			print(speed)
+			#print(speed)
 			
 			
 	if Input.is_action_just_pressed("SpeedDown"):
@@ -231,16 +233,32 @@ func _physics_process(delta):
 		var target_rotation = atan2(target_direction.x, target_direction.z)
 		
 		# Adjust rotation speed based on proximity to target rotation
-		var rotation_speed_adjusted = rotation_speed
+		var rotation_speed_adjusted = rotation_speed * 0.5
 		if abs(rotation.y - target_rotation) < 0.1:
 			rotation_speed_adjusted *= 0.5
 		
 		# Smoothly rotate towards the target rotation
 		rotation.y = lerp(rotation.y, target_rotation, rotation_speed_adjusted * delta)
+	else:
+		rotation = Vector3(0,rotation.y,0)
 		
-	time = delta
+	time_since_last_target_update += delta
 	
 	calculate_movement(delta)
+	
+	if velocity == Vector3.ZERO:
+		move = true
+		# Check if the target is 1 unit away from the target position
+	
+	if time_since_last_target_update >= TARGET_UPDATE_INTERVAL:
+		move = true
+		time_since_last_target_update = 0.0
+	
+	if nav.target_position != Vector3.ZERO:
+		var distance_to_target = global_position.distance_to(nav.target_position)
+		if distance_to_target <= 1.0:
+			move = true
+			velocity = Vector3.ZERO
 
 func calculate_movement(delta):
 	
@@ -321,7 +339,7 @@ func _on_self_area_entered(area):
 	if area.is_in_group("forest_prey") and _hungry():
 		food_target = false
 		hunger += 1
-		print("Pred: Food ate")
+		#print("Pred: Food ate")
 		prey = null
 		$StateChart.send_event("prey_exited")
 		
@@ -366,14 +384,12 @@ func _on_wandering_state_processing(delta):
 					$StateChart.send_event("repo_done")
 					#print("Has Died")
 		else: 
-			if food_target == false:
-				# Continue wandering
-				if time_since_last_target_update >= TARGET_UPDATE_INTERVAL or global_position == target_pos:
-					
-					var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
-					target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
-					nav.target_position = target_pos
-					time_since_last_target_update = 0.0
+			if food_target == false and move == true:
+				
+				var random_dir = Vector3(randf_range(-0.5, 0.5), 0.1, randf_range(-0.5, 0.5)).normalized()
+				target_pos = global_position + Vector3(random_dir.x * roam_size, 0.1, random_dir.z * roam_size)
+				nav.target_position = target_pos
+				move = false
 
 func _on_hunting_state_processing(delta):
 	
@@ -512,5 +528,7 @@ func _on_child_timer_timeout():
 	var a = (size + accel + inital_speed + inital_hunger + metabolism) / 5
 	
 	creature_manager.forest_pred_gen_score(a, self.generation)	
+	creature_manager.add_forest_gen(self.generation)
+	
 	
 	$Age.start()

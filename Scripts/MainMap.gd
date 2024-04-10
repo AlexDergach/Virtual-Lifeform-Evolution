@@ -145,13 +145,15 @@ func _process(delta):
 								
 	ui_instance.TotalPopLabel.text = "Total Population: " + str(creature_manager.get_total_creatures()) 
 								
-								
+
 	ui_instance.time_label.text = str(time)
+	
 								
 	if creature_manager.get_total_creatures() == 0 and creatures_spawned or Input.is_action_pressed("Exit"):
 		get_tree().change_scene_to_file("res://UI/Final.tscn")
 		queue_free()
 		ui_instance.queue_free()
+		creature_manager.total_time_taken(time)
 	
 	
 func _physics_process(delta):
