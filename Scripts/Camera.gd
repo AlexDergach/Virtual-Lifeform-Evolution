@@ -111,6 +111,6 @@ func _physics_process(delta):
 
 func _process(delta):
 	pass
-	#ocean.position.x = self.position.x
-	#ocean.position.z = self.position.z
+	ocean.position.x = self.position.x
+	ocean.position.z = self.position.z
 

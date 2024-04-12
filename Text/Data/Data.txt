@@ -6,92 +6,88 @@
 
 ================================ All Creatures =====================================
 
-Time Taken to completion: 0.88333333333334
+Time Taken to completion: 0.23666666666667
 
-Starting Spawn Size: 40
+Starting Spawn Size: 80
 
-Full creature count: 57
+Full creature count: 88
 
-Full Female Count: 21 Full Male Count: 36
+Full Female Count: 26 Full Male Count: 58
 
 
 ================================ Desert Creatures =====================================
 
-Total Desert Creature Amount: 42 Total Pred Amount: 19 Total Prey Amount: 23
+Total Desert Creature Amount: 8 Total Pred Amount: 6 Total Prey Amount: 2
 
-Full desert male gender: 27 Full desert female gender: 15
-Full desert pred male gender: 15 Full desert pred female gender: 4
-Full desert prey male gender: 12 Full desert prey female gender: 11
+Full desert male gender: 6 Full desert female gender: 2
+Full desert pred male gender: 4 Full desert pred female gender: 2
+Full desert prey male gender: 2 Full desert prey female gender: 0
 
-Higest Desert Gen Reached: 2
-Generation: 0 Highest Score Prey: 3.91081990784465
-Generation: 1 Highest Score Prey: 3.73763385498154
-Generation: 2 Highest Score Prey: 3.83763385498154
-Generation: 0 Highest Score Pred: 3.66779915701961
-Generation: 1 Highest Score Pred: 3.84593806176853
+Higest Desert Gen Reached: 0
+Generation: 0 Highest Score Prey: 3.62498829479342
+Generation: 0 Highest Score Pred: 3.40336384174893
 
-Generation: 0 Prey Scores: [3.91081990784465, 2.72270116371709, 3.41034284633863, 2.65536486371949, 2.75569562622967, 3.766044794816, 2.60779102229419, 2.6759864074064, 3.70347158498376, 3.3106117643526, 2.66235583460515, 3.3533456815995, 3.52424000914571, 3.71044488588338]
-Generation: 1 Prey Scores: [3.73763385498154, 3.73763385498154, 3.56909515692036, 3.56909515692036, 3.05569562622967]
-Generation: 2 Prey Scores: [3.83763385498154, 3.78763385498154]
-Generation: 0 Pred Scores: [3.17234841581094, 3.21745551013623, 3.06741013448326, 3.60058699151253, 3.00766979123671, 2.52276021066216, 3.23689052091286, 3.66779915701961, 3.35945960810756, 2.85661338483486, 2.96494520665565, 3.0858365637058]
-Generation: 1 Pred Scores: [3.74593806176853, 3.74593806176853, 3.74593806176853, 3.84593806176853, 3.84593806176853]
+Generation: 0 Prey Scores: [2.78502147265204, 3.62498829479342]
+Generation: 0 Pred Scores: [3.18145885277563, 2.43400638551422, 3.40336384174893, 2.59335861940638, 2.39543327081771, 2.82314521056005]
 
 
 ================================ Ice Creatures =====================================
 
-Total Ice Creature Amount: 0
+Total Ice Creature Amount: 4
 
 
 Higest Ice Gen Reached: 0
+Generation: 0 Highest Score: 3.64010024354582
 
+Generation: 0 Scores: [3.03849790393487, 3.64010024354582, 2.85341059102724, 3.17178252186134]
 
 
 ================================ Fire Creatures =====================================
 
-Total Fire Creature Amount: 10 Total Prey Amount: 3 Total Pred Amount: 7
+Total Fire Creature Amount: 60 Total Prey Amount: 26 Total Pred Amount: 34
 
-Full Fire male gender: 6 Full Fire female gender: 4
-Full Fire pred male gender: 4 Full Fire pred female gender: 3
-Full Fire prey male gender: 2 Full Fire prey female gender: 1
+Full Fire male gender: 39 Full Fire female gender: 21
+Full Fire pred male gender: 20 Full Fire pred female gender: 14
+Full Fire prey male gender: 19 Full Fire prey female gender: 7
 
 Higest Fire Gen Reached: 0
-Generation: 0 Highest Score Prey: 3.36643636855141
-Generation: 0 Highest Score Pred: 3.44963773677953
+Generation: 0 Highest Score Prey: 3.98245671450025
+Generation: 0 Highest Score Pred: 3.65540588362938
 
-Generation: 0 Prey Scores: [2.61544016129462, 3.36643636855141, 3.25152213080001]
-Generation: 0 Pred Scores: [2.71477015045333, 3.3542877859105, 3.44963773677953, 2.94025630623598, 3.25278112226476, 2.62620851113784]
+Generation: 0 Prey Scores: [3.67371054142807, 3.4991663299986, 3.29098310941708, 2.8305003696967, 2.8167207285346, 3.98245671450025, 3.2391611205434, 3.04298609490577, 2.40076881414694, 3.87073036109779, 3.33021734424469, 2.93803956788504, 3.28062740476419, 3.215267389441, 2.68746822662149, 3.21753465677616, 3.21624914824985, 3.71392972771053, 3.58691441701003, 3.40155204045168, 3.01207436380045, 2.72369870459392, 2.47702930677304]
+Generation: 0 Pred Scores: [2.98242000196741, 2.70692345816385, 3.24436860119053, 2.31482045747915, 3.65540588362938, 3.07361053440394, 2.7206398349038, 3.27089430323028, 3.19134390067871, 2.68395142922051, 3.19816407964442, 2.59960181365973, 3.24649695822059, 3.32319054062096, 3.15714107010321, 3.32684170015598, 3.34240636345601, 2.79632077592927, 3.2821801612431, 2.57526345659677, 2.99887967116354, 2.86700109803147, 3.01498282194512, 2.51226265520507, 3.41007164179805, 2.84009017144779]
 
 
 ================================ Forest Creatures =====================================
 
 
-Total Forest Creature Amount: 3 Total Prey Amount: 2 Total Pred Amount: 1
-Full Forest male gender: 3 Full Forest female gender: 0
-Full Forest pred male gender: 1 Full Forest pred female gender: 0
-Full Forest prey male gender: 2 Full Forest prey female gender: 0
+Total Forest Creature Amount: 12 Total Prey Amount: 9 Total Pred Amount: 3
+Full Forest male gender: 10 Full Forest female gender: 2
+Full Forest pred male gender: 3 Full Forest pred female gender: 0
+Full Forest prey male gender: 7 Full Forest prey female gender: 2
 
 Higest Forest Gen Reached: 0
-Generation: 0 Highest Score Prey: 3.77764157931761
-Generation: 0 Highest Score Pred: 3.55774379489632
+Generation: 0 Highest Score Prey: 3.93406122272303
+Generation: 0 Highest Score Pred: 2.94292601655758
 
-Generation: 0 Prey Scores: [3.68679126828416, 3.77764157931761]
-Generation: 0 Pred Scores: [3.55774379489632]
+Generation: 0 Prey Scores: [2.81464105569796, 2.53541432532723, 2.52780576444473, 2.69542119900373, 3.50759656939418, 3.49345224061406, 3.93406122272303, 2.43909507897264]
+Generation: 0 Pred Scores: [2.90958915628952, 2.92826779571656, 2.94292601655758]
 
 
 ================================ Stone Creatures =====================================
 
 
-Total Stone Creature Amount: 2 Total Prey Amount: 1 Total Pred Amount: 1
-Full Stone male gender: 0 Full Stone female gender: 2
-Full Stone pred male gender: 0 Full Stone pred female gender: 1
-Full Stone prey male gender: 0 Full Stone prey female gender: 1
+Total Stone Creature Amount: 4 Total Prey Amount: 3 Total Pred Amount: 1
+Full Stone male gender: 3 Full Stone female gender: 1
+Full Stone pred male gender: 1 Full Stone pred female gender: 0
+Full Stone prey male gender: 2 Full Stone prey female gender: 1
 
 Higest Stone Gen Reached: 0
-Generation: 0 Highest Score Prey: 3.73101370667161
-Generation: 0 Highest Score Pred: 3.4505580089964
+Generation: 0 Highest Score Prey: 3.47790543197747
+Generation: 0 Highest Score Pred: 3.39045815509379
 
-Generation: 0 Prey Scores: [3.73101370667161]
-Generation: 0 Pred Scores: [3.4505580089964]
+Generation: 0 Prey Scores: [3.26980948483642, 2.42330828506767, 3.47790543197747]
+Generation: 0 Pred Scores: [3.39045815509379]
 
 
 

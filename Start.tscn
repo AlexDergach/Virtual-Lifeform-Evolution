@@ -187,7 +187,7 @@ theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
 alignment = 1
-item_count = 4
+item_count = 5
 selected = 0
 allow_reselect = true
 popup/item_0/text = "Spawn Amount"
@@ -198,6 +198,8 @@ popup/item_2/text = "60"
 popup/item_2/id = 2
 popup/item_3/text = "80"
 popup/item_3/id = 3
+popup/item_4/text = "100"
+popup/item_4/id = 4
 
 [node name="Panel9" type="Panel" parent="."]
 layout_mode = 0
@@ -223,6 +225,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
 text = "Quit"
 
 [node name="Panel10" type="Panel" parent="."]
+layout_mode = 0
 offset_left = 689.0
 offset_top = 367.0
 offset_right = 1082.0
@@ -232,6 +235,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ntxyo")
 [node name="OptionButton2" type="OptionButton" parent="."]
 process_priority = 1
 process_physics_priority = 1
+layout_mode = 0
 offset_left = 699.0
 offset_top = 372.0
 offset_right = 1077.0
@@ -240,19 +244,22 @@ theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxFlat_2vpvg")
 alignment = 1
-item_count = 4
+item_count = 5
 selected = 0
 allow_reselect = true
 popup/item_0/text = "Map Size"
 popup/item_0/id = 0
-popup/item_1/text = "80x80"
+popup/item_1/text = "40x40"
 popup/item_1/id = 1
-popup/item_2/text = "100x100"
+popup/item_2/text = "80x80"
 popup/item_2/id = 2
-popup/item_3/text = "120x120"
+popup/item_3/text = "100x100"
 popup/item_3/id = 3
+popup/item_4/text = "120x120"
+popup/item_4/id = 4
 
 [node name="Panel11" type="Panel" parent="."]
+layout_mode = 0
 offset_left = 629.0
 offset_top = 493.0
 offset_right = 669.0

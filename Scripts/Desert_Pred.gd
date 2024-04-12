@@ -288,6 +288,7 @@ var mating_partner_2 = null
 var has_mated = false
 var first_mate_size
 var first_mate_hunger
+var first_mate_speed
 var partners = 0
 var mate_chosen = 1
 
@@ -304,27 +305,36 @@ func _on_sensory_area_entered(area):
 		if area.is_in_group("desert_pred") and !has_mated and !area.get_parent().is_female and partners != 2 and !area.get_parent().is_child and area.get_parent().reproduction == 1:
 			
 			if mating_partner_1 == null:
+				
 				#print("Partner 1 spotted")
 				$Looking.start()
 				mating_partner_1 = area
+				
 				# Save the stats of the first encountered mate
 				first_mate_size = mating_partner_1.get_parent().size
 				first_mate_hunger = mating_partner_1.get_parent().hunger
+				first_mate_speed = mating_partner_1.get_parent().inital_speed
+				
 				#print("Average Score 1: ", first_mate_size + first_mate_hunger)
 				partners += 1
+				
 			elif mating_partner_2 == null and area != mating_partner_1:
+				
 				#print("Partner 2 spotted")
 				mating_partner_2 = area
+				
 				# Compare stats with the second mate
 				var second_mate_size = area.get_parent().size
 				var second_mate_hunger = area.get_parent().hunger
+				var second_mate_speed = area.get_parent().inital_speed
 				#print("Average Score 2: ", second_mate_size + second_mate_hunger)
 				
-				if second_mate_size + second_mate_hunger > first_mate_size + first_mate_hunger:
+				if second_mate_size + second_mate_hunger + second_mate_speed> first_mate_size + first_mate_hunger + first_mate_speed:
 					# Second mate is better, mate with it
 					mating_partner_2 = area
 					first_mate_size = second_mate_size
 					first_mate_hunger = second_mate_hunger
+					first_mate_speed = second_mate_speed
 					mate_chosen = 2
 				# else: Stick with the first mate
 				partners += 1

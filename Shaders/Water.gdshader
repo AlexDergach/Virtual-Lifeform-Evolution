@@ -29,7 +29,7 @@ void vertex() {
     // Calculate distance to ocean
     distance_to_ocean = length(world_position - oceanpos);
     
-    // Adjust vertex height based on waves
+    
     float wave_height_mix = texture(wave_texture, (world_position.xz / noise_scaling) + (TIME * primary_wave_direction) * wave_time_scale).r;
     VERTEX.y += wave_height_mix * height_scaling * (1.0 - clamp(distance_to_ocean / 85.0, 0.0, 1.0));
 }

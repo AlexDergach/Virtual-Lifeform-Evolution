@@ -23,6 +23,7 @@ var toggel = 1
 func _ready():
 	
 	#Control.MOUSE_FILTER_IGNORE - Is passed in Insepector
+	
 	pass # Replace with function body.
 
 func _process(delta):

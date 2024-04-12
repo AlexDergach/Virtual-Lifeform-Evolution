@@ -72,11 +72,9 @@ var spawn_size = 0
 
 func _ready():
 	
-	cords = get_node("../../Camera")
 	
 	$Timer.start()
 	
-	start_ui = Engine.get_singleton("Start")
 	creature_manager = Engine.get_singleton("CreatureManager")
 	
 	wave.play()
@@ -97,13 +95,20 @@ func _ready():
 	wave_16.play()
 	# Load waves dynamically based on map size
 	
+	cords = get_node("../../Camera")
+	
+	start_ui = Engine.get_singleton("Start")
+	
+	
 	if Start.map_size == 0:
 		map_size = 0
 	elif Start.map_size == 1:
-		map_size = 80
+		map_size = 40
 	elif Start.map_size == 2:
-		map_size = 100
+		map_size = 80
 	elif Start.map_size == 3:
+		map_size = 100
+	elif Start.map_size == 4:
 		map_size = 120
 		
 	
@@ -193,10 +198,8 @@ func _process(delta):
 		ui_instance.queue_free()
 		creature_manager.total_time_taken(time)
 	
-	
 func _physics_process(delta):
 	pass
-	
 
 func generate_biomes():
 	
@@ -214,6 +217,8 @@ func generate_biomes():
 			spawn_size = 60
 		elif Start.spawn_size == 3:
 			spawn_size = 80
+		elif Start.spawn_size == 4:
+			spawn_size = 100
 		else:
 			spawn_size = 0
 	else:
@@ -228,9 +233,9 @@ func generate_biomes():
 			column.append(-1)
 		biome_map.append(column)
 
+
 	#Dictonary for all the biomes
 	var biome_ids = { "Desert_Cube": 2, "Lava_Cube": 7, "Forest_Cube": 20, "Ice_Cube": 12, "Stone_Cube": 18 }
-
 	var biome_keys = biome_ids.keys()
 	biome_keys.shuffle()
 	
@@ -238,12 +243,10 @@ func generate_biomes():
 	for biome_name in biome_keys:
 		var biome_id = biome_ids[biome_name]
 		var num_clusters = 5
-
 		# Clustering factor based on biome type
 		var clustering_factor = 1.0
 		if biome_id == 12 or biome_id == 18:  # Ice_Cube or Stone_Cube
 			clustering_factor = 0.6 # Made smaller than the rest
-		
 		# Generate initial clusters and have at least one snow biome
 		if biome_id == 12 and !snow_island_spawned:
 			for i in range(num_clusters):
@@ -312,7 +315,7 @@ func check_cluster_collision(biome_map, cluster_center, clustering_factor, biome
 func generate_cluster(biome_map, cluster_center, biome_id, initial_cluster_radius, clustering_factor):
 	var cluster_radii = []  # Declare cluster_radii as an empty list
 	var final_cluster_radius
-	for y_coord in range(3):  # Adjust the number of Y levels as needed
+	for y_coord in range(3):  
 		var cluster_radius = initial_cluster_radius / (y_coord + 1) / randf_range(1.0, 1.5)  # Decrease the cluster radius as Y level increases
 		if y_coord == 0:
 			cluster_radius = initial_cluster_radius  # Keep the base cluster radius constant
